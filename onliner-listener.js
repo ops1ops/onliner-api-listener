@@ -21,7 +21,7 @@ setInterval(async () => {
         price,
       }
     });
-
+  
     if (!isCreated && videocard.price !== price.replace(',', '.')) {
       await videocard.update({ price })
       await videocard.createHistory({ price });
