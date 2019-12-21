@@ -9,6 +9,8 @@ const app = express();
 
 const PORT = process.env.PORT || 8000;
 
+app.set('view engine', 'ejs');
+
 app.use(express.json());
 app.set('json spaces', 4);
 app.use((req, res, next) => {
@@ -26,7 +28,7 @@ app.use('/', async (req, res) => {
     include: ['history']
   })
 
-  return res.send(videocards)
+  return res.render('home', { videocards })
 });
 
 
