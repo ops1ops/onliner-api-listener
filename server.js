@@ -1,5 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
+const db = require('./db');
+
+const { Videocard } = db;
 
 const app = express();
 
@@ -13,12 +17,17 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Headers", "x-access-token, Origin, Content-Type, Accept");
   next();
 });
-let i = 0;
-setInterval(async () => {
-  const {data} = await axios.get('https://catalog.onliner.by/sdapi/catalog.api/search/videocard');
-  console.log(data)
-  console.log(i++);
-}, 2000);
+
+require('./onliner-listener');
+
+app.use('/', async (req, res) => {
+  const videocards = await Videocard.findAll({
+    attributes: ['name', 'htmlUrl', 'imageUrl', 'price'],
+    include: ['history']
+  })
+
+  return res.send(videocards)
+});
 
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
