@@ -1,9 +1,8 @@
 require('dotenv').config();
 const express = require('express');
-const axios = require('axios');
 const db = require('./db');
 
-const { Videocard } = db;
+const { Item } = db;
 
 const app = express();
 
@@ -23,21 +22,21 @@ app.use((req, res, next) => {
 require('./onliner-listener');
 
 app.use('/test', async (req, res) => {
-  const videocards = await Videocard.findAll({
+  const videocards = await Item.findAll({
     attributes: ['name', 'htmlUrl', 'imageUrl', 'price'],
     include: ['history']
-  })
+  });
 
   return res.render('home', { videocards })
 });
 
 app.use('/', async (req, res) => {
-  const videocards = await Videocard.findAll({
+  const items = await Item.findAll({
     attributes: ['name', 'htmlUrl', 'imageUrl', 'price'],
     include: ['history']
   })
 
-  return res.send(videocards);
+  return res.send(items);
 });
 
 
