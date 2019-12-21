@@ -9,6 +9,8 @@ const app = express();
 
 const PORT = process.env.PORT || 8000;
 
+app.set('view engine', 'ejs');
+
 app.use(express.json());
 app.set('json spaces', 4);
 app.use((req, res, next) => {
@@ -20,13 +22,22 @@ app.use((req, res, next) => {
 
 require('./onliner-listener');
 
+app.use('/test', async (req, res) => {
+  const videocards = await Videocard.findAll({
+    attributes: ['name', 'htmlUrl', 'imageUrl', 'price'],
+    include: ['history']
+  })
+
+  return res.render('home', { videocards })
+});
+
 app.use('/', async (req, res) => {
   const videocards = await Videocard.findAll({
     attributes: ['name', 'htmlUrl', 'imageUrl', 'price'],
     include: ['history']
   })
 
-  return res.send(videocards)
+  return res.send(videocards);
 });
 
 
