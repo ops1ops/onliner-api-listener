@@ -22,13 +22,22 @@ app.use((req, res, next) => {
 
 require('./onliner-listener');
 
-app.use('/', async (req, res) => {
+app.use('/test', async (req, res) => {
   const videocards = await Videocard.findAll({
     attributes: ['name', 'htmlUrl', 'imageUrl', 'price'],
     include: ['history']
   })
 
   return res.render('home', { videocards })
+});
+
+app.use('/', async (req, res) => {
+  const videocards = await Videocard.findAll({
+    attributes: ['name', 'htmlUrl', 'imageUrl', 'price'],
+    include: ['history']
+  })
+
+  return res.send(videocards);
 });
 
 
