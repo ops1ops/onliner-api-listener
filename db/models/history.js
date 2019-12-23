@@ -1,11 +1,13 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const History = sequelize.define('History', {
-    videocardId: DataTypes.INTEGER,
+    itemId: DataTypes.INTEGER,
     price: DataTypes.DECIMAL(10,2)
   }, {});
-  History.associate = function({ Videocard}) {
-    History.belongsTo(Videocard, { as: 'history', foreignKey: 'videocardId' })
+
+  History.associate = function({ Item }) {
+    History.belongsTo(Item, { as: 'history', foreignKey: 'itemId' })
   };
+
   return History;
 };
