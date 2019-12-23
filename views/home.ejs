@@ -1,23 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <title>Home Page</title>
     <style type="text/css" media="screen">
-        body {
-            background-color: skyblue;
-            text-decoration-color: white;
-            font-size:7em;
-        }
+      body {
+        background-color: skyblue;
+        text-decoration-color: white;
+        font-size: 1em;
+      }
     </style>
-    <% let test = videocards; %>
-</head>
-<body>
-    <p>
-        This is our home page.<br/>
-    </p>
-    <script>
-        const q = <%= test%>
-        console.log(q)
-    </script>
-</body>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+  </head>
+  <body>
+    <!-- <div id="chartContainer" style="height: 300px; width: 100%;"></div> -->
+  </body>
+  <script>
+    window.onload = function() {
+      let items = JSON.parse('<%- JSON.stringify(items) %>');
+	  const getChart = getChartFactory();
+	  items =  items.map(item => {
+		if(!item.history){
+			item.history = [];
+			return item
+		}
+		item.history = item.history.map(el => ({
+			x: new Date(el.createdAt),
+			y: Number.parseFloat(el.price)
+		}));
+		return item;
+	 });
+
+	 
+      items.forEach(item => {
+        let chart = getChart(item.name, item.history);
+        chart.render();
+      });
+    };
+
+    function getChartFactory() {
+      let id = 0;
+
+      return (name, data) => {
+		const CHART_ID  = "chart-" + id 
+		id++;
+
+        let body = document.querySelector("body");
+        let chartContainer = document.createElement("div");
+		chartContainer.id = CHART_ID;
+		chartContainer.style="height: 300px; width: 100%;"
+        
+		body.appendChild(chartContainer);
+
+        var chart = new CanvasJS.Chart(CHART_ID, {
+          title: {
+            text: name
+          },
+          axisY: {
+            title: "Price",
+            lineColor: "#7F6084",
+            tickColor: "#7F6084",
+            labelFontColor: "#7F6084",
+            titleFontColor: "#7F6084",
+            prefix: "BYN  "
+          },
+          toolTip: {
+            shared: true
+          },
+          legend: {
+            cursor: "pointer"
+          },
+          data: [
+            {
+              type: "line",
+              name: "Price",
+              color: "#7F6084",
+              showInLegend: true,
+              dataPoints: data
+            }
+          ]
+        });
+
+        return chart;
+      };
+    }
+  </script>
 </html>
