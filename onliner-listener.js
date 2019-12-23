@@ -12,6 +12,7 @@ setInterval(async () => {
 
   for (let i = 0; i < products.length - 1; i++) {
     const { id, name, html_url: htmlUrl, images: { header: imageUrl }, prices: { price_min: { amount: price } } } = products[i];
+
     const [videocard, isCreated] = await Item.findOrCreate({
       where: { id },
       defaults: {
