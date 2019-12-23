@@ -22,7 +22,7 @@ app.use((req, res, next) => {
   next();
 });
 
-//require('./onliner-listener');
+require("./onliner-listener");
 
 app.use("/test", async (req, res) => {
   const items = await Item.findAll({

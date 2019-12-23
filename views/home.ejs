@@ -32,7 +32,7 @@
 
 	 
       items.forEach(item => {
-        let chart = getChart(item.name, item.history);
+        const chart = getChart(item.name, item.history);
         chart.render();
       });
     };
@@ -44,8 +44,8 @@
 		const CHART_ID  = "chart-" + id 
 		id++;
 
-        let body = document.querySelector("body");
-        let chartContainer = document.createElement("div");
+        const body = document.querySelector("body");
+        const chartContainer = document.createElement("div");
 		chartContainer.id = CHART_ID;
 		chartContainer.style="height: 300px; width: 100%;"
         
@@ -79,7 +79,6 @@
             }
           ]
         });
-
         return chart;
       };
     }
