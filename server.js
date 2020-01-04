@@ -6,7 +6,7 @@ const { Item } = db;
 
 const app = express();
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 3000;
 
 app.set("view engine", "ejs");
 
@@ -22,8 +22,6 @@ app.use((req, res, next) => {
   next();
 });
 
-require("./onliner-listener");
-
 app.use("/test", async (req, res) => {
   const items = await Item.findAll({
     attributes: ["name", "htmlUrl", "imageUrl", "price"],
@@ -33,7 +31,7 @@ app.use("/test", async (req, res) => {
   return res.render("home", { items });
 });
 
-app.use("/front", async (req, res) => {
+app.use("/", async (req, res) => {
   const viewModel = {};
   let items = await Item.findAll({
     attributes: ["name", "htmlUrl", "imageUrl", "price"],
@@ -62,17 +60,7 @@ app.use("/front", async (req, res) => {
 //   => in EJS - items not mapped => WTF???
 //   fucking magic. 
   viewModel.items = items;
-
   return res.render("home", viewModel );
-});
-
-app.use("/", async (req, res) => {
-  const items = await Item.findAll({
-    attributes: ["name", "htmlUrl", "imageUrl", "price"],
-    include: ["history"]
-  });
-
-  return res.send(items);
 });
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
