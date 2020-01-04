@@ -15,22 +15,24 @@
     <!-- <div id="chartContainer" style="height: 300px; width: 100%;"></div> -->
   </body>
   <script>
-    window.onload = function() {
-      let items = JSON.parse('<%- JSON.stringify(items) %>');
-	  const getChart = getChartFactory();
-	  items =  items.map(item => {
-		if(!item.history){
-			item.history = [];
-			return item
-		}
-		item.history = item.history.map(el => ({
-			x: new Date(el.createdAt),
-			y: Number.parseFloat(el.price)
-		}));
-		return item;
-	 });
+    window.onload = () => {
+      let items = JSON.parse(`<%- JSON.stringify(items) %>`);
+      const getChart = getChartFactory();
+      items = items.map(item => {
+        if (!item.history.length) {
+          item.history = [
+            { createdAt: new Date(), 
+              price: item.price
+            }
+          ];
+        }
+        item.history = item.history.map(el => ({
+          x: new Date(el.createdAt),
+          y: Number.parseFloat(el.price)
+        }));
+        return item;
+      });
 
-	 
       items.forEach(item => {
         const chart = getChart(item.name, item.history);
         chart.render();
@@ -41,15 +43,15 @@
       let id = 0;
 
       return (name, data) => {
-		const CHART_ID  = "chart-" + id 
-		id++;
+        const CHART_ID = "chart-" + id;
+        id++;
 
         const body = document.querySelector("body");
         const chartContainer = document.createElement("div");
-		chartContainer.id = CHART_ID;
-		chartContainer.style="height: 300px; width: 100%;"
-        
-		body.appendChild(chartContainer);
+        chartContainer.id = CHART_ID;
+        chartContainer.style = "height: 300px; width: 100%;";
+
+        body.appendChild(chartContainer);
 
         var chart = new CanvasJS.Chart(CHART_ID, {
           title: {
