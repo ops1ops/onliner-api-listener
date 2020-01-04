@@ -28,7 +28,7 @@ app.use("/test", async (req, res) => {
     include: ["history"]
   });
 
-  return res.render("home", { items });
+  return res.send(items);
 });
 
 app.use("/", async (req, res) => {
