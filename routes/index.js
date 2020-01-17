@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
         name: { [Op.like]: `%${req.query.query}%`} 
       }
     });
-    viewModel.items = items;
+    
     return res.render("home", viewModel );
   } else {
     viewModel.items = await Item.findAll({
