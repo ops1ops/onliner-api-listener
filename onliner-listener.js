@@ -14,7 +14,7 @@ setInterval(async () => {
   for (let i = 0; i < products.length - 1; i++) {
     const { id, name, html_url: htmlUrl, images: { header: imageUrl }, prices: { price_min: { amount: price } } } = products[i];
 
-    const [videocard, isCreated] = await Item.findOrCreate({
+    const [item, isCreated] = await Item.findOrCreate({
       where: { id },
       defaults: {
         name,
@@ -24,9 +24,9 @@ setInterval(async () => {
       }
     });
   
-    if (!isCreated && videocard.price !== price.replace(',', '.')) {
-      await videocard.createHistory({ price: videocard.price });
-      await videocard.update({ price })
+    if (!isCreated && item.price !== price.replace(',', '.')) {
+      await item.createHistory({ price: videocard.price });
+      await item.update({ price })
     }
   }
 
