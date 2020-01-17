@@ -8,8 +8,14 @@ module.exports = (sequelize, DataTypes) => {
     htmlUrl: DataTypes.STRING
   }, {});
 
-  Item.associate = function({ History }) {
-    Item.hasMany(History, { as: 'history' })
+  Item.associate = function({ History,User }) {
+    Item.hasMany(History, { as: 'history' });
+    Item.belongsToMany(  User ,{
+      through: 'UserItems',
+      as: 'users',
+      foreignKey: 'itemId',
+      otherKey: 'userId'
+    });
   };
 
   return Item;
