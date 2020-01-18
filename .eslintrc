@@ -15,7 +15,7 @@
     "arrow-body-style": ["error", "as-needed"],
     "camelcase": [2],
     "consistent-return": [0],
-    "no-console": [1],
+    "no-console": [0],
     "max-len": [
       2,
       {
