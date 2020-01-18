@@ -1,0 +1,45 @@
+{
+  "env": {
+    "node": true,
+    "browser": true
+  },
+  "extends": ["airbnb"],
+  "plugins": ["node"],
+  "rules": {
+    "no-plusplus": 0,
+    "no-multiple-empty-lines": 2,
+    "func-names": 2,
+    "no-await-in-loop": 0,
+    "linebreak-style": 0,
+    "arrow-parens": [2, "always"],
+    "arrow-body-style": ["error", "as-needed"],
+    "camelcase": [2],
+    "consistent-return": [0],
+    "no-console": [1],
+    "max-len": [
+      2,
+      {
+        "code": 120,
+        "tabWidth": 2,
+        "comments": 120,
+        "ignoreComments": false,
+        "ignoreTrailingComments": true,
+        "ignoreUrls": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true,
+        "ignoreRegExpLiterals": true
+      }
+    ],
+    "no-multi-assign": [0],
+    "no-restricted-syntax": [0, "ForInStatement"],
+    "no-return-assign": [2, "except-parens"],
+    "no-unused-vars": [2, { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
+    "no-restricted-imports": [2, { "patterns": ["antd/*"] }],
+    "object-curly-newline": [
+      2,
+      {
+        "ObjectExpression": { "multiline": true, "consistent": true, "minProperties": 8 }
+      }
+    ]
+  }
+}

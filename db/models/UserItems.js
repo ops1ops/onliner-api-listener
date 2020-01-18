@@ -5,16 +5,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       references: {
         model: 'Users',
-        key: 'id'
-      }
+        key: 'id',
+      },
     },
     itemId: {
       type: DataTypes.INTEGER,
       references: {
         model: 'Items',
-        key: 'id'
-      }
-    }
+        key: 'id',
+      },
+    },
   });
   return GroupUsers;
 };
