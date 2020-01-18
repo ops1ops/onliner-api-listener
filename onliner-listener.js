@@ -9,14 +9,14 @@ const VIDEOCARDS_API_URL = 'https://catalog.onliner.by/sdapi/catalog.api/search/
 
 setInterval(async () => {
   const { data: { products } } = await axios.get(VIDEOCARDS_API_URL);
-  console.log(1)
+
   for (let i = 0; i < products.length - 1; i++) {
     const {
       id,
       name,
       html_url: htmlUrl,
       images: { header: imageUrl },
-      prices: { price_min: { amount: price } }
+      prices: { price_min: { amount: price } },
     } = products[i];
 
     const [item, isCreated] = await Item.findOrCreate({

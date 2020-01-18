@@ -6,6 +6,9 @@
   "extends": ["airbnb"],
   "plugins": ["node"],
   "rules": {
+    "no-plusplus": 0,
+    "no-multiple-empty-lines": 2,
+    "func-names": 2,
     "no-await-in-loop": 0,
     "linebreak-style": 0,
     "arrow-parens": [2, "always"],

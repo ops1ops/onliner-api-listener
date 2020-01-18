@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server",
     "dev": "nodemon -e js,ejs server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
