@@ -3,7 +3,7 @@ name: Node CI
 on: [pull_request]
 
 jobs:
-  build:
+  ESlint:
 
     runs-on: ubuntu-latest
 
