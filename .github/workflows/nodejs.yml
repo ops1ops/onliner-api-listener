@@ -1,0 +1,15 @@
+name: Node CI
+
+on: [pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: ESlint
+      run: |
+        npm run lint
+      env:
+        CI: true
