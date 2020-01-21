@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export default class App extends React.Component {
   constructor() {
@@ -8,52 +8,52 @@ export default class App extends React.Component {
     this.handleReset = this.handleReset.bind(this);
 
     this.state = {
-      name: "",
-      msg: ""
+      name: '',
+      msg: '',
     };
   }
 
   handleButtonClick = () => {
-    const nameLen = this.state.name.length;
-    if (nameLen > 0) {
+    const { name } = this.state;
+    if (name.length > 0) {
       this.setState({
-        msg: `Your name has ${nameLen} characters including space`
+        msg: `Your name has ${name.length} characters including space`,
       });
     }
   };
 
-  handleTextChange = e => {
+  handleTextChange = (e) => {
     this.setState({ name: e.target.value });
   };
 
   handleReset = () => {
-    this.setState({ name: "", msg: "" });
+    this.setState({ name: '', msg: '' });
   };
-  //End Handlers
+  // End Handlers
 
   render() {
-    let msg;
-
-    if (this.state.msg !== "") {
-      msg = <p>{this.state.msg}</p>;
+    const { name } = this.state;
+    let { msg } = this.state;
+    if (msg !== '') {
+      msg = <p>{msg}</p>;
     } else {
-      msg = "";
+      msg = '';
     }
     return (
 
       <div>
-        <label>Your name:: </label>
+        <span>Your name:: </span>
         <input
           type="text"
           id="txtName"
           name="txtName"
-          value={this.state.name}
+          value={name}
           onChange={this.handleTextChange}
         />
-        <button id="btnSubmit" onClick={this.handleButtonClick}>
+        <button type="button" id="btnSubmit" onClick={this.handleButtonClick}>
           Calculate Name Length
         </button>
-        <button id="btnReset" onClick={this.handleReset}>
+        <button type="button" id="btnReset" onClick={this.handleReset}>
           Reset All
         </button>
         <hr />

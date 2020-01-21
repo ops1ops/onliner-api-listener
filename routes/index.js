@@ -1,8 +1,8 @@
-import App from "../components/app";
-import React from "react";
-import { renderToString } from "react-dom/server";
+import React from 'react';
+import { renderToString } from 'react-dom/server';
 import { Router } from 'express';
 import { Op } from 'sequelize';
+import { App } from '../components/App';
 import db from '../db';
 
 const { Item } = db;
