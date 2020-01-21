@@ -1,8 +1,9 @@
-require('dotenv').config();
-const express = require('express');
-const path = require('path');
-const routes = require('./routes/index');
-const users = require('./routes/users');
+import {} from 'dotenv/config';
+import express from 'express';
+import compression from 'compression';
+import path from 'path';
+import index from './routes/index';
+import users from './routes/users';
 
 const app = express();
 
@@ -10,6 +11,7 @@ const PORT = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
 
+app.use(compression());
 app.use(express.json());
 app.set('json spaces', 4);
 app.use((req, res, next) => {
@@ -23,7 +25,7 @@ app.use((req, res, next) => {
 });
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+app.use('/', index);
 app.use('/users', users);
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

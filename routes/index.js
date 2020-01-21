@@ -1,9 +1,12 @@
-const router = require('express').Router();
-const { Op } = require('sequelize');
-const db = require('../db');
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import { Router } from 'express';
+import { Op } from 'sequelize';
+import App from '../components/App';
+import db from '../db';
 
 const { Item } = db;
-
+const router = Router();
 router.get('/', async (req, res) => {
   const viewModel = {};
   if (req.query.query) {
@@ -24,4 +27,7 @@ router.get('/', async (req, res) => {
 
   return res.render('home', viewModel);
 });
-module.exports = router;
+
+// eslint-disable-next-line react/jsx-filename-extension
+router.get('/react', async (req, res) => res.render('react', { ReactApp: renderToString(<App />) }));
+export default router;
