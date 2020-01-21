@@ -1,4 +1,4 @@
-import {} from 'dotenv/config'
+import {} from 'dotenv/config';
 import express from 'express';
 import compression from 'compression';
 import path from 'path';
