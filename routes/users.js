@@ -1,9 +1,8 @@
-const express = require('express');
-
-const router = express.Router();
-const db = require('../db');
+import { Router } from 'express';
+import db from '../db';
 
 const { User } = db;
+const router = Router();
 router.post('/create', (req, res) => {
   User.create({
     username: req.body.username,
@@ -22,4 +21,4 @@ router.get('/:user_id/destroy', (req, res) => {
   });
 });
 
-module.exports = router;
+export default router;
