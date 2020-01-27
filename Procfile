@@ -1,2 +1,2 @@
 web: npm run start
-worker: node onliner-listener
+worker: npm run onliner-listener
