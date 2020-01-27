@@ -8,6 +8,7 @@
     "start": "npm run build && babel-node ./server.js",
     "server": "nodemon --ext js,ejs --exec babel-node ./server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "onliner-listener": babel-node ./onliner-listener.js,
     "lint": "eslint .",
     "webpack-dev": "webpack -wd",
     "build": "webpack"
