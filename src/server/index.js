@@ -1,19 +1,18 @@
 import {} from 'dotenv/config';
 import express from 'express';
 import compression from 'compression';
-import path from 'path';
 import index from './routes/index';
 import users from './routes/users';
 
-const app = express();
-
 const PORT = process.env.PORT || 3000;
-
-app.set('view engine', 'ejs');
+const app = express();
 
 app.use(compression());
 app.use(express.json());
+app.use(express.static('dist'));
+
 app.set('json spaces', 4);
+
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE');
@@ -23,7 +22,6 @@ app.use((req, res, next) => {
   );
   next();
 });
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
