@@ -14,7 +14,7 @@ router.get('/api', async ({ query: { query } }, res) => {
       attributes: ['name', 'htmlUrl', 'imageUrl', 'price'],
       include: ['history'],
       where: {
-        name: { [Op.like]: `%${req.query.query}%` },
+        name: { [Op.like]: `%${query}%` },
       },
     });
   } else {
