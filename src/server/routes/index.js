@@ -28,6 +28,13 @@ router.get('/', async (req, res) => {
   return res.render('home', viewModel);
 });
 
-// eslint-disable-next-line react/jsx-filename-extension
-router.get('/react', async (req, res) => res.render('react', { ReactApp: renderToString(<App />) }));
+
+router.get('/react', async (req, res) => {
+  const items = await Item.findAll({
+    attributes: ['name', 'htmlUrl', 'imageUrl', 'price'],
+    include: ['history'],
+  });
+  // eslint-disable-next-line react/jsx-filename-extension
+  return res.render('react', { items, ReactApp: renderToString(<App />) });
+});
 export default router;

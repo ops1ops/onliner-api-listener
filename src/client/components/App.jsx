@@ -1,4 +1,5 @@
 import React from 'react';
+import window from 'global';
 
 export default class App extends React.Component {
   constructor() {
@@ -58,6 +59,8 @@ export default class App extends React.Component {
         </button>
         <hr />
         {msg}
+        <span>{JSON.stringify(window.items)}</span>
+
       </div>
     );
   }
