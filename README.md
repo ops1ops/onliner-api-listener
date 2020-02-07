@@ -8,3 +8,4 @@ https://onliner-api-listener.herokuapp.com
 - [ ] Frontend
   - [ ] add registration page
   - [ ] add user page
+  - [ ] pagination
