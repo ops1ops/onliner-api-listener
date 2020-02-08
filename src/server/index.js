@@ -1,10 +1,9 @@
-import {} from 'dotenv/config';
 import express from 'express';
 import compression from 'compression';
 import index from './routes/index';
 import users from './routes/users';
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 const app = express();
 
 app.use(compression());
