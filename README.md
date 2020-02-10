@@ -9,3 +9,7 @@ https://onliner-api-listener.herokuapp.com
   - [ ] add user page
   - [ ] pagination
   - [ ] investigate chart js
+- [ ] autocompletable search from onliner
+- [ ] rewrite onliner-listener: 
+  - [ ] fetch items from DB only; 
+  - [ ] randomize timeout value
