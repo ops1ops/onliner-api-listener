@@ -1,13 +1,14 @@
 require('dotenv').config();
 const axios = require('axios');
+const { setRandomInterval } = require('set-random-interval');
 const db = require('./db');
 
 const { Item } = db;
 
-const INTERVAL_TIME = 10000;
 const VIDEOCARDS_API_URL = 'https://catalog.onliner.by/sdapi/catalog.api/search/videocard';
-
-setInterval(async () => {
+const MIN_DELAY = 30 * 60 * 1000;
+const MAX_DELAY = 60 * 60 * 1000;
+const callback = async () => {
   const { data: { products } } = await axios.get(VIDEOCARDS_API_URL);
 
   for (let i = 0; i < products.length - 1; i++) {
@@ -34,4 +35,6 @@ setInterval(async () => {
       await item.update({ price });
     }
   }
-}, INTERVAL_TIME);
+};
+
+setRandomInterval(callback, MIN_DELAY, MAX_DELAY);
