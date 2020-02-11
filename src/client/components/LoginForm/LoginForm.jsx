@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { Paper, Button, FormControl, OutlinedInput, InputLabel, Typography } from '@material-ui/core';
 import './LoginForm.css';
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,8 +13,12 @@ const useStyles = makeStyles((theme) => ({
 
 function LoginForm() {
   const classes = useStyles();
-  const [login, setLogin] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLoginChange = useCallback(({ target: { value } }) => setLogin(value), []);
+  const handlePasswordChange = useCallback(({ target: { value } }) => setPassword(value), []);
+
   return (
     <Paper elevation={3} className="form-box">
       <form className={classes.root}>
@@ -27,7 +31,7 @@ function LoginForm() {
             id="input-login"
             value={login}
             label="Login"
-            onChange={(e) => setLogin(e.target.value)}
+            onChange={handleLoginChange}
           />
         </FormControl>
         <FormControl variant="outlined">
@@ -37,7 +41,7 @@ function LoginForm() {
             value={password}
             label="Passwword"
             type="password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
           />
         </FormControl>
         <Button variant="contained" color="primary">
@@ -47,6 +51,5 @@ function LoginForm() {
     </Paper>
   );
 }
-
 
 export default LoginForm;
