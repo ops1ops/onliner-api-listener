@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './app.css';
+import './test.less';
 import ReactImage from './assets/react.png';
 
 class App extends Component {

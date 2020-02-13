@@ -2,13 +2,14 @@ import { Router } from 'express';
 import { Op } from 'sequelize';
 import os from 'os';
 import db from '../db';
+import authorize from '../middlewares/auth';
 
 const { Item } = db;
 const router = Router();
 
 router.get('/api/getUsername', (req, res) => res.send({ username: os.userInfo().username }));
 
-router.get('/api', async ({ query: { query } }, res) => {
+router.get('/api', authorize, async ({ query: { query } }, res) => {
   let items;
 
   if (query) {
