@@ -1,33 +1,17 @@
-import React, { Component } from 'react';
-import './app.css';
-import './test.less';
-import ReactImage from './assets/react.png';
+import React from 'react';
+import { Switch, Route, HashRouter } from 'react-router-dom';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { username: undefined };
-  }
+import './App.less';
+import LoginPage from './components/LoginPage/LoginPage';
 
-  componentDidMount() {
-    fetch('/api/getUsername')
-      .then((res) => res.json())
-      .then((user) => this.setState({ username: user.username }));
-  }
-
-  render() {
-    const { username } = this.state;
-    return (
-      <div>
-        {username ? (
-          <h1>{`Hello ${username}`}</h1>
-        ) : (
-          <h1>Loading.. please wait!</h1>
-        )}
-        <img src={ReactImage} alt="react" />
-      </div>
-    );
-  }
-}
+const App = () => (
+  <div>
+    <HashRouter>
+      <Switch>
+        <Route exact path="/" component={LoginPage} />
+      </Switch>
+    </HashRouter>
+  </div>
+);
 
 export default App;

@@ -5,7 +5,7 @@
   },
   "parser": "babel-eslint",
   "extends": ["airbnb"],
-  "plugins": ["node"],
+  "plugins": ["node", "react"],
   "rules": {
     "no-plusplus": 0,
     "no-multiple-empty-lines": 2,
@@ -41,6 +41,7 @@
       {
         "ObjectExpression": { "multiline": true, "consistent": true, "minProperties": 8 }
       }
-    ]
+    ],
+    "prefer-destructuring": [2, { "object": true, "array": true }]
   }
 }

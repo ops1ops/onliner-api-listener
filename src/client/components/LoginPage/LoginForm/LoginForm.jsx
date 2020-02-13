@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { Paper, Button, FormControl, OutlinedInput, InputLabel, Typography } from '@material-ui/core';
-import './LoginForm.css';
 import { makeStyles } from '@material-ui/core/styles';
+
+import './LoginForm.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function LoginForm() {
+const LoginForm = () => {
   const classes = useStyles();
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
@@ -50,6 +51,6 @@ function LoginForm() {
       </form>
     </Paper>
   );
-}
+};
 
 export default LoginForm;
