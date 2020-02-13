@@ -5,7 +5,7 @@ export default (req, res, next) => {
   if (authorization) {
     try {
       const bearerToken = authorization.split(' ')[1];
-      req.user = jwt.verify(bearerToken, process.env.c);
+      req.user = jwt.verify(bearerToken, process.env.JWT_SECRET);
     } catch (err) {
       return res.status(401).json({
         error: 'Failed to authenticate token!',
