@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 
 export default (req, res, next) => {
-  const { headers, headers: { authorization } } = req;
-  if (headers && authorization) {
+  const { headers: { authorization } = {} } = req;
+  if (authorization) {
     try {
       const bearerToken = authorization.split(' ')[1];
       req.user = jwt.verify(bearerToken, process.env.c);
