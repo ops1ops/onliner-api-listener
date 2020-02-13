@@ -5,6 +5,7 @@ export default (req, res, next) => {
 
   if (authorization) {
     try {
+      // eslint-disable-next-line prefer-destructuring
       const bearerToken = authorization.split(' ')[1];
       req.user = jwt.verify(bearerToken, process.env.JWT_SECRET);
     } catch (err) {

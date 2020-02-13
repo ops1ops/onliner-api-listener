@@ -42,6 +42,6 @@
         "ObjectExpression": { "multiline": true, "consistent": true, "minProperties": 8 }
       }
     ],
-    "prefer-destructuring": ["error", { "object": true, "array": true }]
+    "prefer-destructuring": [2, { "object": true, "array": true }]
   }
 }

@@ -11,7 +11,7 @@
     "server:dev": "nodemon --exec npm run server",
     "dev": "concurrently \"npm run server:dev\" \"npm run client\"",
     "onliner-listener": "babel-node src/server/onliner-listener.js",
-    "lint": "eslint ./src"
+    "lint": "eslint --ext .js --ext .jsx ./src"
   },
   "repository": {
     "type": "git",

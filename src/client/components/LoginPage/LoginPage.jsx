@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ReactImage from '../../assets/react.png';
 import LoginForm from './LoginForm/LoginForm';
 
-const LoginPage = (props) => {
+const LoginPage = () => {
   const [userName, setUserName] = useState('');
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const LoginPage = (props) => {
   return (
     <div>
       {userName ? (
-        <h1>{`Hello ${props.username}`}</h1>
+        <h1>{`Hello ${userName}`}</h1>
       ) : (
         <h1>Loading.. please wait!</h1>
       )}
