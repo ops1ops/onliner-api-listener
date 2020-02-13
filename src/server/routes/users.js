@@ -14,7 +14,7 @@ router.post('/create', ({ body: { email, name, password } }, res) => {
     res.redirect('/login');
   }).catch((reason) => {
     res.status(400).json({
-      err: 'Failed to create user',
+      error: 'Failed to create user',
       reason: reason.errors[0].message,
     });
   });
@@ -26,11 +26,12 @@ router.post('/login', ({ body: { login, password } }, res) => {
       name: login,
     },
   }).then((user) => {
-    if (user && bcrypt.compareSync(password, user.password)) {
+    const { id, password: passwordHash } = user;
+    if (user && bcrypt.compareSync(password, passwordHash)) {
       res.json({
-        id: user.id,
+        id,
         jwt: jwt.sign({
-          user,
+          id,
         }, process.env.JWT_SECRET, { expiresIn: 60 * 60 }),
       });
     } else {

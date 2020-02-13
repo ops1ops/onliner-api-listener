@@ -1,18 +1,19 @@
 import jwt from 'jsonwebtoken';
 
 export default (req, res, next) => {
-  if (req.headers && req.headers.authorization) {
+  const { headers, headers: { authorization } } = req;
+  if (headers && authorization) {
     try {
-      const bearerToken = req.headers.authorization.split(' ')[1];
-      req.user = jwt.verify(bearerToken, process.env.JWT_SECRET);
+      const bearerToken = authorization.split(' ')[1];
+      req.user = jwt.verify(bearerToken, process.env.c);
     } catch (err) {
       return res.status(401).json({
-        err: 'Failed to authenticate token!',
+        error: 'Failed to authenticate token!',
       });
     }
   } else {
     return res.status(401).json({
-      err: 'No Token Provided!',
+      error: 'No Token Provided!',
     });
   }
   next();
