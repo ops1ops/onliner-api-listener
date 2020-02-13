@@ -7,6 +7,7 @@
   "extends": ["airbnb"],
   "plugins": ["node"],
   "rules": {
+    "prefer-destructuring": ["error", {"object": true, "array": false}],
     "no-plusplus": 0,
     "no-multiple-empty-lines": 2,
     "func-names": 2,

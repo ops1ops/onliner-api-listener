@@ -2,9 +2,10 @@ import jwt from 'jsonwebtoken';
 
 export default (req, res, next) => {
   const { headers: { authorization } = {} } = req;
+
   if (authorization) {
     try {
-      const bearerToken = authorization.split(' ')[1];
+      const [_, bearerToken] = authorization.split(' ');
       req.user = jwt.verify(bearerToken, process.env.JWT_SECRET);
     } catch (err) {
       return res.status(401).json({
@@ -16,5 +17,6 @@ export default (req, res, next) => {
       error: 'No Token Provided!',
     });
   }
+
   next();
 };
