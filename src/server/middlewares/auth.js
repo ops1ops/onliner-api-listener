@@ -7,12 +7,12 @@ export default (req, res, next) => {
       req.user = jwt.verify(bearerToken, process.env.JWT_SECRET);
     } catch (err) {
       return res.status(401).json({
-        err: 'Failed to authenticate token!'
+        err: 'Failed to authenticate token!',
       });
     }
   } else {
     return res.status(401).json({
-      err: 'No Token Provided!'
+      err: 'No Token Provided!',
     });
   }
   next();
