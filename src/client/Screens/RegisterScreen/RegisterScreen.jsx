@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import RegisterForm from '../../components/RegisterForm';
 
 const RegisterScreen = () => {
-  const [userName, setUserName] = useState('');
+  const [, setUserName] = useState('');
 
   useEffect(() => {
     fetch('/api/getUsername')
