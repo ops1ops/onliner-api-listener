@@ -7,3 +7,9 @@
     margin: 50px auto;
     padding: 10px;
 }
+.button_signIn {
+    text-decoration: none;
+}
+.button_signIn_text {
+    width: 100%;
+}

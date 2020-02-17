@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import {
   Paper,
   Button,
@@ -7,6 +8,7 @@ import {
   InputLabel,
   Typography,
 } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
 import registerUser from '../../api/api';
 
@@ -26,6 +28,8 @@ const RegisterForm = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showError, setShowError] = useState('');
+  const history = useHistory();
 
   const handleLoginChange = useCallback(
     ({ target: { value } }) => setLogin(value),
@@ -35,14 +39,12 @@ const RegisterForm = () => {
     ({ target: { value } }) => setEmail(value),
     [],
   );
-  const handlePasswordChange = useCallback(
-    ({ target: { value } }) => setPassword(value),
-    [],
-  );
-  const handleConfirmPasswordChange = useCallback(
-    ({ target: { value } }) => setConfirmPassword(value),
-    [],
-  );
+  const handlePasswordChange = useCallback(({ target: { value } }) => {
+    setPassword(value);
+  }, []);
+  const handleConfirmPasswordChange = useCallback(({ target: { value } }) => {
+    setConfirmPassword(value);
+  }, []);
 
   const onRegister = () => {
     if (
@@ -52,9 +54,10 @@ const RegisterForm = () => {
       && confirmPassword
       && password === confirmPassword
     ) {
-      registerUser(login, email, password).then((response) => response);
-      console.log('1');
-    } else console.log('sliv');
+      registerUser(login, email, password)
+        .then(() => history.push('/'))
+        .catch((error) => setShowError(error.response.data.reason));
+    } else setShowError('invalid');
   };
 
   return (
@@ -104,6 +107,20 @@ const RegisterForm = () => {
         <Button variant="contained" color="primary" onClick={onRegister}>
           Register
         </Button>
+        <Link to="/" className="button_signIn">
+          <Button
+            variant="contained"
+            color="primary"
+            className="button_signIn_text"
+          >
+            Already have an account? Sign In
+          </Button>
+        </Link>
+        {showError ? (
+          <Alert severity="error">
+            {showError}
+          </Alert>
+        ) : null }
       </form>
     </Paper>
   );

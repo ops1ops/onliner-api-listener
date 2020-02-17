@@ -1,5 +1,13 @@
 import React, { useState, useCallback } from 'react';
-import { Paper, Button, FormControl, OutlinedInput, InputLabel, Typography } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import {
+  Paper,
+  Button,
+  FormControl,
+  OutlinedInput,
+  InputLabel,
+  Typography,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import './styles.css';
@@ -17,8 +25,14 @@ const LoginForm = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLoginChange = useCallback(({ target: { value } }) => setLogin(value), []);
-  const handlePasswordChange = useCallback(({ target: { value } }) => setPassword(value), []);
+  const handleLoginChange = useCallback(
+    ({ target: { value } }) => setLogin(value),
+    [],
+  );
+  const handlePasswordChange = useCallback(
+    ({ target: { value } }) => setPassword(value),
+    [],
+  );
 
   return (
     <Paper elevation={3} className="form-box">
@@ -48,6 +62,11 @@ const LoginForm = () => {
         <Button variant="contained" color="primary">
           Login
         </Button>
+        <Link to="/register" className="button_signUp">
+          <Button variant="contained" color="primary" className="button_signUp_text">
+            Dont have an account? Sign Up
+          </Button>
+        </Link>
       </form>
     </Paper>
   );

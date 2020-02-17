@@ -10,14 +10,25 @@ router.post('/create', ({ body: { email, name, password } }, res) => {
     name,
     email,
     password: bcrypt.hashSync(password, 10),
-  }).then((user) => {
-    res.send(user);
-  }).catch((reason) => {
-    res.status(400).json({
-      error: 'Failed to create user',
-      reason: reason.errors[0].message,
+  })
+    .then(({ id }) => {
+      res.send({
+        id,
+        jwt: jwt.sign(
+          {
+            id,
+          },
+          process.env.JWT_SECRET,
+          { expiresIn: 60 * 60 },
+        ),
+      });
+    })
+    .catch((reason) => {
+      res.status(400).json({
+        error: 'Failed to create user',
+        reason: reason.errors[0].message,
+      });
     });
-  });
 });
 
 router.post('/login', ({ body: { login, password } }, res) => {
@@ -30,9 +41,13 @@ router.post('/login', ({ body: { login, password } }, res) => {
     if (user && bcrypt.compareSync(password, passwordHash)) {
       res.json({
         id,
-        jwt: jwt.sign({
-          id,
-        }, process.env.JWT_SECRET, { expiresIn: 60 * 60 }),
+        jwt: jwt.sign(
+          {
+            id,
+          },
+          process.env.JWT_SECRET,
+          { expiresIn: 60 * 60 },
+        ),
       });
     } else {
       res.status(401).json({
