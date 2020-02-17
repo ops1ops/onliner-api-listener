@@ -2,8 +2,8 @@ import React from 'react';
 import { Switch, Route, HashRouter } from 'react-router-dom';
 
 import './App.less';
-import LoginPage from './Screens/LoginPage/LoginPage';
-import RegisterPage from './Screens/RegisterPage/RegisterPage';
+import LoginPage from './Pages/LoginPage/LoginPage';
+import RegisterPage from './Pages/RegisterPage/RegisterPage';
 
 const App = () => (
   <div>

@@ -28,7 +28,7 @@ const RegisterForm = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [showError, setShowError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const history = useHistory();
 
   const handleLoginChange = useCallback(
@@ -56,8 +56,8 @@ const RegisterForm = () => {
     ) {
       registerUser(login, email, password)
         .then(() => history.push('/'))
-        .catch((error) => setShowError(error.response.data.reason));
-    } else setShowError('invalid');
+        .catch((error) => setErrorMessage(error.response.data.reason));
+    } else setErrorMessage('invalid');
   };
 
   return (
@@ -116,9 +116,9 @@ const RegisterForm = () => {
             Already have an account? Sign In
           </Button>
         </Link>
-        {showError ? (
+        {errorMessage ? (
           <Alert severity="error">
-            {showError}
+            {errorMessage}
           </Alert>
         ) : null }
       </form>
