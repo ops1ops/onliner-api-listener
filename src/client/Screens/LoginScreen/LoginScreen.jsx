@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
 import ReactImage from '../../assets/react.png';
-import LoginForm from './LoginForm/LoginForm';
+import LoginForm from '../../components/LoginForm';
 
-const LoginPage = () => {
+const LoginScreen = () => {
   const [userName, setUserName] = useState('');
 
   useEffect(() => {
@@ -25,4 +25,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default LoginScreen;

@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { Paper, Button, FormControl, OutlinedInput, InputLabel, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import './LoginForm.css';
+import './styles.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,7 +40,7 @@ const LoginForm = () => {
           <OutlinedInput
             id="input-pass"
             value={password}
-            label="Passwword"
+            label="Password"
             type="password"
             onChange={handlePasswordChange}
           />

@@ -10,8 +10,8 @@ router.post('/create', ({ body: { email, name, password } }, res) => {
     name,
     email,
     password: bcrypt.hashSync(password, 10),
-  }).then(() => {
-    res.redirect('/login');
+  }).then((user) => {
+    res.send(user);
   }).catch((reason) => {
     res.status(400).json({
       error: 'Failed to create user',
