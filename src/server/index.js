@@ -23,6 +23,6 @@ app.use((req, res, next) => {
 });
 
 app.use('/', index);
-app.use('/users', users);
+app.use('/api/users', users);
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

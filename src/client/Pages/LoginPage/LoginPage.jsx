@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import ReactImage from '../../assets/react.png';
-import LoginForm from './LoginForm/LoginForm';
+import LoginForm from './LoginForm';
 
 const LoginPage = () => {
   const [userName, setUserName] = useState('');
