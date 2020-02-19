@@ -1,9 +1,15 @@
-.form-box  {
+.formBox  {
     width: 25%;
 }
-.form-box form  {
+.formBox form  {
     display: flex;
     flex-direction: column;
     margin: 50px auto;
     padding: 10px;
+}
+.signUpLink {
+    text-decoration: none;
+}
+.signUpButton {
+    width: 100%;
 }

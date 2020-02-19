@@ -2,15 +2,15 @@ import React from 'react';
 import { Switch, Route, HashRouter } from 'react-router-dom';
 
 import './App.less';
-import LoginScreen from './Screens/LoginScreen/LoginScreen';
-import RegisterScreen from './Screens/RegisterScreen/RegisterScreen';
+import LoginPage from './Pages/LoginPage/LoginPage';
+import RegisterPage from './Pages/RegisterPage/RegisterPage';
 
 const App = () => (
   <div>
     <HashRouter>
       <Switch>
-        <Route exact path="/" component={LoginScreen} />
-        <Route path="/register" component={RegisterScreen} />
+        <Route exact path="/" component={LoginPage} />
+        <Route exact path="/register" component={RegisterPage} />
       </Switch>
     </HashRouter>
   </div>
