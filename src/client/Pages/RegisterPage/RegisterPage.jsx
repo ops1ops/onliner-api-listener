@@ -5,7 +5,7 @@ import RegisterForm from './RegisterForm';
 import './styles.css';
 
 const RegisterPage = () => (
-  <Container className="page-content">
+  <Container className="pageContent">
     <RegisterForm />
   </Container>
 );

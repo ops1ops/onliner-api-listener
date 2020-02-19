@@ -31,21 +31,21 @@ const RegisterForm = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const history = useHistory();
 
-  const formInputs = [
+  const inputGroup = [
     { label: 'Login', onChange: setLogin, value: login, type: 'text' },
     { label: 'Email', onChange: setEmail, value: email, type: 'email' },
     { label: 'Password', onChange: setPassword, value: password, type: 'password' },
     { label: 'Password Confirmation', onChange: setPasswordConfirmation, value: passwordConfirmation, type: 'password' },
   ];
 
-  const registerForm = formInputs.map(({ label, onChange, value, type }) => (
+  const registerForm = inputGroup.map(({ label, onChange, value, type }) => (
     <FormControl key={`input${label}`} variant="outlined">
       <InputLabel htmlFor="component-outlined">{label}</InputLabel>
       <DefaultInput onChange={onChange} value={value} label={label} type={type} />
     </FormControl>
   ));
 
-  const onRegister = useCallback(async () => {
+  const handleRegister = useCallback(async () => {
     const isValid = email
       && login
       && password
@@ -65,21 +65,21 @@ const RegisterForm = () => {
   }, [email, login, password, passwordConfirmation]);
 
   return (
-    <Paper elevation={3} className="form-box">
+    <Paper elevation={3} className="formBox">
       <form className={classes.root}>
         <Typography gutterBottom variant="h5" component="h2">
           Register
         </Typography>
         {registerForm}
-        <Button variant="contained" color="primary" onClick={onRegister}>
+        <Button variant="contained" color="primary" onClick={handleRegister}>
           Register
         </Button>
-        <Link to="/" className="signUp_link">
-          <Button variant="contained" color="primary" className="signUp_button">
+        <Link to="/" className="signUpLink">
+          <Button variant="contained" color="primary" className="signUpButton">
             Already have an account? Sign In
           </Button>
         </Link>
-        {errorMessage ? <Alert severity="error">{errorMessage}</Alert> : null}
+        {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
       </form>
     </Paper>
   );

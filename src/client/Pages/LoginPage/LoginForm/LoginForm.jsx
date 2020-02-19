@@ -28,19 +28,19 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const formInputs = [
+  const inputGroup = [
     { label: 'Login', onChange: setLogin, value: login, type: 'text' },
     { label: 'Password', onChange: setPassword, value: password, type: 'password' },
   ];
 
-  const loginForm = formInputs.map(({ label, onChange, value, type }) => (
+  const loginForm = inputGroup.map(({ label, onChange, value, type }) => (
     <FormControl key={`input${label}`} variant="outlined">
       <InputLabel htmlFor="component-outlined">{label}</InputLabel>
       <DefaultInput onChange={onChange} value={value} label={label} type={type} />
     </FormControl>
   ));
 
-  const onLogin = useCallback(async () => {
+  const handleLogin = useCallback(async () => {
     const isValid = login && password;
 
     if (isValid) {
@@ -56,21 +56,21 @@ const LoginForm = () => {
 
 
   return (
-    <Paper elevation={3} className="form-box">
+    <Paper elevation={3} className="formBox">
       <form className={classes.root}>
         <Typography gutterBottom variant="h5" component="h2">
           Login
         </Typography>
         {loginForm}
-        <Button variant="contained" color="primary" onClick={onLogin}>
+        <Button variant="contained" color="primary" onClick={handleLogin}>
           Login
         </Button>
-        <Link to="/register" className="signUp_link">
-          <Button variant="contained" color="primary" className="signUp_button">
+        <Link to="/register" className="signUpLink">
+          <Button variant="contained" color="primary" className="signUpButton">
             Dont have an account? Sign Up
           </Button>
         </Link>
-        {errorMessage ? <Alert severity="error">{errorMessage}</Alert> : null}
+        {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
       </form>
     </Paper>
   );

@@ -43,6 +43,6 @@
       }
     ],
     "prefer-destructuring": [2, { "object": true, "array": true }],
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": ["off"]
   }
 }
