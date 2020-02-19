@@ -1,15 +1,17 @@
 .form-box  {
     width: 25%;
+    min-width: 400px;
 }
 .form-box form  {
     display: flex;
     flex-direction: column;
-    margin: 50px auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
     padding: 10px;
 }
-.button_signIn {
+.signUp_link {
     text-decoration: none;
 }
-.button_signIn_text {
+.signUp_button {
     width: 100%;
 }

@@ -10,7 +10,7 @@ const App = () => (
     <HashRouter>
       <Switch>
         <Route exact path="/" component={LoginPage} />
-        <Route path="/register" component={RegisterPage} />
+        <Route exact path="/register" component={RegisterPage} />
       </Switch>
     </HashRouter>
   </div>

@@ -7,9 +7,9 @@
     margin: 50px auto;
     padding: 10px;
 }
-.button_signUp {
+.signUp_link {
     text-decoration: none;
 }
-.button_signUp_text {
+.signUp_button {
     width: 100%;
 }

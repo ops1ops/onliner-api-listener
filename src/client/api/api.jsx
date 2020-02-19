@@ -1,10 +1,14 @@
 import axios from 'axios';
 
-const registerUser = (name, email, password) => axios
+export const registerUser = (name, email, password) => axios
   .post('/api/users/create', {
     name,
     email,
     password,
   });
 
-export default registerUser;
+export const loginUser = (login, password) => axios
+  .post('/api/users/login', {
+    login,
+    password,
+  });
