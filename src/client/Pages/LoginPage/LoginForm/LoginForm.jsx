@@ -28,12 +28,12 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const labels = [
+  const formInputs = [
     { label: 'Login', onChange: setLogin, value: login, type: 'text' },
     { label: 'Password', onChange: setPassword, value: password, type: 'password' },
   ];
 
-  const formsLabels = labels.map(({ label, onChange, value, type }) => (
+  const loginForm = formInputs.map(({ label, onChange, value, type }) => (
     <FormControl key={`input${label}`} variant="outlined">
       <InputLabel htmlFor="component-outlined">{label}</InputLabel>
       <DefaultInput onChange={onChange} value={value} label={label} type={type} />
@@ -41,8 +41,7 @@ const LoginForm = () => {
   ));
 
   const onLogin = useCallback(async () => {
-    const isValid = login
-      && password;
+    const isValid = login && password;
 
     if (isValid) {
       try {
@@ -62,7 +61,7 @@ const LoginForm = () => {
         <Typography gutterBottom variant="h5" component="h2">
           Login
         </Typography>
-        {formsLabels}
+        {loginForm}
         <Button variant="contained" color="primary" onClick={onLogin}>
           Login
         </Button>

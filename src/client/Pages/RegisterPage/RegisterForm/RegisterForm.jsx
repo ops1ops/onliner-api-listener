@@ -31,14 +31,14 @@ const RegisterForm = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const history = useHistory();
 
-  const labels = [
+  const formInputs = [
     { label: 'Login', onChange: setLogin, value: login, type: 'text' },
     { label: 'Email', onChange: setEmail, value: email, type: 'email' },
     { label: 'Password', onChange: setPassword, value: password, type: 'password' },
     { label: 'Password Confirmation', onChange: setPasswordConfirmation, value: passwordConfirmation, type: 'password' },
   ];
 
-  const formsLabels = labels.map(({ label, onChange, value, type }) => (
+  const registerForm = formInputs.map(({ label, onChange, value, type }) => (
     <FormControl key={`input${label}`} variant="outlined">
       <InputLabel htmlFor="component-outlined">{label}</InputLabel>
       <DefaultInput onChange={onChange} value={value} label={label} type={type} />
@@ -70,7 +70,7 @@ const RegisterForm = () => {
         <Typography gutterBottom variant="h5" component="h2">
           Register
         </Typography>
-        {formsLabels}
+        {registerForm}
         <Button variant="contained" color="primary" onClick={onRegister}>
           Register
         </Button>
