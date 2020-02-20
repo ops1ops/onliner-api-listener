@@ -14,6 +14,7 @@ router.post('/create', ({ body: { email, name, password } }, res) => {
     .then(({ id }) => {
       res.send({
         id,
+        name,
         jwt: jwt.sign(
           {
             id,
@@ -37,10 +38,11 @@ router.post('/login', ({ body: { login, password } }, res) => {
       name: login,
     },
   }).then((user) => {
-    const { id, password: passwordHash } = user;
+    const { id, password: passwordHash, name } = user;
     if (user && bcrypt.compareSync(password, passwordHash)) {
       res.json({
         id,
+        name,
         jwt: jwt.sign(
           {
             id,
@@ -56,6 +58,12 @@ router.post('/login', ({ body: { login, password } }, res) => {
         },
       });
     }
+  }).catch(() => {
+    res.status(401).json({
+      error: {
+        message: 'User not found!',
+      },
+    });
   });
 });
 

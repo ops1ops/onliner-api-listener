@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useCallback, useContext, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import {
   Paper,
   Button,
@@ -13,6 +13,7 @@ import DefaultInput from '../../../common/DefaultInput';
 import { loginUser } from '../../../api/api';
 
 import './styles.css';
+import AuthContext from '../../../contexts/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +28,8 @@ const LoginForm = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-
+  const { dispatch } = useContext(AuthContext);
+  const history = useHistory();
   const inputGroup = [
     { label: 'Login', onChange: setLogin, value: login, type: 'text' },
     { label: 'Password', onChange: setPassword, value: password, type: 'password' },
@@ -40,12 +42,17 @@ const LoginForm = () => {
     </FormControl>
   ));
 
-  const handleLogin = useCallback(async () => {
+  const handleLogin = useCallback(async (e) => {
+    e.preventDefault();
     const isValid = login && password;
-
     if (isValid) {
       try {
-        await loginUser(login, password);
+        const { data: user } = await loginUser(login, password);
+        dispatch({
+          type: 'LOGIN',
+          payload: user,
+        });
+        history.push('/user');
       } catch (error) {
         setErrorMessage(error.response.data.reason);
       }
@@ -57,12 +64,12 @@ const LoginForm = () => {
 
   return (
     <Paper elevation={3} className="formBox">
-      <form className={classes.root}>
+      <form className={classes.root} onSubmit={handleLogin}>
         <Typography gutterBottom variant="h5" component="h2">
           Login
         </Typography>
         {loginForm}
-        <Button variant="contained" color="primary" onClick={handleLogin}>
+        <Button variant="contained" color="primary" type="submit">
           Login
         </Button>
         <Link to="/register" className="signUpLink">
