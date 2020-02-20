@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 
 const UserPage = () => (
   <Container>
-    <Typography align="center" variant="h3"  noWrap >
+    <Typography align="center" variant="h3" noWrap>
       User Page
     </Typography>
   </Container>

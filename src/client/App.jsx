@@ -7,19 +7,20 @@ import RegisterPage from './pages/RegisterPage/RegisterPage';
 import HeaderToolbar from './common/HeaderToolbar';
 import AuthContext from './contexts/AuthContext';
 import UserPage from './pages/UserPage/UserPage';
+import localStorageService from './services/localStorageService';
 
 
 const reducer = (state, { type, payload: user }) => {
   switch (type) {
     case 'LOGIN':
-      localStorage.setItem('user', JSON.stringify(user));
+      localStorageService.saveUser(user);
       return {
         ...state,
         isAuthenticated: true,
         user,
       };
     case 'LOGOUT':
-      localStorage.clear();
+      localStorageService.clear();
       return {
         ...state,
         isAuthenticated: false,
@@ -32,9 +33,7 @@ const reducer = (state, { type, payload: user }) => {
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, {
-    isAuthenticated: false,
-    user: JSON.parse(localStorage.getItem('user')),
-    //TODO add LS service
+    user: localStorageService.getUser(),
   });
   return (
     <AuthContext.Provider value={{ state, dispatch }}>
