@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import {
   Paper,
@@ -13,6 +13,7 @@ import { registerUser } from '../../../api/api';
 
 import './styles.css';
 import DefaultInput from '../../../common/DefaultInput';
+import AuthContext from '../../../contexts/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +30,7 @@ const RegisterForm = () => {
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const { dispatch } = useContext(AuthContext);
   const history = useHistory();
 
   const inputGroup = [
@@ -45,7 +47,8 @@ const RegisterForm = () => {
     </FormControl>
   ));
 
-  const handleRegister = useCallback(async () => {
+  const handleRegister = useCallback(async (e) => {
+    e.preventDefault();
     const isValid = email
       && login
       && password
@@ -54,7 +57,11 @@ const RegisterForm = () => {
 
     if (isValid) {
       try {
-        await registerUser(login, email, password);
+        const { data: user } = await registerUser(login, email, password);
+        dispatch({
+          type: 'LOGIN',
+          payload: user,
+        });
         history.push('/');
       } catch (error) {
         setErrorMessage(error.response.data.reason);
@@ -66,15 +73,15 @@ const RegisterForm = () => {
 
   return (
     <Paper elevation={3} className="formBox">
-      <form className={classes.root}>
+      <form className={classes.root} onSubmit={handleRegister}>
         <Typography gutterBottom variant="h5" component="h2">
           Register
         </Typography>
         {registerForm}
-        <Button variant="contained" color="primary" onClick={handleRegister}>
+        <Button variant="contained" color="primary" type="submit">
           Register
         </Button>
-        <Link to="/" className="signUpLink">
+        <Link to="/login" className="signUpLink">
           <Button variant="contained" color="primary" className="signUpButton">
             Already have an account? Sign In
           </Button>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { Container } from '@material-ui/core';
 
-import ReactImage from '../../assets/react.png';
 import LoginForm from './LoginForm';
 
 const LoginPage = () => {
@@ -13,15 +13,14 @@ const LoginPage = () => {
   }, []);
 
   return (
-    <div>
+    <Container>
       {userName ? (
         <h1>{`Hello ${userName}`}</h1>
       ) : (
         <h1>Loading.. please wait!</h1>
       )}
       <LoginForm />
-      <img src={ReactImage} alt="react" />
-    </div>
+    </Container>
   );
 };
 
