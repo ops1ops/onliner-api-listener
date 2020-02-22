@@ -30,5 +30,4 @@ router.get('/api', authorize, async ({ query: { query } }, res) => {
   return res.send(items);
 });
 
-
 export default router;

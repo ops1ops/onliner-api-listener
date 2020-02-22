@@ -61,7 +61,6 @@ const LoginForm = () => {
     }
   }, [login, password]);
 
-
   return (
     <Paper elevation={3} className="formBox">
       <form className={classes.root} onSubmit={handleLogin}>
