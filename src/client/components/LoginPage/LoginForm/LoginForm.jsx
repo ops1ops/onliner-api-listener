@@ -9,8 +9,8 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Alert } from '@material-ui/lab';
-import DefaultInput from '../../../common/DefaultInput';
-import { loginUser } from '../../../api/api';
+import DefaultInput from '../../common/DefaultInput';
+import { loginUser } from '../../../services/api';
 
 import './styles.css';
 import AuthContext from '../../../contexts/AuthContext';

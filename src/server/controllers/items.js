@@ -1,23 +1,18 @@
-import { Router } from 'express';
 import { Op } from 'sequelize';
-import os from 'os';
 import db from '../db';
-import authorize from '../middlewares/auth';
 
 const { Item } = db;
-const router = Router();
 
-router.get('/api/getUsername', (req, res) => res.send({ username: os.userInfo().username }));
-
-router.get('/api', authorize, async ({ query: { query } }, res) => {
+// eslint-disable-next-line import/prefer-default-export
+export const getAllItems = async ({ query: { name } }, res) => {
   let items;
 
-  if (query) {
+  if (name) {
     items = await Item.findAll({
       attributes: ['name', 'htmlUrl', 'imageUrl', 'price'],
       include: ['history'],
       where: {
-        name: { [Op.like]: `%${query}%` },
+        name: { [Op.like]: `%${name}%` },
       },
     });
   } else {
@@ -28,7 +23,4 @@ router.get('/api', authorize, async ({ query: { query } }, res) => {
   }
 
   return res.send(items);
-});
-
-
-export default router;
+};

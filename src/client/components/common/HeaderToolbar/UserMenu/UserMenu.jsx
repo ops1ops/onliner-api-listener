@@ -4,7 +4,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
-import AuthContext from '../../../contexts/AuthContext';
+import AuthContext from '../../../../contexts/AuthContext';
 
 const UserMenu = (props) => {
   const { username } = props;
