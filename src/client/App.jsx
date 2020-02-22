@@ -8,34 +8,10 @@ import HeaderToolbar from './common/HeaderToolbar';
 import AuthContext from './contexts/AuthContext';
 import UserPage from './pages/UserPage/UserPage';
 import localStorageService from './services/localStorageService';
-
-
-const reducer = (state, { type, payload: user }) => {
-  switch (type) {
-    case 'LOGIN':
-      localStorageService.saveUser(user);
-
-      return {
-        ...state,
-        isAuthenticated: true,
-        user,
-      };
-    case 'LOGOUT':
-      localStorageService.clear();
-
-      return {
-        ...state,
-        isAuthenticated: false,
-        user: undefined,
-      };
-    default:
-
-      return state;
-  }
-};
+import userReducer from './reducers/userReducer';
 
 const App = () => {
-  const [state, dispatch] = useReducer(reducer, {
+  const [state, dispatch] = useReducer(userReducer, {
     user: localStorageService.getUser(),
   });
 

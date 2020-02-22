@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -11,21 +11,19 @@ const UserMenu = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { dispatch } = useContext(AuthContext);
   const history = useHistory();
-  const handleClick = (event) => {
+  const handleClick = useCallback((event) => {
     setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
+  });
+  const handleClose = useCallback(() => {
     setAnchorEl(null);
-  };
-
-  const handleLogout = () => {
+  });
+  const handleLogout = useCallback(() => {
     dispatch({
       type: 'LOGOUT',
     });
     history.push('/login');
     handleClose();
-  };
+  }, [handleClose]);
 
   return (
     <div>
