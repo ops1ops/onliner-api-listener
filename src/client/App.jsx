@@ -14,6 +14,7 @@ const reducer = (state, { type, payload: user }) => {
   switch (type) {
     case 'LOGIN':
       localStorageService.saveUser(user);
+
       return {
         ...state,
         isAuthenticated: true,
@@ -21,12 +22,14 @@ const reducer = (state, { type, payload: user }) => {
       };
     case 'LOGOUT':
       localStorageService.clear();
+
       return {
         ...state,
         isAuthenticated: false,
         user: undefined,
       };
     default:
+
       return state;
   }
 };
@@ -35,6 +38,7 @@ const App = () => {
   const [state, dispatch] = useReducer(reducer, {
     user: localStorageService.getUser(),
   });
+
   return (
     <AuthContext.Provider value={{ state, dispatch }}>
       <HashRouter>
