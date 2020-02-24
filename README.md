@@ -18,7 +18,7 @@ $ git clone https://github.com/ops1ops/onliner-api-listener.git
 $ cd onliner-api-listener
 $ npm install
 ```
-#### Rename .env.example to .env and fill it with DB credentials and JWT secret
+#### Copy .env.example to .env and fill it with DB credentials and JWT secret
 `$ cp .env.example .env`
 ## Run application
 - ### Dev mode
