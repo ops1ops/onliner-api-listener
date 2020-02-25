@@ -4,5 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
   }, {});
 
+  Category.associate = ({ Item }) => {
+    Category.hasMany(Item, { as: 'items' });
+  };
+
   return Category;
 };
