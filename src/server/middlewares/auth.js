@@ -8,7 +8,7 @@ export default (req, res, next) => {
       // eslint-disable-next-line prefer-destructuring
       const token = authorization.split(' ')[1];
 
-      req.user = jwt.verify(token, process.env.JWT_SECRET);
+      req.userId = jwt.verify(token, process.env.JWT_SECRET).id;
     } catch (err) {
       res.status(401).json({ error: 'Failed to authenticate token!' });
     }

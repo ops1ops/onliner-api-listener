@@ -2,7 +2,7 @@ import { Op } from 'sequelize';
 import db from '../db';
 import onliner from '../services/onlinerAPI';
 
-const { Item } = db;
+const { Item, UserItems } = db;
 
 export const getAllItems = async ({ query: { name } }, res) => {
   let items;
@@ -40,3 +40,22 @@ export const getItemsByQuery = async ({ query: { query } }, res) => {
   return res.send(items);
 };
 
+export const subscribeUserToItem = async ({ userId, params: { itemId } }, res) => {
+  const [userItem, isCreated] = await UserItems.findOrCreate({
+    where: { userId, itemId },
+    defaults: { userId, itemId },
+  });
+  const response = userItem.get({ plain: true });
+  response.isAlreadySubscribed = !isCreated;
+
+  res.send({ ...response });
+};
+
+export const unsubscribeUserFromItem = async ({ userId, params: { itemId } }, res) => {
+  const deletedRows = await UserItems.destroy({
+    where: { userId, itemId },
+    raw: true,
+  });
+
+  res.send({ unsubscribed: !!deletedRows });
+};
