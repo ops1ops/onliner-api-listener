@@ -1,9 +1,9 @@
 import { Op } from 'sequelize';
 import db from '../db';
+import onliner from '../services/onlinerAPI';
 
 const { Item } = db;
 
-// eslint-disable-next-line import/prefer-default-export
 export const getAllItems = async ({ query: { name } }, res) => {
   let items;
 
@@ -24,3 +24,19 @@ export const getAllItems = async ({ query: { name } }, res) => {
 
   return res.send(items);
 };
+
+export const getItemsByCategory = async ({ params: { categoryKey }, query: { page } }, res) => {
+  const items = await onliner.searchByCategory(categoryKey, page);
+
+  return res.send(items);
+};
+
+export const getItemsByQuery = async ({ query: { query } }, res) => {
+  if (!query) {
+    return res.send('"query" is the mandatory parameter!');
+  }
+  const items = await onliner.searchByQuery(query);
+
+  return res.send(items);
+};
+
