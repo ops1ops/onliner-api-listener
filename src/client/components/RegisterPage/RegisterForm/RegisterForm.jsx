@@ -9,10 +9,10 @@ import {
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
-import { registerUser } from '../../../api/api';
+import { registerUser } from '../../../services/api';
 
 import './styles.css';
-import DefaultInput from '../../../common/DefaultInput';
+import DefaultInput from '../../common/DefaultInput';
 import AuthContext from '../../../contexts/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
