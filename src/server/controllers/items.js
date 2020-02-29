@@ -4,6 +4,16 @@ import onliner from '../services/onlinerAPI';
 
 const { Item, UserItems } = db;
 
+export const getItemById = async ({ params: { id } }, res) => {
+  const item = await Item.findAll({
+    attributes: ['name', 'htmlUrl', 'imageUrl', 'price'],
+    include: ['history'],
+    where: { id },
+  });
+
+  return res.send(...item);
+};
+
 export const getAllItems = async ({ query: { name } }, res) => {
   let items;
 
