@@ -24,4 +24,3 @@ export const getCategory = (categoryKey) => axios
 
 export const searchCategory = (params) => axios
   .get('/api/search/items', { params: { query: params } });
->>>>>>> added categories and category items for UserPage
