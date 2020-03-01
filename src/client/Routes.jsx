@@ -3,8 +3,8 @@ import { Route, Switch } from 'react-router';
 
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
-import UserPage from './components/UserPage/UserPage';
 import ItemPage from './components/ItemPage/ItemPage';
+import UserPage from './components/UserPage';
 
 const Routes = () => (
   <Switch>

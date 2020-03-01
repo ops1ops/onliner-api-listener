@@ -1,0 +1,39 @@
+.container {
+  padding: 100px;
+}
+.paperContainer {
+  padding: 50px;
+}
+.boxContainer {
+  display: flex;
+  flex-direction: column;
+}
+.categoryFilter {
+  display: flex;
+  flex-grow: 1;
+}
+.searchInput {
+  display: flex;
+  flex-grow: 6;
+}
+.productsContainer {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.cardContainer {
+  margin: 20px;
+  width: 400px;
+  height: 500px;
+  position: relative;
+}
+.cardMedia {
+  height: 300px;
+  background-size: contain !important;
+}
+.subscribeButton {
+  position: absolute !important;
+  bottom: 0 !important;
+}
