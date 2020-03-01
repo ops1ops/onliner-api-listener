@@ -1,12 +1,29 @@
 import bcrypt from 'bcrypt';
 import db from '../db';
 import getJWT from '../utils/getJWT';
+import { EMAIL_REGEX } from '../constants';
 
 const { User } = db;
 
 // TODO: rewrite with async await
 
-export const createUser = ({ body: { email, name, password } }, res) => {
+export const createUser = ({ body: { email, name, password, confirmPassword } }, res) => {
+  const isAllDataPassed = email && name && password && confirmPassword;
+  const arePasswordsMatch = password === confirmPassword;
+  const isEmailValid = EMAIL_REGEX.test(email);
+
+  if (!isAllDataPassed) {
+    return res.status(422).send({ message: 'All fields are required' });
+  }
+
+  if (!arePasswordsMatch) {
+    return res.status(422).send({ message: 'Passwords dont match' });
+  }
+
+  if (!isEmailValid) {
+    return res.status(422).send({ message: 'Email is not valid' });
+  }
+
   User.create({
     name,
     email,
@@ -17,8 +34,7 @@ export const createUser = ({ body: { email, name, password } }, res) => {
     })
     .catch((reason) => {
       res.status(400).json({
-        error: 'Failed to create user',
-        reason: reason.errors[0].message,
+        message: reason.errors[0].message,
       });
     });
 };
@@ -32,14 +48,10 @@ export const loginUser = ({ body: { login, password } }, res) => {
       if (user && isPasswordValid) {
         res.json({ id, name, jwt: getJWT(id) });
       } else {
-        res.status(401).json({
-          error: { message: 'Wrong username or password!' },
-        });
+        res.status(401).send({ message: 'Wrong username or password!' });
       }
     }).catch(() => {
-      res.status(401).json({
-        error: { message: 'User not found!' },
-      });
+      res.status(401).send({ message: 'User not found!' });
     });
 };
 

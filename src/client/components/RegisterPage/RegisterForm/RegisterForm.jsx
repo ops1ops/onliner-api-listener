@@ -49,25 +49,30 @@ const RegisterForm = () => {
 
   const handleRegister = useCallback(async (e) => {
     e.preventDefault();
-    const isValid = email
-      && login
-      && password
-      && passwordConfirmation
-      && password === passwordConfirmation;
+    const arePasswordsMatched = password === passwordConfirmation;
+    const areAllFieldsFilled = email && login && password && passwordConfirmation;
 
-    if (isValid) {
-      try {
-        const { data: user } = await registerUser(login, email, password);
-        dispatch({
-          type: 'LOGIN',
-          payload: user,
-        });
-        history.push('/');
-      } catch (error) {
-        setErrorMessage(error.response.data.reason);
-      }
-    } else {
-      setErrorMessage('invalid');
+    if (!areAllFieldsFilled) {
+      setErrorMessage('All fields are not filled');
+
+      return;
+    }
+
+    if (!arePasswordsMatched) {
+      setErrorMessage('Passwords dont match');
+
+      return;
+    }
+
+    try {
+      const { data: user } = await registerUser(login, email, password, passwordConfirmation);
+      dispatch({
+        type: 'LOGIN',
+        payload: user,
+      });
+      history.push('/');
+    } catch (error) {
+      setErrorMessage(error.response.data.message);
     }
   }, [email, login, password, passwordConfirmation]);
 

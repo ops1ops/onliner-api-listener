@@ -3,12 +3,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const outputDirectory = 'dist';
+const { DEFAULT_PORT, DIST_PATH } = require('./config/config');
 
 module.exports = {
   entry: ['babel-polyfill', './src/client/index.js'],
   output: {
-    path: path.join(__dirname, outputDirectory),
+    path: path.join(__dirname, DIST_PATH),
     filename: 'bundle.js',
   },
   module: {
@@ -36,7 +36,7 @@ module.exports = {
     port: 3000,
     open: true,
     proxy: {
-      '/api': 'http://localhost:8080',
+      '/api': `http://localhost:${process.env.PORT || DEFAULT_PORT}`,
     },
   },
   plugins: [

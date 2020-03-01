@@ -54,10 +54,10 @@ const LoginForm = () => {
         });
         history.push('/user');
       } catch (error) {
-        setErrorMessage(error.response.data.reason);
+        setErrorMessage(error.response.data.message);
       }
     } else {
-      setErrorMessage('invalid');
+      setErrorMessage('Login and password are required');
     }
   }, [login, password]);
 

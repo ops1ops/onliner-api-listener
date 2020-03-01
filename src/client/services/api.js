@@ -1,10 +1,11 @@
 import axios from 'axios';
 
-export const registerUser = (name, email, password) => axios
+export const registerUser = (name, email, password, confirmPassword) => axios
   .post('/api/users/create', {
     name,
     email,
     password,
+    confirmPassword,
   });
 
 export const loginUser = (login, password) => axios
@@ -12,3 +13,5 @@ export const loginUser = (login, password) => axios
     login,
     password,
   });
+
+export const getItemById = (id) => axios.get(`/api/item/${id}`);
