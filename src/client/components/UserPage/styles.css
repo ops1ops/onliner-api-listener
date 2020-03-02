@@ -1,21 +1,26 @@
 .container {
   padding: 100px;
 }
+
 .paperContainer {
   padding: 50px;
 }
+
 .boxContainer {
   display: flex;
   flex-direction: column;
 }
+
 .categoryFilter {
   display: flex;
   flex-grow: 1;
 }
+
 .searchInput {
   display: flex;
   flex-grow: 6;
 }
+
 .productsContainer {
   padding-top: 50px;
   display: flex;
@@ -23,18 +28,15 @@
   flex-wrap: wrap;
   justify-content: center;
 }
-.cardContainer {
-  margin: 20px;
-  width: 400px;
-  height: 550px;
-  position: relative;
+
+.autocompleteContainer {
+  width: 100%;
+  margin-bottom: 10px !important;
 }
-.cardMedia {
-  margin: 10px;
-  height: 300px;
-  background-size: contain !important;
-}
-.subscribeButton {
+
+.priceText {
   position: absolute !important;
-  bottom: 0 !important;
+  bottom: 8px !important;
+  right: 11px !important;
+  font-size: 18px !important;
 }

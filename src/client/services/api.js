@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import localStorageService from './localStorageService';
+
 export const registerUser = (name, email, password, confirmPassword) => axios
   .post('/api/users/create', {
     name,
@@ -22,5 +24,19 @@ export const getCategories = () => axios
 export const getCategory = (categoryKey) => axios
   .get(`/api/categories/${categoryKey}`);
 
-export const searchCategory = (params) => axios
+export const searchItems = (params) => axios
   .get('/api/search/items', { params: { query: params } });
+
+export const subscribeUserToItem = (id) => axios
+  .post(`/api/items/${id}/subscribe`, {}, {
+    headers: {
+      Authorization: `Bearer ${localStorageService.getToken()}`,
+    },
+  });
+
+export const unsubscribeUserToItem = (id) => axios
+  .post(`/api/items/${id}/unsubscribe`, {}, {
+    headers: {
+      Authorization: `Bearer ${localStorageService.getToken()}`,
+    },
+  });

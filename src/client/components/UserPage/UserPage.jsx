@@ -1,87 +1,109 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
-  Card,
   Container,
   Paper,
   TextField,
-  CardContent,
-  CardActions,
-  Button,
-  CardMedia,
-  CardActionArea,
-  Typography,
+  CircularProgress,
 } from '@material-ui/core';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import { useDebounce } from 'use-debounce';
-import { useHistory } from 'react-router-dom';
 
-import MultipleSelect from '../common/MultipleSelect';
-import { getCategory, searchCategory } from '../../services/api';
+import ProductCard from '../common/ProductCard';
+import {
+  getCategories,
+  getCategory,
+  searchItems,
+} from '../../services/api';
 import './styles.css';
+import localStorageService from '../../services/localStorageService';
+
+const renderCategories = (params) => (
+  <TextField
+    {...params}
+    className="autocompleteContainer"
+    label="Filter"
+    variant="outlined"
+  />
+);
+
+const DEBOUNCE_TIME = 300;
 
 const UserPage = () => {
+  const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
-  const [categoryName, setCategoryName] = useState([]);
-  const [searchValue, setSearchValue] = useState('');
-  const [value] = useDebounce(searchValue, 2000);
-  const history = useHistory();
+  const [searchValue, setSearchValue] = useState();
+  const [isLoading, setLoading] = useState(false);
+  const [debouncedValue] = useDebounce(searchValue, DEBOUNCE_TIME);
 
-  const handleCategoryChange = (event) => {
-    const keys = event.target.value.map(({ key }) => key);
-    let productsArray = [];
+  const handleCategoryChange = useCallback(async (event, value) => {
+    if (!value) {
+      setProducts([]);
 
-    keys.forEach(async (key) => {
-      const response = await getCategory(key);
+      return;
+    }
 
-      productsArray = productsArray.concat(response.data.products);
-      setCategoryName(event.target.value);
-      setProducts(productsArray);
-    });
-  };
+    try {
+      setLoading(true);
+      const response = await getCategory(value.key);
+
+      localStorageService.saveCategoryFilter(value.key);
+      setProducts(response.data.products);
+    } catch {
+      // TODO error
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    const handleFetch = async () => {
-      if (value) {
-        const response = await searchCategory(value);
-        setProducts(response.data.products);
+    const handleCategoriesFetch = async () => {
+      try {
+        const { data } = await getCategories();
+
+        setCategories(data);
+      } catch {
+        // TODO error
       }
     };
 
-    handleFetch();
-  }, [value]);
+    handleCategoriesFetch();
+  }, []);
 
-  const handleSearch = (event) => {
-    setSearchValue(event.target.value);
+  useEffect(() => {
+    const handleFetchBySearch = async () => {
+      try {
+        if (debouncedValue) {
+          const response = await searchItems(debouncedValue);
+
+          setProducts(response.data.products);
+        }
+      } catch {
+        // TODO error
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    handleFetchBySearch();
+  }, [debouncedValue]);
+
+  const handleSearch = ({ target: { value } }) => {
+    setSearchValue(value);
+    localStorageService.saveSearchValue(value);
+    setLoading(true);
   };
 
-  const renderProducts = products.map((item) => (
-    <Card className="cardContainer" key={item.id}>
-      <CardActionArea onClick={() => history.push(`/item/${item.id}`)}>
-        <CardMedia className="cardMedia" image={item.images.header} />
-        <CardContent>
-          <Typography variant="h6" color="textPrimary" component="p">
-            {item.full_name}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {item.description}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button className="subscribeButton" size="large">
-          Subscribe
-        </Button>
-      </CardActions>
-    </Card>
-  ));
+  const renderedProducts = products.map((product) => <ProductCard product={product} key={product.id} />);
 
   return (
     <Container className="container">
       <Paper elevation={3} className="paperContainer">
         <Container className="boxContainer">
-          <MultipleSelect
-            className="categoryFilter"
-            categoryName={categoryName}
+          <Autocomplete
             onChange={handleCategoryChange}
+            options={categories}
+            getOptionLabel={(option) => option.name}
+            renderInput={renderCategories}
           />
           <TextField
             id="outlined-basic"
@@ -92,7 +114,7 @@ const UserPage = () => {
           />
         </Container>
         <Container className="productsContainer">
-          {renderProducts}
+          {isLoading ? <CircularProgress /> : renderedProducts}
         </Container>
       </Paper>
     </Container>
