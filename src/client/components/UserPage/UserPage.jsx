@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Card,
   Container,
@@ -11,35 +11,51 @@ import {
   CardActionArea,
   Typography,
 } from '@material-ui/core';
+import { useDebounce } from 'use-debounce';
+import { useHistory } from 'react-router-dom';
 
 import MultipleSelect from '../common/MultipleSelect';
-import { getCategory } from '../../services/api';
+import { getCategory, searchCategory } from '../../services/api';
 import './styles.css';
 
 const UserPage = () => {
   const [products, setProducts] = useState([]);
   const [categoryName, setCategoryName] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
+  const [value] = useDebounce(searchValue, 2000);
+  const history = useHistory();
 
   const handleCategoryChange = (event) => {
     const keys = event.target.value.map(({ key }) => key);
     let productsArray = [];
 
-    keys.forEach(async (item) => {
-      const response = await getCategory(item);
+    keys.forEach(async (key) => {
+      const response = await getCategory(key);
+
       productsArray = productsArray.concat(response.data.products);
       setCategoryName(event.target.value);
       setProducts(productsArray);
     });
   };
 
-  // const handleSearch = async (event) => {
-  //   const response = await searchCategory(event.target.value);
-  //   setProducts(response.products);
-  // };
+  useEffect(() => {
+    const handleFetch = async () => {
+      if (value) {
+        const response = await searchCategory(value);
+        setProducts(response.data.products);
+      }
+    };
+
+    handleFetch();
+  }, [value]);
+
+  const handleSearch = (event) => {
+    setSearchValue(event.target.value);
+  };
 
   const renderProducts = products.map((item) => (
     <Card className="cardContainer" key={item.id}>
-      <CardActionArea>
+      <CardActionArea onClick={() => history.push(`/item/${item.id}`)}>
         <CardMedia className="cardMedia" image={item.images.header} />
         <CardContent>
           <Typography variant="h6" color="textPrimary" component="p">
@@ -72,7 +88,7 @@ const UserPage = () => {
             label="Search"
             variant="outlined"
             className="searchInput"
-            // onChange={handleSearch}
+            onChange={handleSearch}
           />
         </Container>
         <Container className="productsContainer">

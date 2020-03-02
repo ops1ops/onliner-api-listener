@@ -30,6 +30,7 @@
   position: relative;
 }
 .cardMedia {
+  margin: 10px;
   height: 300px;
   background-size: contain !important;
 }
