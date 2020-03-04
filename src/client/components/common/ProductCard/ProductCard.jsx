@@ -26,8 +26,6 @@ const renderPrice = (prices) => {
   }
 };
 
-
-
 const ProductCard = (props) => {
   const { product: { id, full_name: fullName, description, prices, status, images: { header } } } = props;
   const history = useHistory();
