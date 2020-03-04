@@ -36,20 +36,16 @@ const UserPage = () => {
   const [debouncedValue] = useDebounce(searchValue, DEBOUNCE_TIME);
 
   const handleCategoryChange = useCallback(async (event, value) => {
-    if (!value) {
-      setProducts([]);
-
-      return;
-    }
-
     try {
-      setLoading(true);
-      const response = await getCategory(value.key);
+      const { key } = value;
 
-      localStorageService.saveCategoryFilter(value.key);
+      setLoading(true);
+      const response = await getCategory(key);
+
+      localStorageService.saveCategoryFilter(key);
       setProducts(response.data.products);
     } catch {
-      // TODO error
+      setProducts([]);
     } finally {
       setLoading(false);
     }

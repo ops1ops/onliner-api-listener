@@ -26,19 +26,21 @@ const renderPrice = (prices) => {
   }
 };
 
+
+
 const ProductCard = (props) => {
   const { product: { id, full_name: fullName, description, prices, status, images: { header } } } = props;
   const history = useHistory();
 
-  const subscribeProduct = (productId) => async () => {
-    await subscribeUserToItem(productId);
+  const subscribeProduct = async () => {
+    await subscribeUserToItem(id);
   };
 
-  const getRouteChangeHandler = (routeId) => () => history.push(`/item/${routeId}`);
+  const getRouteChangeHandler = () => history.push(`/item/${id}`);
 
   return status !== 'old' && (
     <Card className="cardContainer">
-      <CardActionArea onClick={getRouteChangeHandler(id)}>
+      <CardActionArea onClick={getRouteChangeHandler}>
         <CardMedia className="cardMedia" image={header} />
         <CardContent>
           <Typography variant="h6" color="textPrimary" component="p">
@@ -50,7 +52,7 @@ const ProductCard = (props) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button className="subscribeButton" size="large" onClick={subscribeProduct(id)}>
+        <Button className="subscribeButton" size="large" onClick={subscribeProduct}>
           Subscribe
         </Button>
         {renderPrice(prices)}
