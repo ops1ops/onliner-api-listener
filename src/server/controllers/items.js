@@ -54,7 +54,7 @@ export const getAllItems = async ({ query: { name } }, res) => {
 };
 
 export const getItemsByCategory = async ({ userId, params: { categoryKey }, query: { page } }, res) => {
-  const { data } = await onliner.searchByCategory(categoryKey, page);
+  const data = await onliner.searchByCategory(categoryKey, page);
   data.products = await mergeOnlinerItemsWithTrackable(data.products, userId);
 
   return res.send(data);
