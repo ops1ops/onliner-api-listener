@@ -27,11 +27,11 @@ const renderPrice = (prices) => {
 };
 
 const ProductCard = (props) => {
-  const { product: { id, full_name: fullName, description, prices, status, images: { header } } } = props;
+  const { product: { id, key, full_name: fullName, description, prices, status, images: { header } } } = props;
   const history = useHistory();
 
   const subscribeProduct = async () => {
-    await subscribeUserToItem(id);
+    await subscribeUserToItem(key);
   };
 
   const redirectToItemPage = () => history.push(`/item/${id}`);
@@ -76,6 +76,7 @@ ProductCard.defaultProps = {
 ProductCard.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.number.isRequired,
+    key: PropTypes.string.isRequired,
     full_name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     prices: PropTypes.shape({

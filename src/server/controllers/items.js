@@ -6,7 +6,6 @@ const { Item, UserItems } = db;
 
 export const getItemById = async ({ params: { id } }, res) => {
   const item = await Item.findAll({
-    attributes: ['name', 'htmlUrl', 'imageUrl', 'price'],
     include: ['history'],
     where: { id },
   });
@@ -19,7 +18,6 @@ export const getAllItems = async ({ query: { name } }, res) => {
 
   if (name) {
     items = await Item.findAll({
-      attributes: ['name', 'htmlUrl', 'imageUrl', 'price'],
       include: ['history'],
       where: {
         name: { [Op.like]: `%${name}%` },
@@ -27,7 +25,6 @@ export const getAllItems = async ({ query: { name } }, res) => {
     });
   } else {
     items = await Item.findAll({
-      attributes: ['name', 'htmlUrl', 'imageUrl', 'price'],
       include: ['history'],
     });
   }
@@ -50,7 +47,17 @@ export const getItemsByQuery = async ({ query: { query } }, res) => {
   return res.send(items);
 };
 
-export const subscribeUserToItem = async ({ userId, params: { itemId } }, res) => {
+export const subscribeUserToItem = async ({ userId, params: { itemKey } }, res) => {
+  // TODO: check for valid id === accept key instead of itemKey, then get id from onliner
+  // THE PROBLEM: Videocards don't have `key` property filled for now
+  const { id: itemId, key, full_name: name,
+    prices: { price_min: { amount: price } } } = await onliner.getItemByKey(itemKey);
+
+  await Item.findOrCreate({
+    where: { id: itemId },
+    defaults: { id: itemId, key, name, price },
+  });
+
   const [userItem, isCreated] = await UserItems.findOrCreate({
     where: { userId, itemId },
     defaults: { userId, itemId },

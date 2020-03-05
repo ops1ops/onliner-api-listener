@@ -15,6 +15,7 @@ const callback = async () => {
     const {
       id,
       name,
+      key,
       html_url: htmlUrl,
       images: { header: imageUrl },
       prices: { price_min: { amount: price } },
@@ -24,6 +25,7 @@ const callback = async () => {
       where: { id },
       defaults: {
         name,
+        key,
         imageUrl,
         htmlUrl,
         price,

@@ -1,6 +1,10 @@
 import axios from 'axios';
 import localStorageService from './localStorageService';
 
+const getHeaders = () => ({
+  Authorization: `Bearer ${localStorageService.getToken()}`,
+});
+
 export const registerUser = (name, email, password, confirmPassword) => axios
   .post('/api/users/create', {
     name,
@@ -27,15 +31,7 @@ export const searchItems = (params) => axios
   .get('/api/search/items', { params: { query: params } });
 
 export const subscribeUserToItem = (id) => axios
-  .post(`/api/items/${id}/subscribe`, {}, {
-    headers: {
-      Authorization: `Bearer ${localStorageService.getToken()}`,
-    },
-  });
+  .post(`/api/items/${id}/subscribe`, {}, { headers: getHeaders() });
 
 export const unsubscribeUserFromItem = (id) => axios
-  .post(`/api/items/${id}/unsubscribe`, {}, {
-    headers: {
-      Authorization: `Bearer ${localStorageService.getToken()}`,
-    },
-  });
+  .post(`/api/items/${id}/unsubscribe`, {}, { headers: getHeaders() });
