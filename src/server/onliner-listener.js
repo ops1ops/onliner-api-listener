@@ -1,41 +1,38 @@
+import sleep from './utils/sleep';
+import onlinerAPI from './services/onlinerAPI';
+
 require('dotenv').config();
-const axios = require('axios');
 const { setRandomInterval } = require('set-random-interval');
 const db = require('./db');
 
 const { Item } = db;
 
-const VIDEOCARDS_API_URL = 'https://catalog.onliner.by/sdapi/catalog.api/search/videocard';
 const MIN_DELAY = 30 * 60 * 1000;
 const MAX_DELAY = 60 * 60 * 1000;
+
+const getSleepTime = (wholeTime, itemsCount, processingTime) => {
+  const maxSleepTime = wholeTime / itemsCount - processingTime;
+
+  return Math.floor(Math.random() * Math.floor(maxSleepTime));
+};
+
 const callback = async () => {
-  const { data: { products } } = await axios.get(VIDEOCARDS_API_URL);
+  const items = await Item.findAll();
+  const itemsCount = items.length;
 
-  for (let i = 0; i < products.length - 1; i++) {
-    const {
-      id,
-      name,
-      key,
-      html_url: htmlUrl,
-      images: { header: imageUrl },
-      prices: { price_min: { amount: price } },
-    } = products[i];
+  for (let i = 0; i < itemsCount - 1; i++) {
+    const startProcessingTime = new Date();
+    const item = items[i];
+    const { key, price } = item;
+    const { prices: { price_min: { amount: onlinerPrice } } } = await onlinerAPI.getItemByKey(key);
 
-    const [item, isCreated] = await Item.findOrCreate({
-      where: { id },
-      defaults: {
-        name,
-        key,
-        imageUrl,
-        htmlUrl,
-        price,
-      },
-    });
-
-    if (!isCreated && item.price !== price.replace(',', '.')) {
-      await item.createHistory({ price: item.price });
-      await item.update({ price });
+    if (onlinerPrice !== price) {
+      await item.createHistory({ price });
+      await item.update({ price: onlinerPrice });
     }
+
+    const endProcessingTime = new Date();
+    await sleep(getSleepTime(MIN_DELAY, itemsCount, endProcessingTime - startProcessingTime));
   }
 };
 
