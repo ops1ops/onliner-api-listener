@@ -20,7 +20,7 @@ import localStorageService from '../../services/localStorageService';
 const renderCategories = (params) => (
   <TextField
     {...params}
-    className="autocompleteContainer"
+    className="autocomplete-container"
     label="Filter"
     variant="outlined"
   />
@@ -93,8 +93,8 @@ const UserPage = () => {
 
   return (
     <Container className="container">
-      <Paper elevation={3} className="paperContainer">
-        <Container className="boxContainer">
+      <Paper elevation={3} className="paper-container">
+        <Container className="box-container">
           <Autocomplete
             onChange={handleCategoryChange}
             options={categories}
@@ -105,11 +105,11 @@ const UserPage = () => {
             id="outlined-basic"
             label="Search"
             variant="outlined"
-            className="searchInput"
+            className="search-input"
             onChange={handleSearch}
           />
         </Container>
-        <Container className="productsContainer">
+        <Container className="products-container">
           {isLoading ? <CircularProgress /> : renderedProducts}
         </Container>
       </Paper>

@@ -19,7 +19,7 @@ const renderPrice = (prices) => {
     const { price_min: { amount, currency } } = prices;
 
     return (
-      <Typography className="priceText" color="textPrimary">
+      <Typography className="price-text" color="textPrimary">
         {`От ${amount} ${currency}`}
       </Typography>
     );
@@ -34,12 +34,12 @@ const ProductCard = (props) => {
     await subscribeUserToItem(id);
   };
 
-  const getRouteChangeHandler = () => history.push(`/item/${id}`);
+  const redirectToItemPage = () => history.push(`/item/${id}`);
 
   return status !== 'old' && (
-    <Card className="cardContainer">
-      <CardActionArea onClick={getRouteChangeHandler}>
-        <CardMedia className="cardMedia" image={header} />
+    <Card className="card-container">
+      <CardActionArea onClick={redirectToItemPage}>
+        <CardMedia className="card-media" image={header} />
         <CardContent>
           <Typography variant="h6" color="textPrimary" component="p">
             {fullName}
@@ -50,7 +50,7 @@ const ProductCard = (props) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button className="subscribeButton" size="large" onClick={subscribeProduct}>
+        <Button className="subscribe-button" size="large" onClick={subscribeProduct}>
           Subscribe
         </Button>
         {renderPrice(prices)}
