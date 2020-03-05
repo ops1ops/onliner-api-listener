@@ -2,26 +2,26 @@
   padding: 100px;
 }
 
-.paperContainer {
+.paper-container {
   padding: 50px;
 }
 
-.boxContainer {
+.box-container {
   display: flex;
   flex-direction: column;
 }
 
-.categoryFilter {
+.category-filter {
   display: flex;
   flex-grow: 1;
 }
 
-.searchInput {
+.search-input {
   display: flex;
   flex-grow: 6;
 }
 
-.productsContainer {
+.products-container {
   padding-top: 50px;
   display: flex;
   flex-direction: row;
@@ -29,14 +29,7 @@
   justify-content: center;
 }
 
-.autocompleteContainer {
+.autocomplete-container {
   width: 100%;
   margin-bottom: 10px !important;
-}
-
-.priceText {
-  position: absolute !important;
-  bottom: 8px !important;
-  right: 11px !important;
-  font-size: 18px !important;
 }
