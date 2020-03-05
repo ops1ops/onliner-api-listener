@@ -1,7 +1,7 @@
 import axios from 'axios';
 import localStorageService from './localStorageService';
 
-const getHeaders = () => ({
+const getAuthHeaders = () => ({
   Authorization: `Bearer ${localStorageService.getToken()}`,
 });
 
@@ -25,13 +25,13 @@ export const getCategories = () => axios
   .get('/api/categories');
 
 export const getCategory = (categoryKey) => axios
-  .get(`/api/categories/${categoryKey}`);
+  .get(`/api/categories/${categoryKey}`, { headers: getAuthHeaders() });
 
 export const searchItems = (params) => axios
-  .get('/api/search/items', { params: { query: params } });
+  .get('/api/search/items', { params: { query: params }, headers: getAuthHeaders() });
 
 export const subscribeUserToItem = (id) => axios
-  .post(`/api/items/${id}/subscribe`, {}, { headers: getHeaders() });
+  .post(`/api/items/${id}/subscribe`, {}, { headers: getAuthHeaders() });
 
 export const unsubscribeUserFromItem = (id) => axios
-  .post(`/api/items/${id}/unsubscribe`, {}, { headers: getHeaders() });
+  .post(`/api/items/${id}/unsubscribe`, {}, { headers: getAuthHeaders() });

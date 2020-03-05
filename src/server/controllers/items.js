@@ -4,6 +4,25 @@ import onliner from '../services/onlinerAPI';
 
 const { Item, UserItems } = db;
 
+const mergeOnlinerItemsWithTrackable = async (onlinerItems, userId) => {
+  const onlinerItemsIds = onlinerItems.map(({ id }) => id);
+  const userItems = await UserItems.findAll({
+    attributes: ['itemId'],
+    where: {
+      userId,
+      itemId: onlinerItemsIds,
+    },
+    raw: true,
+  });
+  const userItemsIds = userItems.map(({ itemId }) => itemId);
+
+  return onlinerItems.map((item) => {
+    const isSubscribed = userItemsIds.includes(item.id);
+
+    return { ...item, isSubscribed };
+  });
+};
+
 export const getItemByKey = async ({ params: { key } }, res) => {
   const onlinerItem = await onliner.getItemByKey(key);
   const trackableItem = await Item.findOne({
@@ -34,24 +53,24 @@ export const getAllItems = async ({ query: { name } }, res) => {
   return res.send(items);
 };
 
-export const getItemsByCategory = async ({ params: { categoryKey }, query: { page } }, res) => {
-  const items = await onliner.searchByCategory(categoryKey, page);
+export const getItemsByCategory = async ({ userId, params: { categoryKey }, query: { page } }, res) => {
+  const { data } = await onliner.searchByCategory(categoryKey, page);
+  data.products = await mergeOnlinerItemsWithTrackable(data.products, userId);
 
-  return res.send(items);
+  return res.send(data);
 };
 
-export const getItemsByQuery = async ({ query: { query } }, res) => {
+export const getItemsByQuery = async ({ userId, query: { query } }, res) => {
   if (!query) {
     return res.send('"query" is the mandatory parameter!');
   }
-  const items = await onliner.searchByQuery(query);
+  const response = await onliner.searchByQuery(query);
+  response.products = await mergeOnlinerItemsWithTrackable(response.products, userId);
 
-  return res.send(items);
+  return res.send(response);
 };
 
 export const subscribeUserToItem = async ({ userId, params: { itemKey } }, res) => {
-  // TODO: check for valid id === accept key instead of itemKey, then get id from onliner
-  // THE PROBLEM: Videocards don't have `key` property filled for now
   const { id: itemId, key, full_name: name,
     prices: { price_min: { amount: price } } } = await onliner.getItemByKey(itemKey);
 
