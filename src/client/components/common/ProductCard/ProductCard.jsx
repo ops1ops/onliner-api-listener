@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Card,
   CardActionArea,
   CardActions,
   CardContent,
-  CardMedia,
+  CardMedia, CircularProgress,
   Typography,
 } from '@material-ui/core';
 import { useHistory } from 'react-router';
@@ -27,14 +27,24 @@ const renderPrice = (prices) => {
 };
 
 const ProductCard = (props) => {
-  const { product: { id, full_name: fullName, description, prices, status, images: { header } } } = props;
+  const { product: { key, full_name: fullName, description, prices, status,
+    isSubscribed,
+    images: { header } } } = props;
   const history = useHistory();
+  const [isItemSubscribed, setIsItemSubscribed] = useState(isSubscribed);
+  const [isSubscribing, setIsSubscribing] = useState(false);
 
   const subscribeProduct = async () => {
-    await subscribeUserToItem(id);
+    try {
+      setIsSubscribing(true);
+      await subscribeUserToItem(key);
+      setIsItemSubscribed(true);
+    } finally {
+      setIsSubscribing(false);
+    }
   };
 
-  const redirectToItemPage = () => history.push(`/item/${id}`);
+  const redirectToItemPage = () => history.push(`/item/${key}`);
 
   return status !== 'old' && (
     <Card className="card-container">
@@ -50,8 +60,9 @@ const ProductCard = (props) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button className="subscribe-button" size="large" onClick={subscribeProduct}>
-          Subscribe
+        <Button className="subscribe-button" size="large" onClick={subscribeProduct} disabled={isItemSubscribed}>
+          {isItemSubscribed ? 'Subscribed' : 'Subscribe'}
+          {isSubscribing ? <CircularProgress size={15} /> : '' }
         </Button>
         {renderPrice(prices)}
       </CardActions>
@@ -76,8 +87,10 @@ ProductCard.defaultProps = {
 ProductCard.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.number.isRequired,
+    key: PropTypes.string.isRequired,
     full_name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
+    isSubscribed: PropTypes.bool.isRequired,
     prices: PropTypes.shape({
       price_min: PropTypes.shape({
         amount: PropTypes.string,

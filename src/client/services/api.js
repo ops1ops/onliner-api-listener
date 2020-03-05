@@ -1,6 +1,10 @@
 import axios from 'axios';
 import localStorageService from './localStorageService';
 
+const getAuthHeaders = () => ({
+  Authorization: `Bearer ${localStorageService.getToken()}`,
+});
+
 export const registerUser = (name, email, password, confirmPassword) => axios
   .post('/api/users/create', {
     name,
@@ -15,27 +19,19 @@ export const loginUser = (login, password) => axios
     password,
   });
 
-export const getItemById = (id) => axios.get(`/api/item/${id}`);
+export const getItemByKey = (id) => axios.get(`/api/item/${id}`);
 
 export const getCategories = () => axios
   .get('/api/categories');
 
 export const getCategory = (categoryKey) => axios
-  .get(`/api/categories/${categoryKey}`);
+  .get(`/api/categories/${categoryKey}`, { headers: getAuthHeaders() });
 
 export const searchItems = (params) => axios
-  .get('/api/search/items', { params: { query: params } });
+  .get('/api/search/items', { params: { query: params }, headers: getAuthHeaders() });
 
 export const subscribeUserToItem = (id) => axios
-  .post(`/api/items/${id}/subscribe`, {}, {
-    headers: {
-      Authorization: `Bearer ${localStorageService.getToken()}`,
-    },
-  });
+  .post(`/api/items/${id}/subscribe`, {}, { headers: getAuthHeaders() });
 
 export const unsubscribeUserFromItem = (id) => axios
-  .post(`/api/items/${id}/unsubscribe`, {}, {
-    headers: {
-      Authorization: `Bearer ${localStorageService.getToken()}`,
-    },
-  });
+  .post(`/api/items/${id}/unsubscribe`, {}, { headers: getAuthHeaders() });

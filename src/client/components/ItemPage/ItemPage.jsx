@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js';
 import PropTypes from 'prop-types';
 
-import { getItemById } from '../../services/api';
+import Typography from '@material-ui/core/Typography';
+import { getItemByKey } from '../../services/api';
 
 const generateChart = (ref, data) => (
   new Chart(ref, {
@@ -14,14 +15,14 @@ const generateChart = (ref, data) => (
   })
 );
 
-const ItemPage = ({ match: { params: { id } } }) => {
+const ItemPage = ({ match: { params: { key } } }) => {
   const chartRef = useRef(null);
-
+  const [item, setItem] = useState({});
   useEffect(() => {
     const handleItemFetch = async () => {
       try {
-        const { data } = await getItemById(id);
-
+        const { data } = await getItemByKey(key);
+        setItem(data);
         if (data.history.length) {
           const myChartRef = chartRef.current.getContext('2d');
           generateChart(myChartRef, data);
@@ -35,7 +36,11 @@ const ItemPage = ({ match: { params: { id } } }) => {
   }, []);
 
   return (
+
     <div>
+      <Typography variant="h5" color="textPrimary" component="h1">
+        {item.name}
+      </Typography>
       <canvas id="chart" ref={chartRef} />
     </div>
   );
@@ -44,7 +49,7 @@ const ItemPage = ({ match: { params: { id } } }) => {
 ItemPage.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
-      id: PropTypes.string.isRequired,
+      key: PropTypes.string.isRequired,
     }),
   }).isRequired,
 };
