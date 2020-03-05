@@ -1,12 +1,6 @@
 import axios from 'axios';
 import localStorageService from './localStorageService';
 
-const authConfig = {
-  headers: {
-    Authorization: `Bearer ${localStorageService.getToken()}`,
-  },
-};
-
 export const registerUser = (name, email, password, confirmPassword) => axios
   .post('/api/users/create', {
     name,
@@ -40,4 +34,8 @@ export const subscribeUserToItem = (id) => axios
   });
 
 export const unsubscribeUserFromItem = (id) => axios
-  .post(`/api/items/${id}/unsubscribe`, {}, authConfig);
+  .post(`/api/items/${id}/unsubscribe`, {}, {
+    headers: {
+      Authorization: `Bearer ${localStorageService.getToken()}`,
+    },
+  });
