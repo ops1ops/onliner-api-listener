@@ -34,7 +34,7 @@ const ProductCard = (props) => {
     await subscribeUserToItem(key);
   };
 
-  const redirectToItemPage = () => history.push(`/item/${id}`);
+  const redirectToItemPage = () => history.push(`/item/${key}`);
 
   return status !== 'old' && (
     <Card className="card-container">

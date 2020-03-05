@@ -12,7 +12,7 @@ const Routes = () => (
     <Route exact path="/register" component={RegisterPage} />
     <Route exact path="/user" component={UserPage} />
     <Route exact path="/" component={UserPage} />
-    <Route exact path="/item/:id" component={ItemPage} />
+    <Route exact path="/item/:key" component={ItemPage} />
   </Switch>
 );
 

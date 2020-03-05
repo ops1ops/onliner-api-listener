@@ -19,7 +19,7 @@ export const loginUser = (login, password) => axios
     password,
   });
 
-export const getItemById = (id) => axios.get(`/api/item/${id}`);
+export const getItemByKey = (id) => axios.get(`/api/item/${id}`);
 
 export const getCategories = () => axios
   .get('/api/categories');

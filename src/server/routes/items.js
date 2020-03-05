@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import {
   getAllItems,
-  getItemById,
+  getItemByKey,
   getItemsByCategory,
   getItemsByQuery,
   subscribeUserToItem,
@@ -12,7 +12,7 @@ import auth from '../middlewares/auth';
 const router = Router();
 
 router.get('/items', getAllItems);
-router.get('/item/:id', getItemById);
+router.get('/item/:key', getItemByKey);
 router.get('/categories/:categoryKey', getItemsByCategory);
 router.get('/search/items', getItemsByQuery);
 router.post('/items/:itemKey/subscribe', auth, subscribeUserToItem);

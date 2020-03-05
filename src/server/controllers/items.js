@@ -4,13 +4,15 @@ import onliner from '../services/onlinerAPI';
 
 const { Item, UserItems } = db;
 
-export const getItemById = async ({ params: { id } }, res) => {
-  const item = await Item.findAll({
+export const getItemByKey = async ({ params: { key } }, res) => {
+  const onlinerItem = await onliner.getItemByKey(key);
+  const trackableItem = await Item.findOne({
     include: ['history'],
-    where: { id },
+    where: { key },
   });
+  onlinerItem.history = trackableItem ? trackableItem.history : [];
 
-  return res.send(...item);
+  return res.send(onlinerItem);
 };
 
 export const getAllItems = async ({ query: { name } }, res) => {
