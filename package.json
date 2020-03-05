@@ -49,7 +49,8 @@
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "sequelize": "^5.21.3",
-    "set-random-interval": "^1.0.1"
+    "set-random-interval": "^1.0.1",
+    "use-debounce": "^3.3.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.3",

@@ -1,0 +1,35 @@
+.container {
+  padding: 100px;
+}
+
+.paper-container {
+  padding: 50px;
+}
+
+.box-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.category-filter {
+  display: flex;
+  flex-grow: 1;
+}
+
+.search-input {
+  display: flex;
+  flex-grow: 6;
+}
+
+.products-container {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.autocomplete-container {
+  width: 100%;
+  margin-bottom: 10px !important;
+}
