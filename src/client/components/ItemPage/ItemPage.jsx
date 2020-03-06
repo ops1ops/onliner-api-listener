@@ -18,6 +18,7 @@ const generateChart = (ref, data) => (
 const ItemPage = ({ match: { params: { key } } }) => {
   const chartRef = useRef(null);
   const [item, setItem] = useState({});
+
   useEffect(() => {
     const handleItemFetch = async () => {
       try {
@@ -36,10 +37,9 @@ const ItemPage = ({ match: { params: { key } } }) => {
   }, []);
 
   return (
-
     <div>
       <Typography variant="h5" color="textPrimary" component="h1">
-        {item.name}
+        {item.history && item.history.length === 0 && `The ${item.name} is tracking, but its price has not been updated.`}
       </Typography>
       <canvas id="chart" ref={chartRef} />
     </div>

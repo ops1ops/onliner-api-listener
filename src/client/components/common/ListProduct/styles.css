@@ -1,0 +1,16 @@
+.list-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.primaryText {
+    display: flex;
+    flex: 18 !important;
+}
+
+.secondaryText {
+    display: flex;
+    flex: 1 !important;
+    justify-content: flex-end;
+}

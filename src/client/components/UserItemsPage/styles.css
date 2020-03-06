@@ -1,0 +1,15 @@
+.main-container {
+  padding: 100px;
+}
+
+.wrapper-container {
+  padding: 50px;
+}
+
+.user-items-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+

@@ -35,3 +35,6 @@ export const subscribeUserToItem = (id) => axios
 
 export const unsubscribeUserFromItem = (id) => axios
   .post(`/api/items/${id}/unsubscribe`, {}, { headers: getAuthHeaders() });
+
+export const getUserSubscriptions = () => axios
+  .get('/api/user/subscriptions', { headers: getAuthHeaders() });
