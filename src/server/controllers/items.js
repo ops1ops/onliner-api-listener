@@ -2,7 +2,7 @@ import { Op } from 'sequelize';
 import db from '../db';
 import onliner from '../services/onlinerAPI';
 
-const { Item, UserItems } = db;
+const { Item, User, UserItems } = db;
 
 const mergeOnlinerItemsWithTrackable = async (onlinerItems, userId) => {
   const onlinerItemsIds = onlinerItems.map(({ id }) => id);
@@ -96,4 +96,13 @@ export const unsubscribeUserFromItem = async ({ userId, params: { itemId } }, re
   });
 
   res.send({ unsubscribed: !!deletedRows });
+};
+
+export const getUserItems = async ({ userId }, res) => {
+  const user = await User.findOne({
+    where: { id: userId },
+  });
+  const userItems = await user.getItems();
+
+  return res.send(userItems);
 };
