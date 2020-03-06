@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import Typography from '@material-ui/core/Typography';
 import { getItemByKey } from '../../services/api';
+import HistoryChart from '../common/HistoryChart';
 
 const generateChart = (ref, data) => (
   new Chart(ref, {
@@ -18,6 +19,7 @@ const generateChart = (ref, data) => (
 const ItemPage = ({ match: { params: { key } } }) => {
   const chartRef = useRef(null);
   const [item, setItem] = useState({});
+
   useEffect(() => {
     const handleItemFetch = async () => {
       try {
@@ -42,6 +44,7 @@ const ItemPage = ({ match: { params: { key } } }) => {
         {item.name}
       </Typography>
       <canvas id="chart" ref={chartRef} />
+      <HistoryChart history={item.history} />
     </div>
   );
 };
