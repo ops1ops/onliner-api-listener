@@ -20,7 +20,7 @@ const UserItemPage = () => {
 
         setProducts(data);
       } catch (error) {
-        console.error(error);
+        // TODO error
       } finally {
         setLoading(false);
       }
