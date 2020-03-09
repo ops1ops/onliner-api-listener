@@ -33,3 +33,9 @@
   width: 100%;
   margin-bottom: 10px;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}

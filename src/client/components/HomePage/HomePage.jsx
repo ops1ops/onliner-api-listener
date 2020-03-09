@@ -6,6 +6,7 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import Pagination from '@material-ui/lab/Pagination';
 import { useDebounce } from 'use-debounce';
 
 import ProductCard from '../common/ProductCard';
@@ -28,8 +29,12 @@ const renderCategories = (params) => (
 );
 
 const DEBOUNCE_TIME = 300;
+const INITIAL_PAGE = 1;
 
-const UserPage = () => {
+const HomePage = () => {
+  const [pagesCount, setPagesCount] = useState();
+  const [page, setPage] = useState(INITIAL_PAGE);
+  const [categoryKey, setCategoryKey] = useState();
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [searchValue, setSearchValue] = useState();
@@ -40,13 +45,18 @@ const UserPage = () => {
     try {
       const { key, name } = value;
 
+      setCategoryKey(key);
+
       setLoading(true);
-      const response = await getCategory(key);
+      const { data: { products: fetchedProducts, page: { last } } } = await getCategory(key);
 
       localStorageService.saveCategoryKeyFilter(key);
       localStorageService.saveCategoryNameFilter(name);
-      setProducts(sort(response.data.products));
+
+      setPagesCount(last);
+      setProducts(fetchedProducts);
     } catch {
+      setCategoryKey(null);
       setProducts([]);
     } finally {
       setLoading(false);
@@ -96,6 +106,21 @@ const UserPage = () => {
 
   const renderedProducts = products.map((product) => <ProductCard product={product} key={product.id} />);
 
+  const handlePaginationChange = useCallback(async (event, value) => {
+    try {
+      setPage(value);
+
+      setLoading(true);
+      const { data: { products: fetchedProducts } } = await getCategory(categoryKey, value);
+
+      setProducts(fetchedProducts);
+    } catch {
+      // TODO error
+    } finally {
+      setLoading(false);
+    }
+  }, [categoryKey]);
+
   return (
     <Container className="container">
       <Paper elevation={3} className="paper-container">
@@ -115,12 +140,18 @@ const UserPage = () => {
             onChange={handleSearch}
           />
         </Container>
+        { categoryKey && (
+          <Pagination className="pagination" count={pagesCount} page={page} onChange={handlePaginationChange} />
+        )}
         <Container className="products-container">
           {isLoading ? <CircularProgress /> : renderedProducts}
         </Container>
+        { categoryKey && (
+          <Pagination className="pagination" count={pagesCount} page={page} onChange={handlePaginationChange} />
+        )}
       </Paper>
     </Container>
   );
 };
 
-export default UserPage;
+export default HomePage;
