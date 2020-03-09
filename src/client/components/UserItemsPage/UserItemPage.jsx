@@ -9,7 +9,6 @@ import materialTableIcons from '../../data/materialTableIcons';
 import { getUserSubscriptions, unsubscribeUserFromItem } from '../../services/api';
 import './styles.css';
 
-const Icons = materialTableIcons;
 const tableStyle = {
   paddingLeft: 10,
   paddingRight: 10,
@@ -35,7 +34,7 @@ const UserItemPage = () => {
 
   const Actions = [
     {
-      icon: Icons.Delete,
+      icon: materialTableIcons.Delete,
       onClick: (event, rowData) => deleteItem(rowData.id, rowData.tableData.id),
     },
   ];
@@ -62,7 +61,7 @@ const UserItemPage = () => {
     <Container className="main-container">
       <MaterialTable
         actions={Actions}
-        icons={Icons}
+        icons={materialTableIcons}
         title="Subscribed products"
         columns={columns}
         data={products}

@@ -30,6 +30,7 @@ const renderCategories = (params) => (
 
 const DEBOUNCE_TIME = 300;
 const INITIAL_PAGE = 1;
+const categoryKeyFilter = localStorageService.getCategoryKeyFilter();
 
 const HomePage = () => {
   const [pagesCount, setPagesCount] = useState();
@@ -67,8 +68,8 @@ const HomePage = () => {
     const handleCategoriesFetch = async () => {
       try {
         const { data } = await getCategories();
-        if (localStorageService.getCategoryKeyFilter()) {
-          const response = await getCategory(localStorageService.getCategoryKeyFilter());
+        if (categoryKeyFilter) {
+          const response = await getCategory(categoryKeyFilter);
           setProducts(response.data.products);
         }
         setCategories(sort(data));

@@ -18,7 +18,6 @@ import {
 } from '@material-ui/icons';
 
 const materialTableIcons = {
-  // eslint-disable-next-line react/jsx-filename-extension
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
   Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
   Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
