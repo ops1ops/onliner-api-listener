@@ -16,13 +16,13 @@ const UserMenu = (props) => {
   });
   const handleClose = useCallback(() => {
     setAnchorEl(null);
-    history.push('/user_items');
+    history.push('/user/items');
   });
-  const getUserItemsRoute = useCallback(() => {
+  const redirectToUserItemsPage = useCallback(() => {
     setAnchorEl(null);
-    history.push('/user_items');
+    history.push('/user/items');
   });
-  const getInitialRoute = useCallback(() => {
+  const redirectToHomePage = useCallback(() => {
     setAnchorEl(null);
     history.push('/');
   });
@@ -46,8 +46,8 @@ const UserMenu = (props) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={getInitialRoute}>Profile</MenuItem>
-        <MenuItem onClick={getUserItemsRoute}>My items</MenuItem>
+        <MenuItem onClick={redirectToHomePage}>Profile</MenuItem>
+        <MenuItem onClick={redirectToUserItemsPage}>My items</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>

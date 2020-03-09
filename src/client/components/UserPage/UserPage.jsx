@@ -16,12 +16,13 @@ import {
 } from '../../services/api';
 import './styles.css';
 import localStorageService from '../../services/localStorageService';
+import sort from '../../utils/sort';
 
 const renderCategories = (params) => (
   <TextField
     {...params}
     className="autocomplete-container"
-    label="Filter"
+    label="Categories"
     variant="outlined"
   />
 );
@@ -37,13 +38,14 @@ const UserPage = () => {
 
   const handleCategoryChange = useCallback(async (event, value) => {
     try {
-      const { key } = value;
+      const { key, name } = value;
 
       setLoading(true);
       const response = await getCategory(key);
 
-      localStorageService.saveCategoryFilter(key);
-      setProducts(response.data.products);
+      localStorageService.saveCategoryKeyFilter(key);
+      localStorageService.saveCategoryNameFilter(name);
+      setProducts(sort(response.data.products));
     } catch {
       setProducts([]);
     } finally {
@@ -55,8 +57,11 @@ const UserPage = () => {
     const handleCategoriesFetch = async () => {
       try {
         const { data } = await getCategories();
-
-        setCategories(data);
+        if (localStorageService.getCategoryKeyFilter()) {
+          const response = await getCategory(localStorageService.getCategoryKeyFilter());
+          setProducts(response.data.products);
+        }
+        setCategories(sort(data));
       } catch {
         // TODO error
       }
@@ -71,7 +76,7 @@ const UserPage = () => {
         if (debouncedValue) {
           const response = await searchItems(debouncedValue);
 
-          setProducts(response.data.products);
+          setProducts(sort(response.data.products));
         }
       } catch {
         // TODO error
@@ -100,6 +105,7 @@ const UserPage = () => {
             options={categories}
             getOptionLabel={(option) => option.name}
             renderInput={renderCategories}
+            loading={isLoading}
           />
           <TextField
             id="outlined-basic"

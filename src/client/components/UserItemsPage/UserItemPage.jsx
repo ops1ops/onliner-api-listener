@@ -1,23 +1,50 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
+import MaterialTable from 'material-table';
 import {
-  CircularProgress,
   Container,
-  List,
-  Paper,
 } from '@material-ui/core';
-import { getUserSubscriptions } from '../../services/api';
+
+import materialTableIcons from '../../data/materialTableIcons';
+import { getUserSubscriptions, unsubscribeUserFromItem } from '../../services/api';
 import './styles.css';
-import ListProduct from '../common/ListProduct/ListProduct';
+
+const Icons = materialTableIcons;
+const tableStyle = {
+  paddingLeft: 10,
+  paddingRight: 10,
+};
 
 const UserItemPage = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setLoading] = useState(false);
+  const history = useHistory();
+  const columns = [
+    { title: 'Product name', field: 'name' },
+    { title: 'Price', field: 'price' },
+  ];
+
+  const deleteItem = async (itemId, itemTableId) => {
+    try {
+      await unsubscribeUserFromItem(itemId);
+      setProducts([...products.slice(0, itemTableId), ...products.slice(itemTableId + 1)]);
+    } catch {
+      // TODO error
+    }
+  };
+
+  const Actions = [
+    {
+      icon: Icons.Delete,
+      onClick: (event, rowData) => deleteItem(rowData.id, rowData.tableData.id),
+    },
+  ];
 
   useEffect(() => {
     const handleProductsFetch = async () => {
       try {
+        setLoading(true);
         const { data } = await getUserSubscriptions();
-
         setProducts(data);
       } catch (error) {
         // TODO error
@@ -29,27 +56,20 @@ const UserItemPage = () => {
     handleProductsFetch();
   }, []);
 
-  const renderedProducts = products
-    .slice()
-    .sort((a, b) => {
-      if (a.name > b.name) {
-        return 1;
-      }
-      if (a.name < b.name) {
-        return -1;
-      }
-
-      return 0;
-    })
-    .map((product) => <ListProduct product={product} key={product.id} />);
+  const redirectToItemPage = (event, { key }) => history.push(`/item/${key}`);
 
   return (
     <Container className="main-container">
-      <Paper elevation={3} className="wrapper-container">
-        <List className="user-items-container">
-          {isLoading ? <CircularProgress /> : renderedProducts}
-        </List>
-      </Paper>
+      <MaterialTable
+        actions={Actions}
+        icons={Icons}
+        title="Subscribed products"
+        columns={columns}
+        data={products}
+        isLoading={isLoading}
+        onRowClick={redirectToItemPage}
+        style={tableStyle}
+      />
     </Container>
   );
 };
