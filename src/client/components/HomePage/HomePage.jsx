@@ -17,18 +17,20 @@ import {
 } from '../../services/api';
 import './styles.css';
 import localStorageService from '../../services/localStorageService';
+import sort from '../../utils/sort';
 
 const renderCategories = (params) => (
   <TextField
     {...params}
     className="autocomplete-container"
-    label="Filter"
+    label="Categories"
     variant="outlined"
   />
 );
 
 const DEBOUNCE_TIME = 300;
 const INITIAL_PAGE = 1;
+const categoryKeyFilter = localStorageService.getCategoryKeyFilter();
 
 const HomePage = () => {
   const [pagesCount, setPagesCount] = useState();
@@ -42,12 +44,15 @@ const HomePage = () => {
 
   const handleCategoryChange = useCallback(async (event, value) => {
     try {
-      const { key } = value;
-      localStorageService.saveCategoryFilter(key);
+      const { key, name } = value;
+
       setCategoryKey(key);
 
       setLoading(true);
       const { data: { products: fetchedProducts, page: { last } } } = await getCategory(key);
+
+      localStorageService.saveCategoryKeyFilter(key);
+      localStorageService.saveCategoryNameFilter(name);
 
       setPagesCount(last);
       setProducts(fetchedProducts);
@@ -63,8 +68,11 @@ const HomePage = () => {
     const handleCategoriesFetch = async () => {
       try {
         const { data } = await getCategories();
-
-        setCategories(data);
+        if (categoryKeyFilter) {
+          const response = await getCategory(categoryKeyFilter);
+          setProducts(response.data.products);
+        }
+        setCategories(sort(data));
       } catch {
         // TODO error
       }
@@ -79,7 +87,7 @@ const HomePage = () => {
         if (debouncedValue) {
           const response = await searchItems(debouncedValue);
 
-          setProducts(response.data.products);
+          setProducts(sort(response.data.products));
         }
       } catch {
         // TODO error
@@ -123,6 +131,7 @@ const HomePage = () => {
             options={categories}
             getOptionLabel={(option) => option.name}
             renderInput={renderCategories}
+            loading={isLoading}
           />
           <TextField
             id="outlined-basic"
