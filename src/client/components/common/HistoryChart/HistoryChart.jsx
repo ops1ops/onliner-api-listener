@@ -38,7 +38,7 @@ const HistoryChart = ({ history = [] }) => {
   useEffect(() => {
     am4core.useTheme(themeAnimated);
     const chart = getScalableTimelineChart(chartRef);
-    chart.data = history.map(({ createdAt, price }) => ({ date: new Date(createdAt), price: price - 0 }));
+    chart.data = history.map(({ createdAt, price }) => ({ date: new Date(createdAt), price: Number(price) }));
 
     return () => chart.dispose();
   }, [history]);
