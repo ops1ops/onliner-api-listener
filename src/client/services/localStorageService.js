@@ -8,7 +8,10 @@ export default {
     return user ? user.jwt : '';
   },
   saveSearchValue: (searchValue) => localStorage.setItem('searchHistory', JSON.stringify(searchValue)),
-  getCategoryFilter: () => JSON.parse(localStorage.getItem('categoryFilterHistory')),
-  saveCategoryFilter: (categoryFilterValue) => localStorage
-    .setItem('categoryFilterHistory', JSON.stringify(categoryFilterValue)),
+  getCategoryKeyFilter: () => JSON.parse(localStorage.getItem('categoryFilterKeyHistory')),
+  getCategoryNameFilter: () => JSON.parse(localStorage.getItem('categoryFilterNameHistory')),
+  saveCategoryKeyFilter: (categoryFilterValue) => localStorage
+    .setItem('categoryFilterKeyHistory', JSON.stringify(categoryFilterValue)),
+  saveCategoryNameFilter: (categoryFilterValue) => localStorage
+    .setItem('categoryFilterNameHistory', JSON.stringify(categoryFilterValue)),
 };

@@ -16,6 +16,15 @@ const UserMenu = (props) => {
   });
   const handleClose = useCallback(() => {
     setAnchorEl(null);
+    history.push('/user/items');
+  });
+  const redirectToUserItemsPage = useCallback(() => {
+    setAnchorEl(null);
+    history.push('/user/items');
+  });
+  const redirectToHomePage = useCallback(() => {
+    setAnchorEl(null);
+    history.push('/');
   });
   const handleLogout = useCallback(() => {
     dispatch({
@@ -37,14 +46,16 @@ const UserMenu = (props) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={redirectToHomePage}>Profile</MenuItem>
+        <MenuItem onClick={redirectToUserItemsPage}>My items</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>
   );
 };
+
 UserMenu.propTypes = {
   username: PropTypes.string.isRequired,
 };
+
 export default UserMenu;
