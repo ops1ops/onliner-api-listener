@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import Typography from '@material-ui/core/Typography';
 import { getItemByKey } from '../../services/api';
+import HistoryChart from '../common/HistoryChart';
 
 const generateChart = (ref, data) => (
   new Chart(ref, {
@@ -42,6 +43,7 @@ const ItemPage = ({ match: { params: { key } } }) => {
         {item.history && item.history.length === 0 && `The ${item.name} is tracking, but its price has not been updated.`}
       </Typography>
       <canvas id="chart" ref={chartRef} />
+      <HistoryChart history={item.history} />
     </div>
   );
 };
