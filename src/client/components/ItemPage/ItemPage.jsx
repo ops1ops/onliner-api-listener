@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js';
 import PropTypes from 'prop-types';
-
 import Typography from '@material-ui/core/Typography';
+
 import { getItemByKey } from '../../services/api';
 
 const generateChart = (ref, data) => (
@@ -24,7 +24,8 @@ const ItemPage = ({ match: { params: { key } } }) => {
       try {
         const { data } = await getItemByKey(key);
         setItem(data);
-        if (data.history.length) {
+
+        if (data.history && data.history.length) {
           const myChartRef = chartRef.current.getContext('2d');
           generateChart(myChartRef, data);
         }
@@ -40,6 +41,7 @@ const ItemPage = ({ match: { params: { key } } }) => {
     <div>
       <Typography variant="h5" color="textPrimary" component="h1">
         {item.history && item.history.length === 0 && `The ${item.name} is tracking, but its price has not been updated.`}
+        {item.history === null && `The ${item.name} is not tracking, subscribe to it to start tracking`}
       </Typography>
       <canvas id="chart" ref={chartRef} />
       {/* <HistoryChart history={item.history} /> */}

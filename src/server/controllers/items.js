@@ -29,9 +29,11 @@ export const getItemByKey = async ({ params: { key } }, res) => {
     include: ['history'],
     where: { key },
   });
-  onlinerItem.history = trackableItem ? trackableItem.history : [];
 
-  return res.send(onlinerItem);
+  return res.send({
+    ...onlinerItem,
+    history: trackableItem ? trackableItem.history : null,
+  });
 };
 
 export const getAllItems = async ({ query: { name } }, res) => {
