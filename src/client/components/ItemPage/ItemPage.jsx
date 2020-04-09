@@ -41,7 +41,7 @@ const ItemPage = ({ match: { params: { key } } }) => {
     <div>
       <Typography variant="h5" color="textPrimary" component="h1">
         {item.history && item.history.length === 0 && `The ${item.name} is tracking, but its price has not been updated.`}
-        {item.history === null && `The ${item.name} is not tracking, subscribe to it to start tracking`}
+        {!item.history && `The ${item.name} is not tracking, subscribe to it to start tracking`}
       </Typography>
       <canvas id="chart" ref={chartRef} />
       {/* <HistoryChart history={item.history} /> */}
