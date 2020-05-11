@@ -10,7 +10,7 @@
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "server:dev": "nodemon --exec npm run server",
     "dev": "concurrently \"npm run server:dev\" \"npm run client\"",
-    "onliner-listener": "babel-node src/server/onliner-listener.js",
+    "onliner-listener": "babel-node -r dotenv/config src/server/onliner-listener.js",
     "lint": "eslint --ext .js,.jsx ./src"
   },
   "repository": {
