@@ -1,9 +1,8 @@
+import { setRandomInterval } from 'set-random-interval';
+
 import sleep from './utils/sleep';
 import onlinerAPI from './services/onlinerAPI';
-
-require('dotenv').config();
-const { setRandomInterval } = require('set-random-interval');
-const db = require('./db');
+import db from './db';
 
 const { Item } = db;
 
@@ -12,23 +11,29 @@ const MAX_DELAY = 60 * 60 * 1000;
 
 const getSleepTime = (wholeTime, itemsCount, processingTime) => {
   const maxSleepTime = wholeTime / itemsCount - processingTime;
+  const validTime = Math.max(maxSleepTime, 0);
 
-  return Math.floor(Math.random() * Math.floor(maxSleepTime));
+  return Math.floor(Math.random() * Math.floor(validTime));
 };
 
-const callback = async () => {
+const trackPrice = async () => {
   const items = await Item.findAll();
   const itemsCount = items.length;
 
-  for (let i = 0; i < itemsCount - 1; i++) {
+  for (let i = 0; i < itemsCount; i++) {
     const startProcessingTime = new Date();
     const item = items[i];
     const { key, price } = item;
-    const { prices: { price_min: { amount: onlinerPrice } } } = await onlinerAPI.getItemByKey(key);
 
-    if (onlinerPrice !== price) {
-      await item.createHistory({ price });
-      await item.update({ price: onlinerPrice });
+    const { prices } = await onlinerAPI.getItemByKey(key);
+
+    if (prices) {
+      const { price_min: { amount: onlinerPrice } } = prices;
+
+      if (onlinerPrice !== price) {
+        await item.createHistory({ price });
+        await item.update({ price: onlinerPrice });
+      }
     }
 
     const endProcessingTime = new Date();
@@ -36,4 +41,6 @@ const callback = async () => {
   }
 };
 
-setRandomInterval(callback, MIN_DELAY, MAX_DELAY);
+trackPrice();
+
+setRandomInterval(trackPrice, MIN_DELAY, MAX_DELAY);
