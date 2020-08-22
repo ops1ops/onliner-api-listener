@@ -1,6 +1,6 @@
 # Onliner api listener
-https://onliner-api-listener.herokuapp.com
-
+## Description
+Real time [onliner.by](https://onliner.by) price tracking system which saves every price change of tracked items to history. Also provides UI to make some actions (e. g. watch history chart, track any item and so on)
 ## Technologies
 - Backend
   - NodeJS (Express)
@@ -33,12 +33,9 @@ DB_HOST=<host>
 ```
 JWT_SECRET=<secret-key>
 ```
-## Run application
-- ### Dev mode
-```
-$ npm run dev
-```
-- ### Prod mode
-```
-$ npm start
-```
+## Main scripts
+`$ npm run dev` - runs application in development mode
+
+`$ npm run start` - runs application in production mode
+
+`$ npm run onliner-listener` - runs script, which tracks onliner price change
