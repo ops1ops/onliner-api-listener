@@ -44,7 +44,7 @@ const ItemPage = ({ match: { params: { key } } }) => {
         {!item.history && `The ${item.name} is not tracking, subscribe to it to start tracking`}
       </Typography>
       <canvas id="chart" ref={chartRef} />
-      {/* <HistoryChart history={item.history} /> */}
+      <HistoryChart history={item.history} />
     </div>
   );
 };
