@@ -1,55 +1,39 @@
-import React, { useEffect, useRef, useState } from 'react';
-import Chart from 'chart.js';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
+
 import HistoryChart from '../common/HistoryChart';
 
 import { getItemByKey } from '../../services/api';
 
-const generateChart = (ref, data) => (
-  new Chart(ref, {
-    type: 'line',
-    data: {
-      labels: data.history.map(({ createdAt }) => new Date(createdAt).toLocaleDateString()),
-      datasets: [{ label: 'History', data: data.history.map(({ price }) => price) }],
-    },
-  })
-);
-
 const ItemPage = ({ match: { params: { key } } }) => {
-  const chartRef = useRef(null);
-  const [item, setItem] = useState({});
-  const displayNone = {
-    display: 'none',
-  };
+  const [{ history, name }, setItem] = useState({ history: [] });
 
   useEffect(() => {
     const handleItemFetch = async () => {
       try {
         const { data } = await getItemByKey(key);
-        setItem(data);
 
-        if (data.history && data.history.length) {
-          const myChartRef = chartRef.current.getContext('2d');
-          generateChart(myChartRef, data);
-        }
+        setItem(data);
       } catch (error) {
-        // TODO: handle error
+        console.error(error);
       }
     };
 
     handleItemFetch();
   }, []);
 
-  return (
+  return history ? (
     <div>
-      <Typography variant="h5" color="textPrimary" component="h1">
-        {item.history && item.history.length === 0 && `The ${item.name} is tracking, but its price has not been updated.`}
-        {!item.history && `The ${item.name} is not tracking, subscribe to it to start tracking`}
+      <Typography color="textPrimary">
+        {history.length === 0 && `The ${name} is tracking, but its price has not been updated.`}
       </Typography>
-      <canvas style={displayNone} id="chart" ref={chartRef} />
-      <HistoryChart history={item.history} />
+      <HistoryChart history={history} />
     </div>
+  ) : (
+    <Typography color="textPrimary">
+      {`The ${name} is not tracking, subscribe to it to start tracking`}
+    </Typography>
   );
 };
 
