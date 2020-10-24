@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
+import HistoryChart from '../common/HistoryChart';
 
 import { getItemByKey } from '../../services/api';
 
@@ -18,6 +19,9 @@ const generateChart = (ref, data) => (
 const ItemPage = ({ match: { params: { key } } }) => {
   const chartRef = useRef(null);
   const [item, setItem] = useState({});
+  const displayNone = {
+    display: 'none',
+  };
 
   useEffect(() => {
     const handleItemFetch = async () => {
@@ -43,7 +47,7 @@ const ItemPage = ({ match: { params: { key } } }) => {
         {item.history && item.history.length === 0 && `The ${item.name} is tracking, but its price has not been updated.`}
         {!item.history && `The ${item.name} is not tracking, subscribe to it to start tracking`}
       </Typography>
-      <canvas id="chart" ref={chartRef} />
+      <canvas style={displayNone} id="chart" ref={chartRef} />
       <HistoryChart history={item.history} />
     </div>
   );
