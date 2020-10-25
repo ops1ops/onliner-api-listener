@@ -12,7 +12,7 @@ import { useDebounce } from 'use-debounce';
 import ProductCard from '../common/ProductCard';
 import {
   getCategories,
-  getCategory,
+  getCategoryItems,
   searchItems,
 } from '../../services/api';
 import './styles.css';
@@ -49,7 +49,7 @@ const HomePage = () => {
       setCategoryKey(key);
 
       setLoading(true);
-      const { data: { products: fetchedProducts, page: { last } } } = await getCategory(key);
+      const { data: { products: fetchedProducts, page: { last } } } = await getCategoryItems(key);
 
       localStorageService.saveCategoryKeyFilter(key);
       localStorageService.saveCategoryNameFilter(name);
@@ -69,7 +69,7 @@ const HomePage = () => {
       try {
         const { data } = await getCategories();
         if (categoryKeyFilter) {
-          const response = await getCategory(categoryKeyFilter);
+          const response = await getCategoryItems(categoryKeyFilter);
           setProducts(response.data.products);
         }
         setCategories(sort(data));
@@ -112,7 +112,7 @@ const HomePage = () => {
       setPage(value);
 
       setLoading(true);
-      const { data: { products: fetchedProducts } } = await getCategory(categoryKey, value);
+      const { data: { products: fetchedProducts } } = await getCategoryItems(categoryKey, value);
 
       setProducts(fetchedProducts);
     } catch {

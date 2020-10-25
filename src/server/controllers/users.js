@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
+
 import db from '../db';
-import getJWT from '../utils/getJWT';
+import generateJWT from '../utils/generateJWT';
 import { EMAIL_REGEX } from '../constants';
 
 const { User } = db;
@@ -30,7 +31,7 @@ export const createUser = ({ body: { email, name, password, confirmPassword } },
     password: bcrypt.hashSync(password, 10),
   })
     .then(({ id }) => {
-      res.send({ id, name, jwt: getJWT(id) });
+      res.send({ id, name, jwt: generateJWT(id) });
     })
     .catch((reason) => {
       res.status(400).json({
@@ -46,7 +47,7 @@ export const loginUser = ({ body: { login, password } }, res) => {
       const isPasswordValid = bcrypt.compareSync(password, passwordHash);
 
       if (user && isPasswordValid) {
-        res.json({ id, name, jwt: getJWT(id) });
+        res.json({ id, name, jwt: generateJWT(id) });
       } else {
         res.status(401).send({ message: 'Wrong username or password!' });
       }

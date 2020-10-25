@@ -1,52 +1,46 @@
-import React, { useContext, useCallback } from 'react';
+import React, { useContext, useCallback, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
-import AuthContext from '../../../../contexts/AuthContext';
 
-const UserMenu = (props) => {
-  const { username } = props;
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const { dispatch } = useContext(AuthContext);
+import AuthContext from '../../../../contexts/AuthContext';
+import { USER_ITEMS_PATH } from '../../../../constants/paths';
+
+const UserMenu = ({ username }) => {
   const history = useHistory();
-  const handleClick = useCallback((event) => {
-    setAnchorEl(event.currentTarget);
+  const { dispatch } = useContext(AuthContext);
+  const [anchorElement, setAnchorElement] = useState(null);
+
+  const selectMenuItem = useCallback((event) => {
+    setAnchorElement(event.currentTarget);
   });
-  const handleClose = useCallback(() => {
-    setAnchorEl(null);
-    history.push('/user/items');
+
+  const closeMenu = useCallback(() => {
+    setAnchorElement(null);
   });
+
   const redirectToUserItemsPage = useCallback(() => {
-    setAnchorEl(null);
-    history.push('/user/items');
+    history.push(USER_ITEMS_PATH);
   });
-  const redirectToHomePage = useCallback(() => {
-    setAnchorEl(null);
-    history.push('/');
-  });
+
   const handleLogout = useCallback(() => {
-    dispatch({
-      type: 'LOGOUT',
-    });
-    history.push('/login');
-    handleClose();
-  }, [handleClose]);
+    dispatch({ type: 'LOGOUT' });
+  }, [closeMenu]);
 
   return (
     <div>
-      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={selectMenuItem}>
         {username}
       </Button>
       <Menu
         id="user-menu"
-        anchorEl={anchorEl}
+        anchorEl={anchorElement}
         keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
+        open={Boolean(anchorElement)}
+        onClose={closeMenu}
       >
-        <MenuItem onClick={redirectToHomePage}>Profile</MenuItem>
         <MenuItem onClick={redirectToUserItemsPage}>My items</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
