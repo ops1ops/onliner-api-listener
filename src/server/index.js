@@ -1,6 +1,5 @@
 import express from 'express';
 import compression from 'compression';
-import path from 'path';
 
 import { DEFAULT_PORT, DIST_PATH, JSON_SPACES_NUMBER } from './constants';
 import cors from './middlewares/cors';
