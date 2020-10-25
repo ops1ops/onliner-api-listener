@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 
 import HistoryChart from '../common/HistoryChart';
-
 import { getItemByKey } from '../../services/api';
 
 const ItemPage = ({ match: { params: { key } } }) => {
