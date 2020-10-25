@@ -1,0 +1,43 @@
+name: CF Deployment
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  CF-Deployment:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Build Application
+      run: |
+        npm install
+        npm run build
+    - name: CF Start App
+      uses: citizen-of-planet-earth/cf-cli-action@v1
+      with:
+        cf_api: ${{ secrets.cf_api }}
+        cf_username: ${{ secrets.cf_username }}
+        cf_password: ${{ secrets.cf_password }}
+        cf_org: ${{ secrets.cf_org }}
+        cf_space: ${{ secrets.cf_space }}
+        command: v3-push onliner-listener-production
+    - name: CF Start Worker
+      uses: citizen-of-planet-earth/cf-cli-action@v1
+      with:
+        cf_api: ${{ secrets.cf_api }}
+        cf_username: ${{ secrets.cf_username }}
+        cf_password: ${{ secrets.cf_password }}
+        cf_org: ${{ secrets.cf_org }}
+        cf_space: ${{ secrets.cf_space }}
+        command: v3-scale onliner-listener-production --process worker -i 1

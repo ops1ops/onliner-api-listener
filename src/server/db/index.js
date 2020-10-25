@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import fs from 'fs';
 import path from 'path';
+
 import Sequelize from 'sequelize';
 
 const basename = path.basename(__filename);
@@ -25,6 +26,7 @@ fs
   .filter((file) => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
   .forEach((file) => {
     const model = sequelize.import(path.join(modelsPath, file));
+
     db[model.name] = model;
   });
 

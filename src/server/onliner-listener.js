@@ -37,6 +37,7 @@ const trackPrice = async () => {
     }
 
     const endProcessingTime = new Date();
+
     await sleep(getSleepTime(MIN_DELAY, itemsCount, endProcessingTime - startProcessingTime));
   }
 };
