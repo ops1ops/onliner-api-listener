@@ -9,11 +9,11 @@ import {
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
-import { registerUser } from '../../../services/api';
 
-import './styles.css';
+import { registerUser } from '../../../services/api';
 import DefaultInput from '../../common/DefaultInput';
 import AuthContext from '../../../contexts/AuthContext';
+import './styles.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,6 +66,7 @@ const RegisterForm = () => {
 
     try {
       const { data: user } = await registerUser(login, email, password, passwordConfirmation);
+
       dispatch({
         type: 'LOGIN',
         payload: user,

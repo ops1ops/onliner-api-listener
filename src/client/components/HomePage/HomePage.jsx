@@ -68,10 +68,13 @@ const HomePage = () => {
     const handleCategoriesFetch = async () => {
       try {
         const { data } = await getCategories();
+
         if (categoryKeyFilter) {
           const response = await getCategoryItems(categoryKeyFilter);
+
           setProducts(response.data.products);
         }
+
         setCategories(sort(data));
       } catch {
         // TODO error

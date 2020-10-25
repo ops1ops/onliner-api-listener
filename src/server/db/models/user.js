@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     password: DataTypes.STRING,
   }, {});
+
   User.associate = ({ Item }) => {
     User.belongsToMany(Item, {
       through: 'UserItems',

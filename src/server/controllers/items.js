@@ -1,4 +1,5 @@
 import { Op } from 'sequelize';
+
 import db from '../db';
 import onliner from '../services/onlinerAPI';
 
@@ -57,6 +58,7 @@ export const getAllItems = async ({ query: { name } }, res) => {
 
 export const getItemsByCategory = async ({ userId, params: { categoryKey }, query: { page } }, res) => {
   const data = await onliner.searchByCategory(categoryKey, page);
+
   data.products = await mergeOnlinerItemsWithTrackable(data.products, userId);
 
   return res.send(data);
@@ -66,7 +68,9 @@ export const getItemsByQuery = async ({ userId, query: { query } }, res) => {
   if (!query) {
     return res.send('"query" is the mandatory parameter!');
   }
+
   const response = await onliner.searchByQuery(query);
+
   response.products = await mergeOnlinerItemsWithTrackable(response.products, userId);
 
   return res.send(response);
@@ -86,6 +90,7 @@ export const subscribeUserToItem = async ({ userId, params: { itemKey } }, res) 
     defaults: { userId, itemId },
   });
   const response = userItem.get({ plain: true });
+
   response.isAlreadySubscribed = !isCreated;
 
   res.send({ ...response });

@@ -9,11 +9,11 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Alert } from '@material-ui/lab';
+
 import DefaultInput from '../../common/DefaultInput';
 import { loginUser } from '../../../services/api';
-
-import './styles.css';
 import AuthContext from '../../../contexts/AuthContext';
+import './styles.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,9 +45,11 @@ const LoginForm = () => {
   const handleLogin = useCallback(async (e) => {
     e.preventDefault();
     const isValid = login && password;
+
     if (isValid) {
       try {
         const { data: user } = await loginUser(login, password);
+
         dispatch({
           type: 'LOGIN',
           payload: user,
