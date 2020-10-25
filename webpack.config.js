@@ -10,6 +10,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, DIST_PATH),
     filename: 'bundle.js',
+    publicPath: '/',
   },
   module: {
     rules: [{
@@ -36,12 +37,15 @@ module.exports = {
     port: 3000,
     open: true,
     proxy: {
-      '/api': `http://localhost:${process.env.PORT || DEFAULT_PORT}`,
+      '/': `http://localhost:${process.env.PORT || DEFAULT_PORT}`,
     },
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin({ filename: 'bundle.css' }),
+    new MiniCssExtractPlugin({
+      filename: 'bundle.css',
+      publicPath: '/',
+    }),
     new HtmlWebpackPlugin({
       template: './public/index.html',
       favicon: './public/favicon.ico',

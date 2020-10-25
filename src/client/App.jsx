@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import './App.less';
 import HeaderToolbar from './components/common/HeaderToolbar';
@@ -15,10 +15,10 @@ const App = () => {
 
   return (
     <AuthContext.Provider value={{ state, dispatch }}>
-      <HashRouter>
+      <BrowserRouter path="/">
         <HeaderToolbar />
         <Routes />
-      </HashRouter>
+      </BrowserRouter>
     </AuthContext.Provider>
   );
 };
