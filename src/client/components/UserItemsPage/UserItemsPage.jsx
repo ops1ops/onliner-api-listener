@@ -21,6 +21,7 @@ const TABLE_COLUMNS = [
   { title: 'Product name', field: 'name' },
   { title: 'Price', field: 'price' },
   { title: 'Subscribed at', field: 'createdAt' },
+  { title: 'Updated at', field: 'updatedAt' },
 ];
 
 const TABLE_OPTIONS = { pageSizeOptions: PAGE_SIZES, pageSize: SMALL_SIZE };
