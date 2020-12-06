@@ -84,5 +84,7 @@
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.3"
   },
-  "bundledDependencies": ["history"]
+  "bundledDependencies": [
+    "history"
+  ]
 }
