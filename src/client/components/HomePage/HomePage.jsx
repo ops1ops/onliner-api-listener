@@ -6,7 +6,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import ProductCard from '../common/ProductCard';
 import useCategories from './useCategories';
 import useSearch from './useSearch';
-import useCategory from './useCategory';
+import useSelectedCategory from './useSelectedCategory';
 import './styles.css';
 
 const renderCategoryInput = (params) => (
@@ -31,11 +31,15 @@ const HomePage = () => {
     pagesCount,
     handleCategoryChange,
     handlePaginationChange,
-  } = useCategory(setProducts, setLoading);
+  } = useSelectedCategory(setProducts, setLoading);
 
-  const handleSearch = useSearch(setProducts, setLoading);
+  const handleSearch = useSearch(setProducts, setLoading, handleCategoryChange);
 
   const renderedProducts = products.map((product) => <ProductCard product={product} key={product.id} />);
+
+  const pagination = categoryValue && !isLoading && (
+    <Pagination className="pagination" count={pagesCount} page={page} onChange={handlePaginationChange} />
+  );
 
   return (
     <Container className="container">
@@ -57,15 +61,11 @@ const HomePage = () => {
             onChange={handleSearch}
           />
         </Container>
-        { categoryValue && (
-          <Pagination className="pagination" count={pagesCount} page={page} onChange={handlePaginationChange} />
-        )}
+        {pagination}
         <Container className="products-container">
           {isLoading ? <CircularProgress /> : renderedProducts}
         </Container>
-        { categoryValue && (
-          <Pagination className="pagination" count={pagesCount} page={page} onChange={handlePaginationChange} />
-        )}
+        {pagination}
       </Paper>
     </Container>
   );

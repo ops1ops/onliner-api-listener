@@ -13,7 +13,7 @@ const useCategories = () => {
 
         setCategories(sort(data));
       } catch (error) {
-        console.error(error);
+        setCategories([]);
       }
     };
 

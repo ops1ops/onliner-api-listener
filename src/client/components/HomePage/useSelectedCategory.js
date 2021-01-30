@@ -5,9 +5,10 @@ import localStorageService from '../../services/localStorageService';
 import { getCategoryItems } from '../../services/api';
 
 const INITIAL_PAGE = 1;
-const INITIAL_CATEGORY = localStorageService.getFilterCategory() || { value: null, page: INITIAL_PAGE };
+const DEFAULT_CATEGORY = { value: null, page: INITIAL_PAGE };
+const INITIAL_CATEGORY = localStorageService.getFilterCategory() || DEFAULT_CATEGORY;
 
-const useCategory = (setProducts, setLoading) => {
+const useSelectedCategory = (setProducts, setLoading) => {
   const [category, setCategory] = useState(INITIAL_CATEGORY);
   const [pagesCount, setPagesCount] = useState();
 
@@ -30,9 +31,16 @@ const useCategory = (setProducts, setLoading) => {
 
   const handlePaginationChange = (_event, value) => setCategory((prevCategory) => ({ ...prevCategory, page: value }));
 
-  const handleCategoryChange = (_event, value) => setCategory({ value, page: INITIAL_PAGE });
+  const handleCategoryChange = (_event, value) => {
+    setCategory({ value, page: INITIAL_PAGE });
+
+    if (!value) {
+      setProducts([]);
+      setPagesCount();
+    }
+  };
 
   return { category, pagesCount, handleCategoryChange, handlePaginationChange };
 };
 
-export default useCategory;
+export default useSelectedCategory;

@@ -8,7 +8,7 @@ import sort from '../../utils/sort';
 
 const SEARCH_DEBOUNCE_TIME = 300;
 
-const useSearch = (setProducts, setLoading) => {
+const useSearch = (setProducts, setLoading, handleCategoryChange) => {
   const [searchValue, setSearchValue] = useState();
   const [debouncedSearchValue] = useDebounce(searchValue, SEARCH_DEBOUNCE_TIME);
 
@@ -26,7 +26,10 @@ const useSearch = (setProducts, setLoading) => {
     handleFetchBySearch();
   }, [debouncedSearchValue]);
 
-  const handleSearch = ({ target: { value } }) => setSearchValue(value);
+  const handleSearch = ({ target: { value } }) => {
+    handleCategoryChange();
+    setSearchValue(value);
+  };
 
   return handleSearch;
 };
