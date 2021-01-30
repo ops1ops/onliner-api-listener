@@ -33,7 +33,7 @@ const HomePage = () => {
     handlePaginationChange,
   } = useSelectedCategory(setProducts, setLoading);
 
-  const handleSearch = useSearch(setProducts, setLoading, handleCategoryChange);
+  const [searchValue, handleSearch] = useSearch(setProducts, setLoading, handleCategoryChange);
 
   const renderedProducts = products.map((product) => <ProductCard product={product} key={product.id} />);
 
@@ -58,6 +58,7 @@ const HomePage = () => {
             label="Search"
             variant="outlined"
             className="search-input"
+            value={searchValue}
             onChange={handleSearch}
           />
         </Container>

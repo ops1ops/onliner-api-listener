@@ -7,9 +7,10 @@ import { searchItems } from '../../services/api';
 import sort from '../../utils/sort';
 
 const SEARCH_DEBOUNCE_TIME = 300;
+const INITIAL_SEARCH_VALUE = localStorageService.getSearchValue();
 
 const useSearch = (setProducts, setLoading, handleCategoryChange) => {
-  const [searchValue, setSearchValue] = useState();
+  const [searchValue, setSearchValue] = useState(INITIAL_SEARCH_VALUE);
   const [debouncedSearchValue] = useDebounce(searchValue, SEARCH_DEBOUNCE_TIME);
 
   useEffect(() => {
@@ -31,8 +32,7 @@ const useSearch = (setProducts, setLoading, handleCategoryChange) => {
     setSearchValue(value);
   };
 
-  return handleSearch;
+  return [searchValue, handleSearch];
 };
 
 export default useSearch;
-
