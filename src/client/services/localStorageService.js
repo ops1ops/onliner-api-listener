@@ -1,4 +1,4 @@
-const FILTER_CATEGORY_LOCALSTORAGE_KEY = 'categoryFilter';
+const FILTER_CATEGORY_LOCAL_STORAGE_KEY = 'categoryFilter';
 
 export default {
   saveUser: (user) => localStorage.setItem('user', JSON.stringify(user)),
@@ -10,6 +10,6 @@ export default {
     return user ? user.jwt : '';
   },
   saveSearchValue: (searchValue) => localStorage.setItem('searchHistory', JSON.stringify(searchValue)),
-  getFilterCategory: () => JSON.parse(localStorage.getItem(FILTER_CATEGORY_LOCALSTORAGE_KEY)),
-  saveFilterCategory: (category) => localStorage.setItem(FILTER_CATEGORY_LOCALSTORAGE_KEY, JSON.stringify(category)),
+  getFilterCategory: () => JSON.parse(localStorage.getItem(FILTER_CATEGORY_LOCAL_STORAGE_KEY)),
+  saveFilterCategory: (category) => localStorage.setItem(FILTER_CATEGORY_LOCAL_STORAGE_KEY, JSON.stringify(category)),
 };
