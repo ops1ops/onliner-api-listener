@@ -48,7 +48,6 @@ module.exports = {
       favicon: './public/favicon.ico',
     }),
   ],
-
   // https://www.amcharts.com/docs/v4/getting-started/integrations/using-webpack/#Large_file_sizes
   externals: (context, request, callback) => {
     if (/xlsx|canvg|pdfmake/.test(request)) {
