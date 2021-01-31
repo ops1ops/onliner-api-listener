@@ -1,4 +1,5 @@
 const path = require('path');
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -47,4 +48,13 @@ module.exports = {
       favicon: './public/favicon.ico',
     }),
   ],
+
+  // https://www.amcharts.com/docs/v4/getting-started/integrations/using-webpack/#Large_file_sizes
+  externals: (context, request, callback) => {
+    if (/xlsx|canvg|pdfmake/.test(request)) {
+      return callback(null, `commonjs ${request}`);
+    }
+
+    callback();
+  },
 };
