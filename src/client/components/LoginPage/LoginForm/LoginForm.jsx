@@ -14,6 +14,7 @@ import DefaultInput from '../../common/DefaultInput';
 import { loginUser } from '../../../services/api';
 import AuthContext from '../../../contexts/AuthContext';
 import './styles.css';
+import { HOME_PATH } from '../../../constants/paths';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,11 +51,9 @@ const LoginForm = () => {
       try {
         const { data: user } = await loginUser(login, password);
 
-        dispatch({
-          type: 'LOGIN',
-          payload: user,
-        });
-        history.push('/user');
+        dispatch({ type: 'LOGIN', payload: user });
+
+        history.push(HOME_PATH);
       } catch (error) {
         setErrorMessage(error.response.data.message);
       }

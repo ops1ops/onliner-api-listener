@@ -1,25 +1,15 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import {
-  Container,
-  Paper,
-  TextField,
-  CircularProgress,
-} from '@material-ui/core';
+import React, { useState } from 'react';
+import { CircularProgress, Container, Paper, TextField } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Pagination from '@material-ui/lab/Pagination';
-import { useDebounce } from 'use-debounce';
 
 import ProductCard from '../common/ProductCard';
-import {
-  getCategories,
-  getCategoryItems,
-  searchItems,
-} from '../../services/api';
+import useCategories from './useCategories';
+import useSearch from './useSearch';
+import useSelectedCategory from './useSelectedCategory';
 import './styles.css';
-import localStorageService from '../../services/localStorageService';
-import sort from '../../utils/sort';
 
-const renderCategories = (params) => (
+const renderCategoryInput = (params) => (
   <TextField
     {...params}
     className="autocomplete-container"
@@ -28,112 +18,39 @@ const renderCategories = (params) => (
   />
 );
 
-const DEBOUNCE_TIME = 300;
-const INITIAL_PAGE = 1;
-const categoryKeyFilter = localStorageService.getCategoryKeyFilter();
+const getOptionLabel = ({ name }) => name;
 
 const HomePage = () => {
-  const [pagesCount, setPagesCount] = useState();
-  const [page, setPage] = useState(INITIAL_PAGE);
-  const [categoryKey, setCategoryKey] = useState();
-  const [categories, setCategories] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [searchValue, setSearchValue] = useState();
   const [isLoading, setLoading] = useState(false);
-  const [debouncedValue] = useDebounce(searchValue, DEBOUNCE_TIME);
+  const [products, setProducts] = useState([]);
 
-  const handleCategoryChange = useCallback(async (event, value) => {
-    try {
-      const { key, name } = value;
+  const categories = useCategories();
 
-      setCategoryKey(key);
+  const {
+    category: { value: categoryValue, page },
+    pagesCount,
+    handleCategoryChange,
+    handlePaginationChange,
+  } = useSelectedCategory(setProducts, setLoading);
 
-      setLoading(true);
-      const { data: { products: fetchedProducts, page: { last } } } = await getCategoryItems(key);
-
-      localStorageService.saveCategoryKeyFilter(key);
-      localStorageService.saveCategoryNameFilter(name);
-
-      setPagesCount(last);
-      setProducts(fetchedProducts);
-    } catch {
-      setCategoryKey(null);
-      setProducts([]);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    const handleCategoriesFetch = async () => {
-      try {
-        const { data } = await getCategories();
-
-        if (categoryKeyFilter) {
-          const response = await getCategoryItems(categoryKeyFilter);
-
-          setProducts(response.data.products);
-        }
-
-        setCategories(sort(data));
-      } catch {
-        // TODO error
-      }
-    };
-
-    handleCategoriesFetch();
-  }, []);
-
-  useEffect(() => {
-    const handleFetchBySearch = async () => {
-      try {
-        if (debouncedValue) {
-          const response = await searchItems(debouncedValue);
-
-          setProducts(sort(response.data.products));
-        }
-      } catch {
-        // TODO error
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    handleFetchBySearch();
-  }, [debouncedValue]);
-
-  const handleSearch = ({ target: { value } }) => {
-    setSearchValue(value);
-    localStorageService.saveSearchValue(value);
-    setLoading(true);
-  };
+  const [searchValue, handleSearch] = useSearch(setProducts, setLoading, handleCategoryChange);
 
   const renderedProducts = products.map((product) => <ProductCard product={product} key={product.id} />);
 
-  const handlePaginationChange = useCallback(async (event, value) => {
-    try {
-      setPage(value);
-
-      setLoading(true);
-      const { data: { products: fetchedProducts } } = await getCategoryItems(categoryKey, value);
-
-      setProducts(fetchedProducts);
-    } catch {
-      // TODO error
-    } finally {
-      setLoading(false);
-    }
-  }, [categoryKey]);
+  const pagination = categoryValue && !isLoading && (
+    <Pagination className="pagination" count={pagesCount} page={page} onChange={handlePaginationChange} />
+  );
 
   return (
     <Container className="container">
       <Paper elevation={3} className="paper-container">
         <Container className="box-container">
           <Autocomplete
+            value={categoryValue}
             onChange={handleCategoryChange}
             options={categories}
-            getOptionLabel={(option) => option.name}
-            renderInput={renderCategories}
+            getOptionLabel={getOptionLabel}
+            renderInput={renderCategoryInput}
             loading={isLoading}
           />
           <TextField
@@ -141,18 +58,15 @@ const HomePage = () => {
             label="Search"
             variant="outlined"
             className="search-input"
+            value={searchValue}
             onChange={handleSearch}
           />
         </Container>
-        { categoryKey && (
-          <Pagination className="pagination" count={pagesCount} page={page} onChange={handlePaginationChange} />
-        )}
+        {pagination}
         <Container className="products-container">
           {isLoading ? <CircularProgress /> : renderedProducts}
         </Container>
-        { categoryKey && (
-          <Pagination className="pagination" count={pagesCount} page={page} onChange={handlePaginationChange} />
-        )}
+        {pagination}
       </Paper>
     </Container>
   );
