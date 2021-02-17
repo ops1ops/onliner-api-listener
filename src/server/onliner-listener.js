@@ -1,4 +1,4 @@
-import { setRandomInterval } from 'set-random-interval';
+import setRandomInterval from 'set-random-interval';
 
 import sleep from './utils/sleep';
 import onlinerAPI from './services/onlinerAPI';
