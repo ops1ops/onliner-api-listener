@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react';
 import { HashRouter } from 'react-router-dom';
+import { StylesProvider } from '@material-ui/core';
 
 import './App.less';
 import HeaderToolbar from './components/common/HeaderToolbar';
@@ -14,12 +15,14 @@ const App = () => {
   });
 
   return (
-    <AuthContext.Provider value={{ state, dispatch }}>
-      <HashRouter>
-        <HeaderToolbar />
-        <Routes />
-      </HashRouter>
-    </AuthContext.Provider>
+    <StylesProvider injectFirst>
+      <AuthContext.Provider value={{ state, dispatch }}>
+        <HashRouter>
+          <HeaderToolbar />
+          <Routes />
+        </HashRouter>
+      </AuthContext.Provider>
+    </StylesProvider>
   );
 };
 
