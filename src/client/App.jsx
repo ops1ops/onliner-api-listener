@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { StylesProvider } from '@material-ui/core';
 
 import './App.less';
@@ -17,10 +17,10 @@ const App = () => {
   return (
     <StylesProvider injectFirst>
       <AuthContext.Provider value={{ state, dispatch }}>
-        <HashRouter>
+        <BrowserRouter>
           <HeaderToolbar />
           <Routes />
-        </HashRouter>
+        </BrowserRouter>
       </AuthContext.Provider>
     </StylesProvider>
   );

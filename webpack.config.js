@@ -1,5 +1,3 @@
-const path = require('path');
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -9,25 +7,27 @@ const { DEFAULT_PORT, DIST_PATH } = require('./config/config');
 module.exports = {
   entry: ['babel-polyfill', './src/client/index.js'],
   output: {
-    path: path.join(__dirname, DIST_PATH),
+    path: DIST_PATH,
+    publicPath: '/',
     filename: 'bundle.js',
   },
   module: {
-    rules: [{
-      test: /\.(js|jsx)$/,
-      exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader',
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
       },
-    },
-    {
-      test: /\.(css|less)$/i,
-      use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'],
-    },
-    {
-      test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-      loader: 'url-loader?limit=100000',
-    },
+      {
+        test: /\.(css|less)$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'],
+      },
+      {
+        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        loader: 'url-loader?limit=100000',
+      },
     ],
   },
   resolve: {
@@ -36,6 +36,7 @@ module.exports = {
   devServer: {
     port: 3000,
     open: true,
+    historyApiFallback: true,
     proxy: {
       '/api': `http://localhost:${process.env.PORT || DEFAULT_PORT}`,
     },
