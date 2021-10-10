@@ -34,8 +34,8 @@ DB_HOST=<host>
 JWT_SECRET=<secret-key>
 ```
 ## Main scripts
-`$ npm run dev` - runs application in development mode
+`$ npm run start` - runs application in development mode
 
-`$ npm run start` - runs application in production mode
+`$ npm run prod` - runs application in production mode
 
 `$ npm run onliner-listener` - runs script, which tracks onliner price change

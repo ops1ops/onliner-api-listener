@@ -1,8 +1,8 @@
-import { createHashHistory } from 'history';
+import { createBrowserHistory } from 'history';
 
 import { LOGIN_PATH } from '../constants/paths';
 
-const history = createHashHistory();
+const history = createBrowserHistory();
 
 const UNAUTHORIZED_STATUS = 401;
 
