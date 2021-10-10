@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import themeAnimated from '@amcharts/amcharts4/themes/animated';
+import { Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 import './styles.css';
@@ -37,6 +38,10 @@ const HistoryChart = ({ history = [] }) => {
   const chartRef = useRef(null);
 
   useEffect(() => {
+    if (history.length === 0) {
+      return;
+    }
+
     am4core.useTheme(themeAnimated);
     const chart = getScalableTimelineChart(chartRef);
     chart.data = history.map(({ createdAt, price }) => ({ date: new Date(createdAt), price: Number(price) }));
@@ -44,10 +49,19 @@ const HistoryChart = ({ history = [] }) => {
     return () => chart.dispose();
   }, [history]);
 
-  return <div ref={chartRef} className="chart-container" />;
+  return (
+    <>
+      {
+        history.length === 0 && (
+          <Typography color="textPrimary">
+            Item being tracked, but its price has not changed.
+          </Typography>
+        )
+      }
+      <div ref={chartRef} className="chart-container" />
+    </>
+  );
 };
-
-export default HistoryChart;
 
 HistoryChart.defaultProps = {
   history: [],
@@ -59,3 +73,5 @@ HistoryChart.propTypes = {
     price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   })),
 };
+
+export default HistoryChart;
