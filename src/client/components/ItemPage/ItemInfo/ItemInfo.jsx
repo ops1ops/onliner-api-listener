@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import React from 'react';
-import { Container, Typography } from '@material-ui/core';
+import { Container, Typography, Link } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import './styles.css';
 
@@ -10,7 +10,7 @@ const ItemInfo = ({ extended_name, description, html_url, images, prices }) => (
       <img src={images.header} alt="item" />
       <div>
         <Typography variant="h4" component="h1" align="left" color="textPrimary">
-          <a href={html_url} rel="noreferrer" target="_blank">{extended_name}</a>
+          <Link href={html_url} rel="noreferrer" target="_blank">{extended_name}</Link>
         </Typography>
         <Typography gutterBottom variant="h5" component="h2" align="left" color="textPrimary">
           {description}
