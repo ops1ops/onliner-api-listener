@@ -1,34 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
+import { CircularProgress, Typography } from '@material-ui/core';
 
 import HistoryChart from '../common/HistoryChart';
 import { getItemByKey } from '../../services/api';
+import ItemInfo from './ItemInfo/ItemInfo';
+import withLoading from '../../decorators/withLoading';
 
 const ItemPage = ({ match: { params: { key } } }) => {
-  const [{ history, name }, setItem] = useState({ history: [] });
+  const [item, setItem] = useState({ history: [] });
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    const handleItemFetch = async () => {
-      try {
-        const { data } = await getItemByKey(key);
+    const handleItemFetch = withLoading(async () => {
+      const { data } = await getItemByKey(key);
 
-        setItem(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+      setItem(data);
+    }, setLoading);
 
     handleItemFetch();
   }, []);
 
+  if (isLoading) {
+    return <CircularProgress />;
+  }
+
+  const { history, name } = item;
+
   return history ? (
-    <div>
-      <Typography color="textPrimary">
-        {history.length === 0 && `The ${name} is tracking, but its price has not been updated.`}
-      </Typography>
+    <>
+      <ItemInfo {...item} />
       <HistoryChart history={history} />
-    </div>
+    </>
   ) : (
     <Typography color="textPrimary">
       {`The ${name} is not tracking, subscribe to it to start tracking`}

@@ -1,0 +1,13 @@
+.item-info-header {
+  margin-top: 24px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.item-info-header > img {
+  height: 170px;
+  width: 220px;
+  object-fit: contain;
+  margin-right: 32px;
+}

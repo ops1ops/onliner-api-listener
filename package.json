@@ -5,10 +5,10 @@
   "main": "src/server/index.js",
   "scripts": {
     "start": "concurrently \"npm run server:dev\" \"npm run client\"",
-    "prod": "npm run build && npm run server",
+    "prod": "npm run server",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "build": "webpack --progress --mode production",
-    "heroku-postbuild": "echo Skip builds on Heroku",
+    "postbuild": "echo Skip builds on Heroku",
     "server:dev": "nodemon --exec npm run server",
     "server": "babel-node -r dotenv/config src/server/index.js",
     "onliner-listener": "babel-node -r dotenv/config src/server/onliner-listener.js",
