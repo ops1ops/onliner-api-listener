@@ -1,41 +1,46 @@
-import React, { useContext, useCallback, useState } from 'react';
+import React, { useContext, useCallback, useState, FC } from 'react';
+
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
 
-import AuthContext from '../../../../contexts/AuthContext';
 import { USER_ITEMS_PATH } from '../../../../constants/paths';
+import AuthContext from '../../../../contexts/AuthContext';
 
-const UserMenu = ({ username }) => {
+type UserMenuProps = {
+  username: string;
+};
+
+const UserMenu: FC<UserMenuProps> = ({ username }) => {
   const history = useHistory();
   const { dispatch } = useContext(AuthContext);
   const [anchorElement, setAnchorElement] = useState(null);
 
   const selectMenuItem = useCallback((event) => {
     setAnchorElement(event.currentTarget);
-  });
+  }, []);
 
   const closeMenu = useCallback(() => {
     setAnchorElement(null);
-  });
+  }, []);
 
   const redirectToUserItemsPage = useCallback(() => {
     history.push(USER_ITEMS_PATH);
-  });
+  }, []);
 
   const handleLogout = useCallback(() => {
-    dispatch({ type: 'LOGOUT' });
+    dispatch({ type: 'LOGOUT', payload: null });
   }, [closeMenu]);
 
   return (
     <div>
-      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={selectMenuItem}>
+      <Button aria-controls='simple-menu' aria-haspopup='true' onClick={selectMenuItem}>
         {username}
       </Button>
       <Menu
-        id="user-menu"
+        id='user-menu'
         anchorEl={anchorElement}
         keepMounted
         open={Boolean(anchorElement)}

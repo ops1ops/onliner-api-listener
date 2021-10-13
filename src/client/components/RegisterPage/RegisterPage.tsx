@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Container from '@material-ui/core/Container';
 
 import RegisterForm from './RegisterForm';
@@ -6,7 +7,7 @@ import RegisterForm from './RegisterForm';
 import './styles.css';
 
 const RegisterPage = () => (
-  <Container className="pageContent">
+  <Container className='pageContent'>
     <RegisterForm />
   </Container>
 );

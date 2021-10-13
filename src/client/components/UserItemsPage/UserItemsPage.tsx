@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
+
+import { Container } from '@material-ui/core';
+import { ProductType } from '@root/client/types/product';
+import MaterialTable, { MaterialTableProps } from 'material-table';
 import { useHistory } from 'react-router';
-import MaterialTable from 'material-table';
-import {
-  Container,
-} from '@material-ui/core';
 
 import materialTableIcons from '../../data/materialTableIcons';
-import { getUserSubscriptions, unsubscribeUserFromItem } from '../../services/api';
-import { PAGE_SIZES, SMALL_SIZE } from './pageSizes';
 import withLoading from '../../decorators/withLoading';
+import { getUserSubscriptions, unsubscribeUserFromItem } from '../../services/api';
+
+import { PAGE_SIZES, SMALL_SIZE } from './pageSizes';
 
 import './styles.css';
 
@@ -28,22 +29,25 @@ const TABLE_OPTIONS = { pageSizeOptions: PAGE_SIZES, pageSize: SMALL_SIZE };
 
 const UserItemsPage = () => {
   const history = useHistory();
-  const [items, setItems] = useState([]);
-  const [isLoading, setLoading] = useState(false);
+  const [items, setItems] = useState<ProductType[] | []>([]);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
-  const deleteItem = async (itemId, itemTableId) => {
+  const deleteItem = async (itemId: number, itemTableId: number) => {
     try {
       await unsubscribeUserFromItem(itemId);
 
-      setItems((prevItems) => [...prevItems.slice(0, itemTableId), ...prevItems.slice(itemTableId + 1)]);
+      setItems((prevItems) => [
+        ...prevItems.slice(0, itemTableId),
+        ...prevItems.slice(itemTableId + 1),
+      ]);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const tableActions = [
+  const tableActions: MaterialTableProps<ProductType>['actions'] = [
     {
-      icon: materialTableIcons.Delete,
+      icon: materialTableIcons.Delete || '',
       onClick: (_event, { id, tableData: { dataId } }) => deleteItem(id, dataId),
     },
   ];
@@ -58,14 +62,16 @@ const UserItemsPage = () => {
     fetchUserItems();
   }, []);
 
-  const redirectToItemPage = (event, { key }) => history.push(`/item/${key}`);
+  const redirectToItemPage: MaterialTableProps<ProductType>['onRowClick'] = (_event, product) => {
+    product && history.push(`/item/${product.key}`);
+  };
 
   return (
-    <Container className="main-container">
-      <MaterialTable
+    <Container className='main-container'>
+      <MaterialTable<ProductType>
         actions={tableActions}
         icons={materialTableIcons}
-        title="Subscribed products"
+        title='Subscribed products'
         columns={TABLE_COLUMNS}
         data={items}
         isLoading={isLoading}

@@ -1,4 +1,6 @@
-const withLoading = (callback, setLoadingStatus) => async () => {
+import { Dispatch, SetStateAction } from 'react';
+
+const withLoading = (callback: () => void, setLoadingStatus: Dispatch<SetStateAction<boolean>>) => async () => {
   try {
     setLoadingStatus(true);
 

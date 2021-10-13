@@ -1,17 +1,21 @@
 import { useEffect, useState } from 'react';
 
-import { getCategories } from '../../services/api';
-import sort from '../../utils/sort';
+import { CategoryType } from '@root/client/types/category';
 
-const useCategories = () => {
-  const [categories, setCategories] = useState([]);
+import { getCategories } from '../../services/api';
+import sortByName from '../../utils/sortByName';
+
+type UseCategoriesReturnType = CategoryType[];
+
+const useCategories = (): UseCategoriesReturnType => {
+  const [categories, setCategories] = useState<CategoryType[]>([]);
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const { data } = await getCategories();
 
-        setCategories(sort(data));
+        setCategories(sortByName<CategoryType>(data));
       } catch (error) {
         setCategories([]);
       }

@@ -1,15 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { FC, useEffect, useState } from 'react';
+
 import { CircularProgress, Typography } from '@material-ui/core';
+import { initialProduct } from '@root/client/components/constants/product';
+import { ProductType } from '@root/client/types/product';
 
-import HistoryChart from '../common/HistoryChart';
-import { getItemByKey } from '../../services/api';
-import ItemInfo from './ItemInfo/ItemInfo';
 import withLoading from '../../decorators/withLoading';
+import { getItemByKey } from '../../services/api';
+import HistoryChart from '../common/HistoryChart';
 
-const ItemPage = ({ match: { params: { key } } }) => {
-  const [item, setItem] = useState({ history: [] });
-  const [isLoading, setLoading] = useState(false);
+import ItemInfo from './ItemInfo/ItemInfo';
+
+type ItemPageProps = {
+  match: {
+    params: {
+      key: string;
+    };
+  };
+};
+
+const ItemPage: FC<ItemPageProps> = ({
+  match: {
+    params: { key },
+  },
+}) => {
+  const [item, setItem] = useState<ProductType>(initialProduct);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const handleItemFetch = withLoading(async () => {
@@ -33,18 +48,10 @@ const ItemPage = ({ match: { params: { key } } }) => {
       <HistoryChart history={history} />
     </>
   ) : (
-    <Typography color="textPrimary">
+    <Typography color='textPrimary'>
       {`The ${name} is not tracking, subscribe to it to start tracking`}
     </Typography>
   );
-};
-
-ItemPage.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      key: PropTypes.string.isRequired,
-    }),
-  }).isRequired,
 };
 
 export default ItemPage;
