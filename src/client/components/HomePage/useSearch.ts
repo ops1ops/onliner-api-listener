@@ -11,6 +11,7 @@ import localStorageService from '../../services/localStorageService';
 import sortByName from '../../utils/sortByName';
 
 const SEARCH_DEBOUNCE_TIME = 300;
+
 const INITIAL_SEARCH_VALUE = localStorageService.getSearchValue();
 
 type UseSearchReturnType = [string, TextFieldProps['onChange']];
@@ -20,8 +21,8 @@ const useSearch = (
   setLoading: Dispatch<SetStateAction<boolean>>,
   handleCategoryChange: HandleCategoryChangeType,
 ): UseSearchReturnType => {
-  const [searchValue, setSearchValue] = useState(INITIAL_SEARCH_VALUE);
-  const [debouncedSearchValue] = useDebounce(searchValue, SEARCH_DEBOUNCE_TIME);
+  const [searchValue, setSearchValue] = useState<string>(INITIAL_SEARCH_VALUE);
+  const [debouncedSearchValue] = useDebounce<string>(searchValue, SEARCH_DEBOUNCE_TIME);
 
   useEffect(() => {
     const handleFetchBySearch = withLoading(async () => {

@@ -1,53 +1,15 @@
 import { ProductStatus } from '@root/client/enums';
+import {
+  ForumType,
+  HistoryItemType,
+  ManufacturerType,
+  MaxCobrandCashbackType,
+  ReviewsType,
+  SaleType,
+  SecondType,
+} from '@root/client/types/helpers';
 import { ImagesType } from '@root/client/types/images';
-import { PricesType, PriceType } from '@root/client/types/prices';
-
-export type ForumType = {
-  post_url: string;
-  topic_id: number;
-  topic_url: string;
-};
-
-export type HistoryItemType = {
-  createdAt: string;
-  id: number;
-  itemId: number;
-  price: string;
-  updatedAt: string;
-};
-
-export type ManufacturerType = {
-  key: string;
-  legal_address: string;
-  legal_name: string;
-  name: string;
-};
-
-export type MaxCobrandCashbackType = {
-  label: string;
-  percentage: number;
-};
-
-export type ReviewsType = {
-  count: number;
-  html_url: string;
-  rating: number;
-  url: string;
-};
-
-export type SaleType = {
-  can_be_subscribed: boolean;
-  discount: number;
-  is_on_sale: boolean;
-  min_prices_median: PriceType;
-  subscribed: boolean;
-};
-
-export type SecondType = {
-  max_price: number | null;
-  min_price: number | null;
-  offers_count: 0;
-};
+import { PricesType } from '@root/client/types/prices';
 
 export type ProductType = {
   certification_required: boolean;

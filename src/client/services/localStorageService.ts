@@ -5,11 +5,11 @@ const FILTER_CATEGORY_LOCAL_STORAGE_KEY = 'categoryFilter';
 const SEARCH_VALUE_LOCAL_STORAGE_KEY = 'searchHistory';
 
 export default {
-  getItem: (key: string) => JSON.parse(localStorage.getItem(key) || ''),
+  getItem: (key: string) => JSON.parse(localStorage.getItem(key) as string),
   setItem: (key: string, value: PaginationCategoryType | string) =>
     localStorage.setItem(key, JSON.stringify(value)),
   saveUser: (user: UserType) => localStorage.setItem('user', JSON.stringify(user)),
-  getUser() {
+  getUser(): UserType {
     return this.getItem('user');
   },
   clear: () => localStorage.clear(),

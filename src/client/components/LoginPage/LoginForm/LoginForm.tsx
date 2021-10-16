@@ -3,6 +3,7 @@ import React, { useCallback, useContext, useState } from 'react';
 import { Paper, Button, FormControl, InputLabel, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Alert } from '@material-ui/lab';
+import { loginUserAction } from '@root/client/store/actions';
 import { Link, useHistory } from 'react-router-dom';
 
 import { HOME_PATH } from '../../../constants/paths';
@@ -47,7 +48,7 @@ const LoginForm = () => {
         try {
           const { data: user } = await loginUser(login, password);
 
-          dispatch({ type: 'LOGIN', payload: user });
+          dispatch(loginUserAction(user));
 
           history.push(HOME_PATH);
         } catch (error) {

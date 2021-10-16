@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 
 import { CircularProgress, Typography } from '@material-ui/core';
-import { initialProduct } from '@root/client/components/constants/product';
+import { initialProduct } from '@root/client/constants/product';
 import { ProductType } from '@root/client/types/product';
 
 import withLoading from '../../decorators/withLoading';

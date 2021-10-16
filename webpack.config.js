@@ -1,11 +1,14 @@
+const path = require('path');
+
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const { DEFAULT_PORT, DIST_PATH } = require('./config/config');
+const resolveTsconfigPathsToAlias = require('./resolve-tsconfig-path-to-webpack-alias');
 
 module.exports = {
-  entry: ['babel-polyfill', './src/client/index.tsx'],
+  entry: ['./src/client/index.tsx'],
   output: {
     path: DIST_PATH,
     publicPath: '/',
@@ -14,10 +17,10 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: 'ts-loader',
         },
       },
       {
@@ -26,12 +29,20 @@ module.exports = {
       },
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-        loader: 'url-loader?limit=100000',
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 1000,
+            },
+          },
+        ],
       },
     ],
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx'],
+    extensions: ['*', '.js', '.jsx', '.tsx', '.ts'],
+    alias: resolveTsconfigPathsToAlias(),
   },
   devServer: {
     port: 3000,

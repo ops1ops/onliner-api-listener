@@ -3,6 +3,7 @@ import React, { useContext, useCallback, useState, FC } from 'react';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { logoutUserAction } from '@root/client/store/actions';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
 
@@ -31,7 +32,7 @@ const UserMenu: FC<UserMenuProps> = ({ username }) => {
   }, []);
 
   const handleLogout = useCallback(() => {
-    dispatch({ type: 'LOGOUT', payload: null });
+    dispatch(logoutUserAction());
   }, [closeMenu]);
 
   return (

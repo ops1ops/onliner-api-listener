@@ -1,16 +1,19 @@
-import React, { useReducer } from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { StylesProvider } from '@material-ui/core';
+import React, { Reducer, useReducer } from 'react';
 
-import './App.less';
+import { StylesProvider } from '@material-ui/core';
+import { UserActionsType } from '@root/client/store/actions/actionsTypes';
+import { BrowserRouter } from 'react-router-dom';
+
+import Routes from './Routes';
 import HeaderToolbar from './components/common/HeaderToolbar';
 import AuthContext from './contexts/AuthContext';
 import localStorageService from './services/localStorageService';
-import userReducer from './reducers/userReducer';
-import Routes from './Routes';
+import userReducer, { UserReducerState } from './store/reducers/userReducer';
+import './App.less';
 
 const App = () => {
-  const [state, dispatch] = useReducer(userReducer, {
+  const [state, dispatch] = useReducer<Reducer<UserReducerState, UserActionsType>>(userReducer, {
+    isAuthenticated: false,
     user: localStorageService.getUser(),
   });
 

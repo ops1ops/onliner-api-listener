@@ -10,6 +10,7 @@
     "newline-before-return": [2],
     "no-plusplus": [0],
     "no-multiple-empty-lines": [2, { "max": 1 }],
+    "@typescript-eslint/no-var-requires": 0,
     "padding-line-between-statements": [
       2,
       { "blankLine": "always", "prev": "*", "next": ["if", "return"] },
@@ -35,7 +36,7 @@
         "pathGroups": [
           { "group": "builtin", "pattern": "react", "position": "before" }
         ],
-        "pathGroupsExcludedImportTypes": ["react", "react-native"]
+        "pathGroupsExcludedImportTypes": ["react"]
       }
     ],
     "react/prop-types": 0,

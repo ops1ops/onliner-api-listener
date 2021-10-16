@@ -4,8 +4,6 @@ import { ProductType } from '@root/client/types/product';
 import { UserType } from '@root/client/types/user';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-import withRedirectToLoginPage from '../decorators/withRedirectToLoginPage';
-
 import localStorageService from './localStorageService';
 
 export type GetCategoryItemsType = (
@@ -46,26 +44,22 @@ export const getItemByKey = (id: string) => apiInstance.get<ProductType>(`item/$
 
 export const getCategories = () => apiInstance.get<CategoryType[]>('categories');
 
-export const getCategoryItems = withRedirectToLoginPage<GetCategoryItemsType>(
-  (categoryKey, pageNumber = 1) =>
-    apiInstance.get(`categories/${categoryKey}?page=${pageNumber}`, { headers: getAuthHeaders() }),
-);
+export const getCategoryItems: GetCategoryItemsType = (categoryKey, pageNumber = 1) =>
+  apiInstance.get<SearchItemsType>(`categories/${categoryKey}?page=${pageNumber}`, {
+    headers: getAuthHeaders(),
+  });
 
-export const searchItems = withRedirectToLoginPage((params) =>
+export const searchItems = (params: string) =>
   apiInstance.get<SearchItemsType>('search/items', {
     params: { query: params },
     headers: getAuthHeaders(),
-  }),
-);
+  });
 
-export const subscribeUserToItem = withRedirectToLoginPage((id) =>
-  apiInstance.post(`items/${id}/subscribe`, {}, { headers: getAuthHeaders() }),
-);
+export const subscribeUserToItem = (id: string) =>
+  apiInstance.post(`items/${id}/subscribe`, {}, { headers: getAuthHeaders() });
 
-export const unsubscribeUserFromItem = withRedirectToLoginPage((id) =>
-  apiInstance.post(`items/${id}/unsubscribe`, {}, { headers: getAuthHeaders() }),
-);
+export const unsubscribeUserFromItem = (id: number) =>
+  apiInstance.post(`items/${id}/unsubscribe`, {}, { headers: getAuthHeaders() });
 
-export const getUserSubscriptions = withRedirectToLoginPage(() =>
-  apiInstance.get('user/subscriptions', { headers: getAuthHeaders() }),
-);
+export const getUserSubscriptions = () =>
+  apiInstance.get('user/subscriptions', { headers: getAuthHeaders() });

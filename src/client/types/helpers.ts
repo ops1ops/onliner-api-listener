@@ -1,5 +1,6 @@
 import { AutocompleteProps } from '@material-ui/lab/Autocomplete';
 import { CategoryType } from '@root/client/types/category';
+import { PriceType } from '@root/client/types/prices';
 import { ProductType } from '@root/client/types/product';
 
 export type AutocompleteType = AutocompleteProps<CategoryType, undefined, undefined, undefined>;
@@ -23,4 +24,55 @@ export type SearchItemsType = {
 
 export type NameType = {
   name: string;
+};
+
+export type ForumType = {
+  post_url: string;
+  topic_id: number;
+  topic_url: string;
+};
+
+export type HistoryItemType = {
+  createdAt: string;
+  id: number;
+  itemId: number;
+  price: string;
+  updatedAt: string;
+};
+
+export type ManufacturerType = {
+  key: string;
+  legal_address: string;
+  legal_name: string;
+  name: string;
+};
+
+export type MaxCobrandCashbackType = {
+  label: string;
+  percentage: number;
+};
+
+export type ReviewsType = {
+  count: number;
+  html_url: string;
+  rating: number;
+  url: string;
+};
+
+export type SaleType = {
+  can_be_subscribed: boolean;
+  discount: number;
+  is_on_sale: boolean;
+  min_prices_median: PriceType;
+  subscribed: boolean;
+};
+
+export type SecondType = {
+  max_price: number | null;
+  min_price: number | null;
+  offers_count: number;
+};
+
+export type TableDataType = {
+  id: number;
 };
