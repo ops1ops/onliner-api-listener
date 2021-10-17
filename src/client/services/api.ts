@@ -18,7 +18,7 @@ const axiosBaseConfig: AxiosRequestConfig = {
 const apiInstance = axios.create(axiosBaseConfig);
 
 export const registerUser = (name: string, email: string, password: string, confirmPassword: string) =>
-  apiInstance.post('users/create', {
+  apiInstance.post<UserType>('users/create', {
     name,
     email,
     password,

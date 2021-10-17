@@ -1,7 +1,7 @@
 export type UserType = {
   id: number;
-  name: string;
   jwt: string;
+  name: string;
 };
 
 export type UserSubscriptionType = {
