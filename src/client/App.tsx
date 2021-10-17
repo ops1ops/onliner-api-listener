@@ -14,7 +14,7 @@ import './App.less';
 
 const theme = createTheme({
   palette: {
-    divider: '#551A8B',
+    divider: 'rgba(0, 0, 0, 0.12)',
   },
 });
 
