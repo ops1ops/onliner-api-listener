@@ -6,28 +6,28 @@ const SEARCH_VALUE_LOCAL_STORAGE_KEY = "searchHistory";
 
 export default {
   getItem: (key: string) => JSON.parse(localStorage.getItem(key) as string),
-  setItem: (key: string, value: PaginationCategoryType | string) =>
+  setItem: (key: string, value: PaginationCategoryType | string): void =>
     localStorage.setItem(key, JSON.stringify(value)),
   saveUser: (user: UserType) => localStorage.setItem("user", JSON.stringify(user)),
   getUser(): UserType {
     return this.getItem("user");
   },
   clear: () => localStorage.clear(),
-  getToken() {
+  getToken(): string {
     const user = this.getUser();
 
     return user ? user.jwt : "";
   },
-  getSearchValue() {
+  getSearchValue(): string {
     return this.getItem(SEARCH_VALUE_LOCAL_STORAGE_KEY);
   },
-  saveSearchValue(searchValue: string) {
+  saveSearchValue(searchValue: string): void {
     this.setItem(SEARCH_VALUE_LOCAL_STORAGE_KEY, searchValue);
   },
-  getFilterCategory() {
+  getFilterCategory(): PaginationCategoryType {
     return this.getItem(FILTER_CATEGORY_LOCAL_STORAGE_KEY);
   },
-  saveFilterCategory(category: PaginationCategoryType) {
+  saveFilterCategory(category: PaginationCategoryType): void {
     this.setItem(FILTER_CATEGORY_LOCAL_STORAGE_KEY, category);
   },
 };
