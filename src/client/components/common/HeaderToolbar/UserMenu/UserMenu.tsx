@@ -1,6 +1,6 @@
 import React, { useContext, useCallback, useState, FC } from 'react';
 
-import { Button, Menu, MenuItem } from '@mui/material';
+import { Button, ButtonProps, Menu, MenuItem, MenuItemProps, MenuProps } from '@mui/material';
 import { USER_ITEMS_PATH } from '@root/client/constants/paths';
 import AuthContext from '@root/client/contexts/AuthContext';
 import { logoutUserAction } from '@root/client/store/actions';
@@ -13,21 +13,21 @@ type UserMenuProps = {
 const UserMenu: FC<UserMenuProps> = ({ username }) => {
   const history = useHistory();
   const { dispatch } = useContext(AuthContext);
-  const [anchorElement, setAnchorElement] = useState(null);
+  const [anchorElement, setAnchorElement] = useState<MenuProps['anchorEl']>(null);
 
-  const selectMenuItem = useCallback((event) => {
+  const selectMenuItem: ButtonProps['onChange'] = useCallback((event) => {
     setAnchorElement(event.currentTarget);
   }, []);
 
-  const closeMenu = useCallback(() => {
+  const closeMenu: MenuProps['onClose'] = useCallback(() => {
     setAnchorElement(null);
   }, []);
 
-  const redirectToUserItemsPage = useCallback(() => {
+  const redirectToUserItemsPage: MenuItemProps['onClick'] = useCallback(() => {
     history.push(USER_ITEMS_PATH);
   }, []);
 
-  const handleLogout = useCallback(() => {
+  const handleLogout: MenuItemProps['onClick'] = useCallback(() => {
     dispatch(logoutUserAction());
   }, [closeMenu]);
 
