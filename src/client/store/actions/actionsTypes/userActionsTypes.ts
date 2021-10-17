@@ -8,9 +8,16 @@ export type LoginUserAction = {
   payload: LoginUserPayload;
 };
 
+export type RegisterUserPayload = UserType;
+
+export type RegisterUserAction = {
+  type: UserActions.REGISTER;
+  payload: RegisterUserPayload;
+};
+
 export type LogoutUserAction = {
   type: UserActions.LOGOUT;
   payload: null;
 };
 
-export type UserActionsType = LoginUserAction | LogoutUserAction;
+export type UserActionsType = LoginUserAction | LogoutUserAction | RegisterUserAction;

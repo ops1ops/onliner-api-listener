@@ -3,4 +3,6 @@ export type {
   LoginUserAction,
   LogoutUserAction,
   UserActionsType,
+  RegisterUserAction,
+  RegisterUserPayload,
 } from "./userActionsTypes";

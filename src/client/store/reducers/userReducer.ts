@@ -13,7 +13,7 @@ export type UserReducerState = {
 
 const userReducer: Reducer<UserReducerState, UserActionsType> = (state, action) => {
   switch (action.type) {
-    case UserActions.LOGIN:
+    case UserActions.LOGIN: {
       const { payload } = action;
 
       localStorageService.saveUser(payload);
@@ -23,7 +23,21 @@ const userReducer: Reducer<UserReducerState, UserActionsType> = (state, action) 
         isAuthenticated: true,
         payload,
       };
-    case UserActions.LOGOUT:
+    }
+
+    case UserActions.REGISTER: {
+      const { payload } = action;
+
+      localStorageService.saveUser(payload);
+
+      return {
+        ...state,
+        isAuthenticated: true,
+        payload,
+      };
+    }
+
+    case UserActions.LOGOUT: {
       localStorageService.clear();
 
       return {
@@ -31,8 +45,11 @@ const userReducer: Reducer<UserReducerState, UserActionsType> = (state, action) 
         isAuthenticated: false,
         user: null,
       };
-    default:
+    }
+
+    default: {
       return state;
+    }
   }
 };
 

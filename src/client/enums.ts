@@ -6,4 +6,5 @@ export enum ProductStatus {
 export enum UserActions {
   LOGIN = "user/login",
   LOGOUT = "user/logout",
+  REGISTER = "user/register",
 }

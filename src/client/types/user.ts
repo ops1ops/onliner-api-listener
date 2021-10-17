@@ -4,7 +4,7 @@ export type UserType = {
   jwt: string;
 };
 
-export type UserSubscriptions = {
+export type UserSubscription = {
   categoryKey: null | string;
   createdAt: string;
   id: number;

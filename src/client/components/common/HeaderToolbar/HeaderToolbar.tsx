@@ -3,10 +3,10 @@ import React, { FC, useContext } from "react";
 import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 import { Theme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
+import AuthContext from "@root/client/contexts/AuthContext";
 import { Link } from "react-router-dom";
 
 import { HOME_PATH, LOGIN_PATH } from "../../../constants/paths";
-import AuthContext from "../../../contexts/AuthContext";
 
 import UserMenu from "./UserMenu/UserMenu";
 

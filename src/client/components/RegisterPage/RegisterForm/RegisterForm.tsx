@@ -1,8 +1,9 @@
-import React, { useState, useCallback, useContext } from "react";
+import React, { useCallback, useContext, useState } from "react";
 
 import { Alert, Button, FormControl, InputLabel, Paper, Typography } from "@mui/material";
 import { Theme } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
+import { registerUserAction } from "@root/client/store/actions";
 import { Link, useHistory } from "react-router-dom";
 
 import AuthContext from "../../../contexts/AuthContext";
@@ -69,10 +70,7 @@ const RegisterForm = () => {
       try {
         const { data: user } = await registerUser(login, email, password, passwordConfirmation);
 
-        dispatch({
-          type: "LOGIN",
-          payload: user,
-        });
+        dispatch(registerUserAction(user));
         history.push("/");
       } catch (error) {
         setErrorMessage(error.response.data.message);
