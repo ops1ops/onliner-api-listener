@@ -66,7 +66,7 @@ export const getItemsByCategory = async ({ userId, params: { categoryKey }, quer
 
 export const getItemsByQuery = async ({ userId, query: { query } }, res) => {
   if (!query) {
-    return res.send("'query' is the mandatory parameter!");
+    return res.send('"query" is the mandatory parameter!');
   }
 
   const response = await onliner.searchByQuery(query);

@@ -26,7 +26,7 @@ export type SearchItemsType = {
   total: number;
 };
 
-export type NameType = {
+export type EntityWithNameType = {
   name: string;
 };
 
