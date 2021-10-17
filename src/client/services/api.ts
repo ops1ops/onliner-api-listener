@@ -2,7 +2,7 @@ import localStorageService from '@root/client/services/localStorageService';
 import { CategoryType } from '@root/client/types/category';
 import { SearchItemsType } from '@root/client/types/helpers';
 import { ProductType } from '@root/client/types/product';
-import { UserType } from '@root/client/types/user';
+import { UserSubscriptionType, UserType } from '@root/client/types/user';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export type GetCategoryItemsType = (categoryKey: string, pageNumber: number) => Promise<AxiosResponse>;
@@ -52,4 +52,5 @@ export const subscribeUserToItem = (id: string) =>
 export const unsubscribeUserFromItem = (id: number) =>
   apiInstance.post(`items/${id}/unsubscribe`, {}, { headers: getAuthHeaders() });
 
-export const getUserSubscriptions = () => apiInstance.get('user/subscriptions', { headers: getAuthHeaders() });
+export const getUserSubscriptions = () =>
+  apiInstance.get<UserSubscriptionType[]>('user/subscriptions', { headers: getAuthHeaders() });
