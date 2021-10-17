@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { FormHTMLAttributes, useCallback, useContext, useState } from 'react';
 
 import { Alert, Button, FormControl, InputLabel, Paper, Typography } from '@mui/material';
 import { Theme } from '@mui/material/styles';
@@ -39,9 +39,9 @@ const LoginForm = () => {
     </FormControl>
   ));
 
-  const handleLogin = useCallback(
-    async (e) => {
-      e.preventDefault();
+  const handleLogin: FormHTMLAttributes<HTMLFormElement>['onSubmit'] = useCallback(
+    async (event) => {
+      event.preventDefault();
       const isValid = login && password;
 
       if (isValid) {
