@@ -1,18 +1,18 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-import { PaginationProps } from '@material-ui/lab';
-import { PaginationCategoryType } from '@root/client/types/category';
-import { HandleCategoryChangeType } from '@root/client/types/helpers';
-import { ProductType } from '@root/client/types/product';
+import { PaginationProps } from "@mui/material";
+import { PaginationCategoryType } from "@root/client/types/category";
+import { HandleCategoryChangeType } from "@root/client/types/helpers";
+import { ProductType } from "@root/client/types/product";
 
-import withLoading from '../../decorators/withLoading';
-import { getCategoryItems } from '../../services/api';
-import localStorageService from '../../services/localStorageService';
+import withLoading from "../../decorators/withLoading";
+import { getCategoryItems } from "../../services/api";
+import localStorageService from "../../services/localStorageService";
 
 type UseSelectedCategoryReturnType = {
   category: PaginationCategoryType;
   pagesCount: number;
-  handlePaginationChange: PaginationProps['onChange'];
+  handlePaginationChange: PaginationProps["onChange"];
   handleCategoryChange: HandleCategoryChangeType;
 };
 
@@ -50,7 +50,7 @@ const useSelectedCategory = (
     fetchCategoryItems();
   }, [category]);
 
-  const handlePaginationChange: PaginationProps['onChange'] = (_event, value) =>
+  const handlePaginationChange: PaginationProps["onChange"] = (_event, value) =>
     setCategory((prevCategory) => ({ ...prevCategory, page: value }));
 
   const handleCategoryChange: HandleCategoryChangeType = (_event, value = null) => {

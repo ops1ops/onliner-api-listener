@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   searchByCategory: async (categoryKey, page) => {
@@ -13,7 +13,9 @@ export default {
     return data;
   },
   searchByQuery: async (query) => {
-    const { data } = await axios.get(`https://catalog.api.onliner.by/search/products?query=${query}`);
+    const { data } = await axios.get(
+      `https://catalog.api.onliner.by/search/products?query=${query}`,
+    );
 
     return data;
   },
@@ -23,4 +25,3 @@ export default {
     return data;
   },
 };
-

@@ -1,14 +1,11 @@
-import React, { useContext, useCallback, useState, FC } from 'react';
+import React, { useContext, useCallback, useState, FC } from "react";
 
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import { logoutUserAction } from '@root/client/store/actions';
-import PropTypes from 'prop-types';
-import { useHistory } from 'react-router';
-
-import { USER_ITEMS_PATH } from '../../../../constants/paths';
-import AuthContext from '../../../../contexts/AuthContext';
+import { Button, Menu, MenuItem } from "@mui/material";
+import { USER_ITEMS_PATH } from "@root/client/constants/paths";
+import AuthContext from "@root/client/contexts/AuthContext";
+import { logoutUserAction } from "@root/client/store/actions";
+import PropTypes from "prop-types";
+import { useHistory } from "react-router";
 
 type UserMenuProps = {
   username: string;
@@ -37,11 +34,11 @@ const UserMenu: FC<UserMenuProps> = ({ username }) => {
 
   return (
     <div>
-      <Button aria-controls='simple-menu' aria-haspopup='true' onClick={selectMenuItem}>
+      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={selectMenuItem}>
         {username}
       </Button>
       <Menu
-        id='user-menu'
+        id="user-menu"
         anchorEl={anchorElement}
         keepMounted
         open={Boolean(anchorElement)}

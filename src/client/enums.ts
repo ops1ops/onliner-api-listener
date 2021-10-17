@@ -1,9 +1,9 @@
 export enum ProductStatus {
-  ACTIVE = 'active',
-  OLD = 'old',
+  ACTIVE = "active",
+  OLD = "old",
 }
 
 export enum UserActions {
-  LOGIN = 'user/login',
-  LOGOUT = 'user/logout',
+  LOGIN = "user/login",
+  LOGOUT = "user/logout",
 }

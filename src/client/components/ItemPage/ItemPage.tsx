@@ -1,14 +1,14 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from "react";
 
-import { CircularProgress, Typography } from '@material-ui/core';
-import { initialProduct } from '@root/client/constants/product';
-import { ProductType } from '@root/client/types/product';
+import { CircularProgress, Typography } from "@mui/material";
+import { initialProduct } from "@root/client/constants/product";
+import { ProductType } from "@root/client/types/product";
 
-import withLoading from '../../decorators/withLoading';
-import { getItemByKey } from '../../services/api';
-import HistoryChart from '../common/HistoryChart';
+import withLoading from "../../decorators/withLoading";
+import { getItemByKey } from "../../services/api";
+import HistoryChart from "../common/HistoryChart";
 
-import ItemInfo from './ItemInfo/ItemInfo';
+import ItemInfo from "./ItemInfo/ItemInfo";
 
 type ItemPageProps = {
   match: {
@@ -48,7 +48,7 @@ const ItemPage: FC<ItemPageProps> = ({
       <HistoryChart history={history} />
     </>
   ) : (
-    <Typography color='textPrimary'>
+    <Typography color="textPrimary">
       {`The ${name} is not tracking, subscribe to it to start tracking`}
     </Typography>
   );

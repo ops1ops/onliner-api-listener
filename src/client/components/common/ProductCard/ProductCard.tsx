@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState } from "react";
 
 import {
   Button,
@@ -9,14 +9,15 @@ import {
   CardMedia,
   CircularProgress,
   Typography,
-} from '@material-ui/core';
-import { ProductStatus } from '@root/client/enums';
-import { PricesType } from '@root/client/types/prices';
-import { ProductType } from '@root/client/types/product';
-import { useHistory } from 'react-router';
+} from "@mui/material";
+import { ProductStatus } from "@root/client/enums";
+import { PricesType } from "@root/client/types/prices";
+import { ProductType } from "@root/client/types/product";
+import { useHistory } from "react-router";
 
-import { subscribeUserToItem } from '../../../services/api';
-import './styles.css';
+import { subscribeUserToItem } from "../../../services/api";
+
+import "./styles.css";
 
 type ProductCardProps = {
   product: ProductType;
@@ -29,7 +30,7 @@ const renderPrice = (prices: PricesType) => {
     } = prices;
 
     return (
-      <Typography className='price-text' color='textPrimary'>
+      <Typography className="price-text" color="textPrimary">
         {`От ${amount} ${currency}`}
       </Typography>
     );
@@ -47,7 +48,7 @@ const ProductCard: FC<ProductCardProps> = (props) => {
       prices,
       status,
       isSubscribed,
-      images: { header = '' },
+      images: { header = "" },
     },
   } = props;
 
@@ -68,27 +69,27 @@ const ProductCard: FC<ProductCardProps> = (props) => {
   const redirectToItemPage = () => history.push(`/item/${key}`);
 
   return status !== ProductStatus.OLD ? (
-    <Card className='card-container'>
+    <Card className="card-container">
       <CardActionArea onClick={redirectToItemPage}>
-        <CardMedia className='card-media' image={header} />
+        <CardMedia className="card-media" image={header} />
         <CardContent>
-          <Typography variant='h6' color='textPrimary' component='p'>
+          <Typography variant="h6" color="textPrimary" component="p">
             {fullName}
           </Typography>
-          <Typography variant='body2' color='textSecondary' component='p'>
+          <Typography variant="body2" color="textSecondary" component="p">
             {description}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
         <Button
-          className='subscribe-button'
-          size='large'
+          className="subscribe-button"
+          size="large"
           onClick={subscribeProduct}
           disabled={isItemSubscribed}
         >
-          {isItemSubscribed ? 'Subscribed' : 'Subscribe'}
-          {isSubscribing ? <CircularProgress size={15} /> : ''}
+          {isItemSubscribed ? "Subscribed" : "Subscribe"}
+          {isSubscribing ? <CircularProgress size={15} /> : ""}
         </Button>
         {renderPrice(prices)}
       </CardActions>

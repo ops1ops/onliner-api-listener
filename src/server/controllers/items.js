@@ -1,14 +1,14 @@
-import { Op } from 'sequelize';
+import { Op } from "sequelize";
 
-import db from '../db';
-import onliner from '../services/onlinerAPI';
+import db from "../db";
+import onliner from "../services/onlinerAPI";
 
 const { Item, User, UserItems } = db;
 
 const mergeOnlinerItemsWithTrackable = async (onlinerItems, userId) => {
   const onlinerItemsIds = onlinerItems.map(({ id }) => id);
   const userItems = await UserItems.findAll({
-    attributes: ['itemId'],
+    attributes: ["itemId"],
     where: {
       userId,
       itemId: onlinerItemsIds,
@@ -27,7 +27,7 @@ const mergeOnlinerItemsWithTrackable = async (onlinerItems, userId) => {
 export const getItemByKey = async ({ params: { key } }, res) => {
   const onlinerItem = await onliner.getItemByKey(key);
   const trackableItem = await Item.findOne({
-    include: ['history'],
+    include: ["history"],
     where: { key },
   });
 
@@ -42,21 +42,24 @@ export const getAllItems = async ({ query: { name } }, res) => {
 
   if (name) {
     items = await Item.findAll({
-      include: ['history'],
+      include: ["history"],
       where: {
         name: { [Op.like]: `%${name}%` },
       },
     });
   } else {
     items = await Item.findAll({
-      include: ['history'],
+      include: ["history"],
     });
   }
 
   return res.send(items);
 };
 
-export const getItemsByCategory = async ({ userId, params: { categoryKey }, query: { page } }, res) => {
+export const getItemsByCategory = async (
+  { userId, params: { categoryKey }, query: { page } },
+  res,
+) => {
   const data = await onliner.searchByCategory(categoryKey, page);
 
   data.products = await mergeOnlinerItemsWithTrackable(data.products, userId);
@@ -77,8 +80,14 @@ export const getItemsByQuery = async ({ userId, query: { query } }, res) => {
 };
 
 export const subscribeUserToItem = async ({ userId, params: { itemKey } }, res) => {
-  const { id: itemId, key, full_name: name,
-    prices: { price_min: { amount: price } } } = await onliner.getItemByKey(itemKey);
+  const {
+    id: itemId,
+    key,
+    full_name: name,
+    prices: {
+      price_min: { amount: price },
+    },
+  } = await onliner.getItemByKey(itemKey);
 
   await Item.findOrCreate({
     where: { id: itemId },

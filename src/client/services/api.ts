@@ -1,10 +1,10 @@
-import { CategoryType } from '@root/client/types/category';
-import { SearchItemsType } from '@root/client/types/helpers';
-import { ProductType } from '@root/client/types/product';
-import { UserType } from '@root/client/types/user';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { CategoryType } from "@root/client/types/category";
+import { SearchItemsType } from "@root/client/types/helpers";
+import { ProductType } from "@root/client/types/product";
+import { UserType } from "@root/client/types/user";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
-import localStorageService from './localStorageService';
+import localStorageService from "./localStorageService";
 
 export type GetCategoryItemsType = (
   categoryKey: string,
@@ -16,7 +16,7 @@ const getAuthHeaders = () => ({
 });
 
 const axiosBaseConfig: AxiosRequestConfig = {
-  baseURL: '/api/',
+  baseURL: "/api/",
 };
 
 const apiInstance = axios.create(axiosBaseConfig);
@@ -27,7 +27,7 @@ export const registerUser = (
   password: string,
   confirmPassword: string,
 ) =>
-  apiInstance.post('users/create', {
+  apiInstance.post("users/create", {
     name,
     email,
     password,
@@ -35,14 +35,14 @@ export const registerUser = (
   });
 
 export const loginUser = (login: string, password: string) =>
-  apiInstance.post<UserType>('users/login', {
+  apiInstance.post<UserType>("users/login", {
     login,
     password,
   });
 
 export const getItemByKey = (id: string) => apiInstance.get<ProductType>(`item/${id}`);
 
-export const getCategories = () => apiInstance.get<CategoryType[]>('categories');
+export const getCategories = () => apiInstance.get<CategoryType[]>("categories");
 
 export const getCategoryItems: GetCategoryItemsType = (categoryKey, pageNumber = 1) =>
   apiInstance.get<SearchItemsType>(`categories/${categoryKey}?page=${pageNumber}`, {
@@ -50,7 +50,7 @@ export const getCategoryItems: GetCategoryItemsType = (categoryKey, pageNumber =
   });
 
 export const searchItems = (params: string) =>
-  apiInstance.get<SearchItemsType>('search/items', {
+  apiInstance.get<SearchItemsType>("search/items", {
     params: { query: params },
     headers: getAuthHeaders(),
   });
@@ -62,4 +62,4 @@ export const unsubscribeUserFromItem = (id: number) =>
   apiInstance.post(`items/${id}/unsubscribe`, {}, { headers: getAuthHeaders() });
 
 export const getUserSubscriptions = () =>
-  apiInstance.get('user/subscriptions', { headers: getAuthHeaders() });
+  apiInstance.get("user/subscriptions", { headers: getAuthHeaders() });

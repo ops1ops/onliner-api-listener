@@ -1,21 +1,27 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState } from "react";
 
-import { CircularProgress, Container, Paper, TextField } from '@material-ui/core';
-import Autocomplete, { AutocompleteProps } from '@material-ui/lab/Autocomplete';
-import Pagination from '@material-ui/lab/Pagination';
-import { AutocompleteType } from '@root/client/types/helpers';
-import { ProductType } from '@root/client/types/product';
+import {
+  Autocomplete,
+  AutocompleteProps,
+  CircularProgress,
+  Container,
+  Pagination,
+  Paper,
+  TextField,
+} from "@mui/material";
+import { AutocompleteType } from "@root/client/types/helpers";
+import { ProductType } from "@root/client/types/product";
 
-import ProductCard from '../common/ProductCard';
+import ProductCard from "../common/ProductCard";
 
-import useCategories from './useCategories';
-import useSearch from './useSearch';
-import useSelectedCategory from './useSelectedCategory';
+import useCategories from "./useCategories";
+import useSearch from "./useSearch";
+import useSelectedCategory from "./useSelectedCategory";
 
-import './styles.css';
+import "./styles.css";
 
-const renderCategoryInput: AutocompleteType['renderInput'] = (params) => (
-  <TextField {...params} className='autocomplete-container' label='Categories' variant='outlined' />
+const renderCategoryInput: AutocompleteType["renderInput"] = (params) => (
+  <TextField {...params} className="autocomplete-container" label="Categories" variant="outlined" />
 );
 
 const getOptionLabel: AutocompleteProps<
@@ -23,7 +29,7 @@ const getOptionLabel: AutocompleteProps<
   boolean,
   boolean,
   boolean
->['getOptionLabel'] = ({ name }) => name;
+>["getOptionLabel"] = ({ name }) => name;
 
 const HomePage: FC = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -46,7 +52,7 @@ const HomePage: FC = () => {
 
   const pagination = categoryValue && !isLoading && (
     <Pagination
-      className='pagination'
+      className="pagination"
       count={pagesCount}
       page={page}
       onChange={handlePaginationChange}
@@ -54,9 +60,9 @@ const HomePage: FC = () => {
   );
 
   return (
-    <Container className='container'>
-      <Paper elevation={3} className='paper-container'>
-        <Container className='box-container'>
+    <Container className="container">
+      <Paper elevation={3} className="paper-container">
+        <Container className="box-container">
           <Autocomplete
             value={categoryValue}
             onChange={handleCategoryChange}
@@ -66,16 +72,16 @@ const HomePage: FC = () => {
             loading={isLoading}
           />
           <TextField
-            id='outlined-basic'
-            label='Search'
-            variant='outlined'
-            className='search-input'
+            id="outlined-basic"
+            label="Search"
+            variant="outlined"
+            className="search-input"
             value={searchValue}
             onChange={handleSearch}
           />
         </Container>
         {pagination}
-        <Container className='products-container'>
+        <Container className="products-container">
           {isLoading ? <CircularProgress /> : renderedProducts}
         </Container>
         {pagination}

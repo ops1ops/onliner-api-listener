@@ -1,8 +1,8 @@
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 
-import db from '../db';
-import generateJWT from '../utils/generateJWT';
-import { EMAIL_REGEX } from '../constants';
+import { EMAIL_REGEX } from "../constants";
+import db from "../db";
+import generateJWT from "../utils/generateJWT";
 
 const { User } = db;
 
@@ -14,15 +14,15 @@ export const createUser = ({ body: { email, name, password, confirmPassword } },
   const isEmailValid = EMAIL_REGEX.test(email);
 
   if (!isAllDataPassed) {
-    return res.status(422).send({ message: 'All fields are required' });
+    return res.status(422).send({ message: "All fields are required" });
   }
 
   if (!arePasswordsMatch) {
-    return res.status(422).send({ message: 'Passwords dont match' });
+    return res.status(422).send({ message: "Passwords dont match" });
   }
 
   if (!isEmailValid) {
-    return res.status(422).send({ message: 'Email is not valid' });
+    return res.status(422).send({ message: "Email is not valid" });
   }
 
   User.create({
@@ -49,10 +49,11 @@ export const loginUser = ({ body: { login, password } }, res) => {
       if (user && isPasswordValid) {
         res.json({ id, name, jwt: generateJWT(id) });
       } else {
-        res.status(401).send({ message: 'Wrong username or password!' });
+        res.status(401).send({ message: "Wrong username or password!" });
       }
-    }).catch(() => {
-      res.status(401).send({ message: 'User not found!' });
+    })
+    .catch(() => {
+      res.status(401).send({ message: "User not found!" });
     });
 };
 

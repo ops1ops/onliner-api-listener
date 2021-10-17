@@ -1,12 +1,19 @@
-import React from 'react';
-import { Route, Switch } from 'react-router';
+import React from "react";
 
-import LoginPage from './components/LoginPage';
-import RegisterPage from './components/RegisterPage';
-import ItemPage from './components/ItemPage/ItemPage';
-import HomePage from './components/HomePage';
-import UserItemsPage from './components/UserItemsPage';
-import { HOME_PATH, ITEM_PATH, LOGIN_PATH, REGISTER_PATH, USER_ITEMS_PATH } from './constants/paths';
+import { Route, Switch } from "react-router";
+
+import HomePage from "./components/HomePage";
+import ItemPage from "./components/ItemPage/ItemPage";
+import LoginPage from "./components/LoginPage";
+import RegisterPage from "./components/RegisterPage";
+import UserItemsPage from "./components/UserItemsPage";
+import {
+  HOME_PATH,
+  ITEM_PATH,
+  LOGIN_PATH,
+  REGISTER_PATH,
+  USER_ITEMS_PATH,
+} from "./constants/paths";
 
 const Routes = () => (
   <Switch>

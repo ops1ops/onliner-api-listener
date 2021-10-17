@@ -1,30 +1,28 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext } from "react";
 
-import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
+import { AppBar, Button, Toolbar, Typography } from "@mui/material";
+import { Theme } from "@mui/material/styles";
+import { makeStyles } from "@mui/styles";
+import { Link } from "react-router-dom";
 
-import { HOME_PATH, LOGIN_PATH } from '../../../constants/paths';
-import AuthContext from '../../../contexts/AuthContext';
+import { HOME_PATH, LOGIN_PATH } from "../../../constants/paths";
+import AuthContext from "../../../contexts/AuthContext";
 
-import UserMenu from './UserMenu/UserMenu';
+import UserMenu from "./UserMenu/UserMenu";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles<Theme>((theme) => ({
   appBar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
   },
   toolbar: {
-    flexWrap: 'wrap',
+    flexWrap: "wrap",
   },
   toolbarTitle: {
     flexGrow: 1,
   },
   link: {
-    margin: theme.spacing(1, 1.5),
-    textDecoration: 'none',
+    margin: "8px 12px",
+    textDecoration: "none",
   },
 }));
 
@@ -35,13 +33,13 @@ const HeaderToolbar: FC = () => {
   } = useContext(AuthContext);
 
   return (
-    <AppBar position='static' color='default' elevation={3} className={classes.appBar}>
+    <AppBar position="static" color="default" elevation={3} className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
         <Typography
-          align='left'
-          variant='h5'
-          component='h1'
-          color='inherit'
+          align="left"
+          variant="h5"
+          component="h1"
+          color="inherit"
           noWrap
           className={classes.toolbarTitle}
         >
@@ -53,7 +51,7 @@ const HeaderToolbar: FC = () => {
           <UserMenu username={user.name} />
         ) : (
           <Link to={LOGIN_PATH} className={classes.link}>
-            <Button color='primary' variant='outlined'>
+            <Button color="primary" variant="outlined">
               Login
             </Button>
           </Link>

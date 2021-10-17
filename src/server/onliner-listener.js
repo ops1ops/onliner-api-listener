@@ -1,8 +1,8 @@
-import setRandomInterval from 'set-random-interval';
+import setRandomInterval from "set-random-interval";
 
-import sleep from './utils/sleep';
-import onlinerAPI from './services/onlinerAPI';
-import db from './db';
+import db from "./db";
+import onlinerAPI from "./services/onlinerAPI";
+import sleep from "./utils/sleep";
 
 const { Item } = db;
 
@@ -28,7 +28,9 @@ const trackPrice = async () => {
     const { prices } = await onlinerAPI.getItemByKey(key);
 
     if (prices) {
-      const { price_min: { amount: onlinerPrice } } = prices;
+      const {
+        price_min: { amount: onlinerPrice },
+      } = prices;
 
       if (onlinerPrice !== price) {
         await item.createHistory({ price });

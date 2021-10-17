@@ -1,5 +1,3 @@
-import { TableDataType } from '@root/client/types/helpers';
-
 export type UserType = {
   id: number;
   name: string;
@@ -15,7 +13,3 @@ export type UserSubscriptions = {
   price: string;
   updatedAt: string;
 };
-
-export type UserSubscriptionWithTableData = {
-  tableData: TableDataType;
-} & UserSubscriptions;
