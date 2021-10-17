@@ -13,19 +13,8 @@ export type UserReducerState = {
 
 const userReducer: Reducer<UserReducerState, UserActionsType> = (state, action) => {
   switch (action.type) {
+    case UserActions.REGISTER:
     case UserActions.LOGIN: {
-      const { payload } = action;
-
-      localStorageService.saveUser(payload);
-
-      return {
-        ...state,
-        isAuthenticated: true,
-        payload,
-      };
-    }
-
-    case UserActions.REGISTER: {
       const { payload } = action;
 
       localStorageService.saveUser(payload);
