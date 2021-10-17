@@ -1,3 +1,4 @@
+import { UserReducerState } from '@root/client/store/reducers/userReducer';
 import { PaginationCategoryType } from '@root/client/types/category';
 import { UserType } from '@root/client/types/user';
 
@@ -9,8 +10,13 @@ export default {
   setItem: (key: string, value: PaginationCategoryType | string): void =>
     localStorage.setItem(key, JSON.stringify(value)),
   saveUser: (user: UserType) => localStorage.setItem('user', JSON.stringify(user)),
+  setAuthenticated: (isAuthenticated: UserReducerState['isAuthenticated']): void =>
+    localStorage.setItem('isAuthenticated', JSON.stringify(isAuthenticated)),
   getUser(): UserType {
     return this.getItem('user');
+  },
+  getAuthenticated(): UserReducerState['isAuthenticated'] {
+    return this.getItem('isAuthenticated');
   },
   clear: () => localStorage.clear(),
   getToken(): string {

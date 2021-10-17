@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { FC, useReducer } from 'react';
 
 import { createTheme, StyledEngineProvider } from '@mui/material';
 import { ThemeProvider } from '@mui/styles';
@@ -10,15 +10,17 @@ import userReducer from '@root/client/store/reducers/userReducer';
 import { ContextType } from '@root/client/types/helpers';
 import { BrowserRouter } from 'react-router-dom';
 
+import './App.less';
+
 const theme = createTheme({
   palette: {
     divider: '#551A8B',
   },
 });
 
-const App = () => {
+const App: FC = () => {
   const [state, dispatch] = useReducer<ContextType>(userReducer, {
-    isAuthenticated: false,
+    isAuthenticated: localStorageService.getAuthenticated(),
     user: localStorageService.getUser(),
   });
 

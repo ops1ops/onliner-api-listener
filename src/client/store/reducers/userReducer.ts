@@ -17,11 +17,12 @@ const userReducer: Reducer<UserReducerState, UserActionsType> = (state, action) 
       const { payload } = action;
 
       localStorageService.saveUser(payload);
+      localStorageService.setAuthenticated(true);
 
       return {
         ...state,
         isAuthenticated: true,
-        payload,
+        user: payload,
       };
     }
 
