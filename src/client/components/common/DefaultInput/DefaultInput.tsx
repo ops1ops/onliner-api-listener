@@ -9,7 +9,7 @@ type CustomInputProps = {
 type DefaultInputProps = Omit<OutlinedInputProps, 'onChange'> & CustomInputProps;
 
 const DefaultInput: FC<DefaultInputProps> = ({ onChange, ...rest }) => {
-  const handleValueChange = useCallback(
+  const handleValueChange: OutlinedInputProps['onChange'] = useCallback(
     ({ target: { value } }) => {
       onChange(value);
     },
