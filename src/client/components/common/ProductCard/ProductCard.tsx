@@ -2,8 +2,10 @@ import React, { FC, useState } from 'react';
 
 import {
   Button,
+  ButtonProps,
   Card,
   CardActionArea,
+  CardActionAreaProps,
   CardActions,
   CardContent,
   CardMedia,
@@ -52,10 +54,10 @@ const ProductCard: FC<ProductCardProps> = (props) => {
   } = props;
 
   const history = useHistory();
-  const [isItemSubscribed, setIsItemSubscribed] = useState(isSubscribed);
-  const [isSubscribing, setIsSubscribing] = useState(false);
+  const [isItemSubscribed, setIsItemSubscribed] = useState<boolean>(isSubscribed);
+  const [isSubscribing, setIsSubscribing] = useState<boolean>(false);
 
-  const subscribeProduct = async () => {
+  const subscribeProduct: ButtonProps['onClick'] = async () => {
     try {
       setIsSubscribing(true);
       await subscribeUserToItem(key);
@@ -65,7 +67,7 @@ const ProductCard: FC<ProductCardProps> = (props) => {
     }
   };
 
-  const redirectToItemPage = () => history.push(`/item/${key}`);
+  const redirectToItemPage: CardActionAreaProps['onClick'] = () => history.push(`/item/${key}`);
 
   return status !== ProductStatus.OLD ? (
     <Card className="card-container">
