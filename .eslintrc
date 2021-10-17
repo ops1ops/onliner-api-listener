@@ -20,8 +20,7 @@
       { "blankLine": "always", "prev": ["const", "let"], "next": "*" },
       { "blankLine": "any", "prev": ["const", "let"], "next": ["const", "let"] }
     ],
-    "import/order": [
-      "warn",
+    "import/order": [1,
       {
         "alphabetize": { "order": "asc" },
         "groups": [
@@ -75,7 +74,7 @@
         "ObjectExpression": { "multiline": true, "consistent": true, "minProperties": 8 }
       }
     ],
-    "prettier/prettier": "warn",
+    "prettier/prettier": 1,
     "prefer-destructuring": [2, { "object": true, "array": true }],
     "react/jsx-props-no-spreading": [0]
   }
