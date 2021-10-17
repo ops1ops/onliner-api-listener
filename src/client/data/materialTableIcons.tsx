@@ -18,9 +18,9 @@ import {
   Search,
   ViewColumn,
 } from "@mui/icons-material";
-import { UserSubscription } from "@root/client/types/user";
+import { UserSubscriptionType } from "@root/client/types/user";
 
-const materialTableIcons: NonNullable<MaterialTableProps<UserSubscription>["icons"]> = {
+const materialTableIcons: NonNullable<MaterialTableProps<UserSubscriptionType>["icons"]> = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
   Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
   Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),

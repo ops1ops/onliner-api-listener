@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import MaterialTable, { MaterialTableProps } from "@material-table/core";
 import { SvgIconComponent } from "@mui/icons-material";
 import { Container } from "@mui/material";
-import { UserSubscription } from "@root/client/types/user";
+import { UserSubscriptionType } from "@root/client/types/user";
 import { useHistory } from "react-router";
 
 import materialTableIcons from "../../data/materialTableIcons";
@@ -14,12 +14,12 @@ import { PAGE_SIZES, SMALL_SIZE } from "./pageSizes";
 
 import "./styles.css";
 
-const TABLE_STYLES: MaterialTableProps<UserSubscription>["style"] = {
+const TABLE_STYLES: MaterialTableProps<UserSubscriptionType>["style"] = {
   paddingLeft: 10,
   paddingRight: 10,
 };
 
-const TABLE_COLUMNS: MaterialTableProps<UserSubscription>["columns"] = [
+const TABLE_COLUMNS: MaterialTableProps<UserSubscriptionType>["columns"] = [
   { title: "Product name", field: "name" },
   { title: "Price", field: "price" },
   { title: "Subscribed at", field: "createdAt" },
@@ -30,7 +30,7 @@ const TABLE_OPTIONS = { pageSizeOptions: PAGE_SIZES, pageSize: SMALL_SIZE };
 
 const UserItemsPage = () => {
   const history = useHistory();
-  const [userSubscriptions, setUserSubscriptions] = useState<UserSubscription[]>([]);
+  const [userSubscriptions, setUserSubscriptions] = useState<UserSubscriptionType[]>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
 
   const deleteItem = async (itemId: number) => {
@@ -43,11 +43,11 @@ const UserItemsPage = () => {
     }
   };
 
-  const tableActions: MaterialTableProps<UserSubscription>["actions"] = [
+  const tableActions: MaterialTableProps<UserSubscriptionType>["actions"] = [
     {
       icon: materialTableIcons.Delete as unknown as SvgIconComponent,
       onClick: async (_event, userSubscription) => {
-        const { id } = userSubscription as UserSubscription;
+        const { id } = userSubscription as UserSubscriptionType;
 
         await deleteItem(id);
       },
@@ -64,7 +64,7 @@ const UserItemsPage = () => {
     fetchUserItems();
   }, []);
 
-  const redirectToItemPage: MaterialTableProps<UserSubscription>["onRowClick"] = (
+  const redirectToItemPage: MaterialTableProps<UserSubscriptionType>["onRowClick"] = (
     _event,
     product,
   ) => {
@@ -72,11 +72,11 @@ const UserItemsPage = () => {
   };
 
   return (
-    <Container className="main-container">
-      <MaterialTable<UserSubscription>
+    <Container className='main-container'>
+      <MaterialTable<UserSubscriptionType>
         actions={tableActions}
         icons={materialTableIcons}
-        title="Subscribed products"
+        title='Subscribed products'
         columns={TABLE_COLUMNS}
         data={userSubscriptions}
         isLoading={isLoading}
