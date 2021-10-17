@@ -17,7 +17,7 @@ type UseSelectedCategoryReturnType = {
 };
 
 const INITIAL_PAGE = 1;
-const DEFAULT_CATEGORY: PaginationCategoryType = { value: null, page: INITIAL_PAGE };
+const DEFAULT_CATEGORY: PaginationCategoryType = { value: undefined, page: INITIAL_PAGE };
 const INITIAL_CATEGORY: PaginationCategoryType =
   localStorageService.getFilterCategory() || DEFAULT_CATEGORY;
 
@@ -53,7 +53,7 @@ const useSelectedCategory = (
   const handlePaginationChange: PaginationProps["onChange"] = (_event, value) =>
     setCategory((prevCategory) => ({ ...prevCategory, page: value }));
 
-  const handleCategoryChange: HandleCategoryChangeType = (_event, value = null) => {
+  const handleCategoryChange: HandleCategoryChangeType = (_event, value = undefined) => {
     setCategory({ value, page: INITIAL_PAGE });
 
     if (!value) {

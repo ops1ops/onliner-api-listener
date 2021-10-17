@@ -12,7 +12,7 @@ import sortByName from "../../utils/sortByName";
 
 const SEARCH_DEBOUNCE_TIME = 300;
 
-const INITIAL_SEARCH_VALUE = localStorageService.getSearchValue();
+const INITIAL_SEARCH_VALUE: string = localStorageService.getSearchValue() || "";
 
 type UseSearchReturnType = [string, TextFieldProps["onChange"]];
 

@@ -4,6 +4,6 @@ export type CategoryType = {
 };
 
 export type PaginationCategoryType = {
-  value: CategoryType | null;
+  value?: CategoryType | null;
   page: number;
 };
