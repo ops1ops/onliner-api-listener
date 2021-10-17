@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import MaterialTable, { MaterialTableProps } from '@material-table/core';
 import { SvgIconComponent } from '@mui/icons-material';
@@ -26,7 +26,7 @@ const TABLE_COLUMNS: MaterialTableProps<UserSubscriptionType>['columns'] = [
 
 const TABLE_OPTIONS = { pageSizeOptions: PAGE_SIZES, pageSize: SMALL_SIZE };
 
-const UserItemsPage = () => {
+const UserItemsPage: FC = () => {
   const history = useHistory();
   const [userSubscriptions, setUserSubscriptions] = useState<UserSubscriptionType[]>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
