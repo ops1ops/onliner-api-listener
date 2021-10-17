@@ -3,12 +3,11 @@ import React, { useCallback, useContext, useState } from 'react';
 import { Alert, Button, FormControl, InputLabel, Paper, Typography } from '@mui/material';
 import { Theme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
+import DefaultInput from '@root/client/components/common/DefaultInput';
+import AuthContext from '@root/client/contexts/AuthContext';
+import { registerUser } from '@root/client/services/api';
 import { registerUserAction } from '@root/client/store/actions';
 import { Link, useHistory } from 'react-router-dom';
-
-import AuthContext from '../../../contexts/AuthContext';
-import { registerUser } from '../../../services/api';
-import DefaultInput from '../../common/DefaultInput';
 
 import './styles.css';
 

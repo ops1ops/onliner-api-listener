@@ -1,9 +1,7 @@
 import React from 'react';
 
 import { Container } from '@mui/material';
-
-import RegisterForm from './RegisterForm';
-
+import RegisterForm from '@root/client/components/RegisterPage/RegisterForm';
 import './styles.css';
 
 const RegisterPage = () => (

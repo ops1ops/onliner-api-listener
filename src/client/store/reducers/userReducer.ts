@@ -1,10 +1,9 @@
 import { Reducer } from 'react';
 
 import { UserActions } from '@root/client/enums';
+import localStorageService from '@root/client/services/localStorageService';
 import { UserActionsType } from '@root/client/store/actions/actionsTypes';
 import { UserType } from '@root/client/types/user';
-
-import localStorageService from '../../services/localStorageService';
 
 export type UserReducerState = {
   isAuthenticated: boolean;

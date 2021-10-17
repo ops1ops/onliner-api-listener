@@ -4,7 +4,6 @@ import { Button, Menu, MenuItem } from '@mui/material';
 import { USER_ITEMS_PATH } from '@root/client/constants/paths';
 import AuthContext from '@root/client/contexts/AuthContext';
 import { logoutUserAction } from '@root/client/store/actions';
-import PropTypes from 'prop-types';
 import { useHistory } from 'react-router';
 
 type UserMenuProps = {
@@ -43,10 +42,6 @@ const UserMenu: FC<UserMenuProps> = ({ username }) => {
       </Menu>
     </div>
   );
-};
-
-UserMenu.propTypes = {
-  username: PropTypes.string.isRequired,
 };
 
 export default UserMenu;

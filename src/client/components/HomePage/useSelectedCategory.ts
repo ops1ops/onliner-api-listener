@@ -1,13 +1,12 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import { PaginationProps } from '@mui/material';
+import withLoading from '@root/client/decorators/withLoading';
+import { getCategoryItems } from '@root/client/services/api';
+import localStorageService from '@root/client/services/localStorageService';
 import { PaginationCategoryType } from '@root/client/types/category';
 import { HandleCategoryChangeType } from '@root/client/types/helpers';
 import { ProductType } from '@root/client/types/product';
-
-import withLoading from '../../decorators/withLoading';
-import { getCategoryItems } from '../../services/api';
-import localStorageService from '../../services/localStorageService';
 
 type UseSelectedCategoryReturnType = {
   category: PaginationCategoryType;

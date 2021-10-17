@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 
+import { getCategories } from '@root/client/services/api';
 import { CategoryType } from '@root/client/types/category';
-
-import { getCategories } from '../../services/api';
-import sortByName from '../../utils/sortByName';
+import sortByName from '@root/client/utils/sortByName';
 
 type UseCategoriesReturnType = CategoryType[];
 

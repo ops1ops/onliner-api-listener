@@ -1,14 +1,13 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import { TextFieldProps } from '@mui/material';
+import withLoading from '@root/client/decorators/withLoading';
+import { searchItems } from '@root/client/services/api';
+import localStorageService from '@root/client/services/localStorageService';
 import { HandleCategoryChangeType } from '@root/client/types/helpers';
 import { ProductType } from '@root/client/types/product';
+import sortByName from '@root/client/utils/sortByName';
 import { useDebounce } from 'use-debounce';
-
-import withLoading from '../../decorators/withLoading';
-import { searchItems } from '../../services/api';
-import localStorageService from '../../services/localStorageService';
-import sortByName from '../../utils/sortByName';
 
 const SEARCH_DEBOUNCE_TIME = 300;
 

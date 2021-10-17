@@ -9,15 +9,12 @@ import {
   Paper,
   TextField,
 } from '@mui/material';
+import useCategories from '@root/client/components/HomePage/useCategories';
+import useSearch from '@root/client/components/HomePage/useSearch';
+import useSelectedCategory from '@root/client/components/HomePage/useSelectedCategory';
+import ProductCard from '@root/client/components/common/ProductCard';
 import { AutocompleteType } from '@root/client/types/helpers';
 import { ProductType } from '@root/client/types/product';
-
-import ProductCard from '../common/ProductCard';
-
-import useCategories from './useCategories';
-import useSearch from './useSearch';
-import useSelectedCategory from './useSelectedCategory';
-
 import './styles.css';
 
 const renderCategoryInput: AutocompleteType['renderInput'] = (params) => (

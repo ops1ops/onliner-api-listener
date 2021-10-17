@@ -11,11 +11,10 @@ import {
   Typography,
 } from '@mui/material';
 import { ProductStatus } from '@root/client/enums';
+import { subscribeUserToItem } from '@root/client/services/api';
 import { PricesType } from '@root/client/types/prices';
 import { ProductType } from '@root/client/types/product';
 import { useHistory } from 'react-router';
-
-import { subscribeUserToItem } from '../../../services/api';
 
 import './styles.css';
 

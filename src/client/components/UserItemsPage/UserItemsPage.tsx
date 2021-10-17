@@ -3,14 +3,12 @@ import React, { useEffect, useState } from 'react';
 import MaterialTable, { MaterialTableProps } from '@material-table/core';
 import { SvgIconComponent } from '@mui/icons-material';
 import { Container } from '@mui/material';
+import { PAGE_SIZES, SMALL_SIZE } from '@root/client/components/UserItemsPage/pageSizes';
+import materialTableIcons from '@root/client/data/materialTableIcons';
+import withLoading from '@root/client/decorators/withLoading';
+import { getUserSubscriptions, unsubscribeUserFromItem } from '@root/client/services/api';
 import { UserSubscriptionType } from '@root/client/types/user';
 import { useHistory } from 'react-router';
-
-import materialTableIcons from '../../data/materialTableIcons';
-import withLoading from '../../decorators/withLoading';
-import { getUserSubscriptions, unsubscribeUserFromItem } from '../../services/api';
-
-import { PAGE_SIZES, SMALL_SIZE } from './pageSizes';
 
 import './styles.css';
 

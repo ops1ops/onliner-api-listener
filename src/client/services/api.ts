@@ -1,10 +1,9 @@
+import localStorageService from '@root/client/services/localStorageService';
 import { CategoryType } from '@root/client/types/category';
 import { SearchItemsType } from '@root/client/types/helpers';
 import { ProductType } from '@root/client/types/product';
 import { UserType } from '@root/client/types/user';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-
-import localStorageService from './localStorageService';
 
 export type GetCategoryItemsType = (categoryKey: string, pageNumber: number) => Promise<AxiosResponse>;
 

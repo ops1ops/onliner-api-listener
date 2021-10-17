@@ -1,14 +1,12 @@
 import React, { FC, useEffect, useState } from 'react';
 
 import { CircularProgress, Typography } from '@mui/material';
+import ItemInfo from '@root/client/components/ItemPage/ItemInfo/ItemInfo';
+import HistoryChart from '@root/client/components/common/HistoryChart';
 import { initialProduct } from '@root/client/constants/product';
+import withLoading from '@root/client/decorators/withLoading';
+import { getItemByKey } from '@root/client/services/api';
 import { ProductType } from '@root/client/types/product';
-
-import withLoading from '../../decorators/withLoading';
-import { getItemByKey } from '../../services/api';
-import HistoryChart from '../common/HistoryChart';
-
-import ItemInfo from './ItemInfo/ItemInfo';
 
 type ItemPageProps = {
   match: {

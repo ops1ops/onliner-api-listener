@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 
-import './styles.css';
 import { Container, Link, Typography } from '@mui/material';
 import { ProductType } from '@root/client/types/product';
+import './styles.css';
 
 const ItemInfo: FC<ProductType> = ({ extended_name = '', description = '', html_url = '', images, prices }) => (
   <Container>

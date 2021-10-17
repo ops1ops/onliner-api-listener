@@ -3,12 +3,10 @@ import React, { FC, useContext } from 'react';
 import { AppBar, Button, Toolbar, Typography } from '@mui/material';
 import { Theme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
+import UserMenu from '@root/client/components/common/HeaderToolbar/UserMenu/UserMenu';
+import { HOME_PATH, LOGIN_PATH } from '@root/client/constants/paths';
 import AuthContext from '@root/client/contexts/AuthContext';
 import { Link } from 'react-router-dom';
-
-import { HOME_PATH, LOGIN_PATH } from '../../../constants/paths';
-
-import UserMenu from './UserMenu/UserMenu';
 
 const useStyles = makeStyles<Theme>((theme) => ({
   appBar: {
