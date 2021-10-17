@@ -4,6 +4,7 @@ import { Alert, Button, FormControl, InputLabel, Paper, Typography } from '@mui/
 import { Theme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
 import DefaultInput from '@root/client/components/common/DefaultInput';
+import { HOME_PATH } from '@root/client/constants/paths';
 import AuthContext from '@root/client/contexts/AuthContext';
 import { registerUser } from '@root/client/services/api';
 import { registerUserAction } from '@root/client/store/actions';
@@ -70,7 +71,7 @@ const RegisterForm = () => {
         const { data: user } = await registerUser(login, email, password, passwordConfirmation);
 
         dispatch(registerUserAction(user));
-        history.push('/');
+        history.push(HOME_PATH);
       } catch (error) {
         setErrorMessage(error.response.data.message);
       }
