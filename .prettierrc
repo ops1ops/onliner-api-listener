@@ -3,10 +3,9 @@
   "bracketSpacing": true,
   "endOfLine": "lf",
   "jsxBracketSameLine": false,
-  "jsxSingleQuote": false,
   "printWidth": 120,
   "semi": true,
-  "singleQuote": false,
+  "singleQuote": true,
   "tabWidth": 2,
   "trailingComma": "all",
   "useTabs": false

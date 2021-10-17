@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import MaterialTable, { MaterialTableProps } from "@material-table/core";
-import { SvgIconComponent } from "@mui/icons-material";
-import { Container } from "@mui/material";
-import { UserSubscriptionType } from "@root/client/types/user";
-import { useHistory } from "react-router";
+import MaterialTable, { MaterialTableProps } from '@material-table/core';
+import { SvgIconComponent } from '@mui/icons-material';
+import { Container } from '@mui/material';
+import { UserSubscriptionType } from '@root/client/types/user';
+import { useHistory } from 'react-router';
 
-import materialTableIcons from "../../data/materialTableIcons";
-import withLoading from "../../decorators/withLoading";
-import { getUserSubscriptions, unsubscribeUserFromItem } from "../../services/api";
+import materialTableIcons from '../../data/materialTableIcons';
+import withLoading from '../../decorators/withLoading';
+import { getUserSubscriptions, unsubscribeUserFromItem } from '../../services/api';
 
-import { PAGE_SIZES, SMALL_SIZE } from "./pageSizes";
+import { PAGE_SIZES, SMALL_SIZE } from './pageSizes';
 
-import "./styles.css";
+import './styles.css';
 
-const TABLE_STYLES: MaterialTableProps<UserSubscriptionType>["style"] = {
+const TABLE_STYLES: MaterialTableProps<UserSubscriptionType>['style'] = {
   paddingLeft: 10,
   paddingRight: 10,
 };
 
-const TABLE_COLUMNS: MaterialTableProps<UserSubscriptionType>["columns"] = [
-  { title: "Product name", field: "name" },
-  { title: "Price", field: "price" },
-  { title: "Subscribed at", field: "createdAt" },
-  { title: "Updated at", field: "updatedAt" },
+const TABLE_COLUMNS: MaterialTableProps<UserSubscriptionType>['columns'] = [
+  { title: 'Product name', field: 'name' },
+  { title: 'Price', field: 'price' },
+  { title: 'Subscribed at', field: 'createdAt' },
+  { title: 'Updated at', field: 'updatedAt' },
 ];
 
 const TABLE_OPTIONS = { pageSizeOptions: PAGE_SIZES, pageSize: SMALL_SIZE };
@@ -43,7 +43,7 @@ const UserItemsPage = () => {
     }
   };
 
-  const tableActions: MaterialTableProps<UserSubscriptionType>["actions"] = [
+  const tableActions: MaterialTableProps<UserSubscriptionType>['actions'] = [
     {
       icon: materialTableIcons.Delete as unknown as SvgIconComponent,
       onClick: async (_event, userSubscription) => {
@@ -64,7 +64,7 @@ const UserItemsPage = () => {
     fetchUserItems();
   }, []);
 
-  const redirectToItemPage: MaterialTableProps<UserSubscriptionType>["onRowClick"] = (_event, product) => {
+  const redirectToItemPage: MaterialTableProps<UserSubscriptionType>['onRowClick'] = (_event, product) => {
     product && history.push(`/item/${product.key}`);
   };
 

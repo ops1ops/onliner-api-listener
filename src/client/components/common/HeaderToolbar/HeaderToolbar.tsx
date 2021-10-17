@@ -1,28 +1,28 @@
-import React, { FC, useContext } from "react";
+import React, { FC, useContext } from 'react';
 
-import { AppBar, Button, Toolbar, Typography } from "@mui/material";
-import { Theme } from "@mui/material/styles";
-import { makeStyles } from "@mui/styles";
-import AuthContext from "@root/client/contexts/AuthContext";
-import { Link } from "react-router-dom";
+import { AppBar, Button, Toolbar, Typography } from '@mui/material';
+import { Theme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+import AuthContext from '@root/client/contexts/AuthContext';
+import { Link } from 'react-router-dom';
 
-import { HOME_PATH, LOGIN_PATH } from "../../../constants/paths";
+import { HOME_PATH, LOGIN_PATH } from '../../../constants/paths';
 
-import UserMenu from "./UserMenu/UserMenu";
+import UserMenu from './UserMenu/UserMenu';
 
 const useStyles = makeStyles<Theme>((theme) => ({
   appBar: {
     borderBottom: `1px solid ${theme.palette.divider}`,
   },
   toolbar: {
-    flexWrap: "wrap",
+    flexWrap: 'wrap',
   },
   toolbarTitle: {
     flexGrow: 1,
   },
   link: {
-    margin: "8px 12px",
-    textDecoration: "none",
+    margin: '8px 12px',
+    textDecoration: 'none',
   },
 }));
 

@@ -1,1 +1,1 @@
-export { default } from "./HistoryChart";
+export { default } from './HistoryChart';

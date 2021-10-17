@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState } from 'react';
 
 import {
   Autocomplete,
@@ -8,23 +8,23 @@ import {
   Pagination,
   Paper,
   TextField,
-} from "@mui/material";
-import { AutocompleteType } from "@root/client/types/helpers";
-import { ProductType } from "@root/client/types/product";
+} from '@mui/material';
+import { AutocompleteType } from '@root/client/types/helpers';
+import { ProductType } from '@root/client/types/product';
 
-import ProductCard from "../common/ProductCard";
+import ProductCard from '../common/ProductCard';
 
-import useCategories from "./useCategories";
-import useSearch from "./useSearch";
-import useSelectedCategory from "./useSelectedCategory";
+import useCategories from './useCategories';
+import useSearch from './useSearch';
+import useSelectedCategory from './useSelectedCategory';
 
-import "./styles.css";
+import './styles.css';
 
-const renderCategoryInput: AutocompleteType["renderInput"] = (params) => (
+const renderCategoryInput: AutocompleteType['renderInput'] = (params) => (
   <TextField {...params} className="autocomplete-container" label="Categories" variant="outlined" />
 );
 
-const getOptionLabel: AutocompleteProps<{ name: string }, boolean, boolean, boolean>["getOptionLabel"] = ({ name }) =>
+const getOptionLabel: AutocompleteProps<{ name: string }, boolean, boolean, boolean>['getOptionLabel'] = ({ name }) =>
   name;
 
 const HomePage: FC = () => {

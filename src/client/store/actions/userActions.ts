@@ -1,11 +1,11 @@
-import { UserActions } from "@root/client/enums";
+import { UserActions } from '@root/client/enums';
 import {
   LoginUserAction,
   LoginUserPayload,
   LogoutUserAction,
   RegisterUserAction,
   RegisterUserPayload,
-} from "@root/client/store/actions/actionsTypes";
+} from '@root/client/store/actions/actionsTypes';
 
 export const loginUserAction = (payload: LoginUserPayload): LoginUserAction => ({
   type: UserActions.LOGIN,

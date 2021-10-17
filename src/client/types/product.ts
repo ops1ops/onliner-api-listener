@@ -1,4 +1,4 @@
-import { ProductStatus } from "@root/client/enums";
+import { ProductStatus } from '@root/client/enums';
 import {
   ForumType,
   HistoryItemType,
@@ -7,9 +7,9 @@ import {
   ReviewsType,
   SaleType,
   SecondType,
-} from "@root/client/types/helpers";
-import { ImagesType } from "@root/client/types/images";
-import { PricesType } from "@root/client/types/prices";
+} from '@root/client/types/helpers';
+import { ImagesType } from '@root/client/types/images';
+import { PricesType } from '@root/client/types/prices';
 
 export type ProductType = {
   certification_required: boolean;

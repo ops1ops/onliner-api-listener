@@ -5,4 +5,4 @@ export type {
   UserActionsType,
   RegisterUserAction,
   RegisterUserPayload,
-} from "./userActionsTypes";
+} from './userActionsTypes';

@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable("Histories", {
+    queryInterface.createTable('Histories', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -16,13 +16,13 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP(3)"),
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP(3)"),
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
       },
     }),
-  down: (queryInterface) => queryInterface.dropTable("Histories"),
+  down: (queryInterface) => queryInterface.dropTable('Histories'),
 };

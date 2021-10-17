@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { CategoryType } from "@root/client/types/category";
+import { CategoryType } from '@root/client/types/category';
 
-import { getCategories } from "../../services/api";
-import sortByName from "../../utils/sortByName";
+import { getCategories } from '../../services/api';
+import sortByName from '../../utils/sortByName';
 
 type UseCategoriesReturnType = CategoryType[];
 

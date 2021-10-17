@@ -1,6 +1,6 @@
-import { Palette, PaletteOptions } from "@mui/material";
+import { Palette, PaletteOptions } from '@mui/material';
 
-declare module "@mui/material/styles" {
+declare module '@mui/material/styles' {
   interface Theme {
     palette: Palette;
   }

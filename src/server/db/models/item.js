@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Item = sequelize.define(
-    "Item",
+    'Item',
     {
       categoryKey: DataTypes.STRING,
       key: DataTypes.STRING,
@@ -11,13 +11,13 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Item.associate = ({ History, User, Category }) => {
-    Item.hasMany(History, { as: "history", foreignKey: "itemId" });
-    Item.belongsTo(Category, { as: "items", foreignKey: "categoryKey" });
+    Item.hasMany(History, { as: 'history', foreignKey: 'itemId' });
+    Item.belongsTo(Category, { as: 'items', foreignKey: 'categoryKey' });
     Item.belongsToMany(User, {
-      through: "UserItems",
-      as: "users",
-      foreignKey: "itemId",
-      otherKey: "userId",
+      through: 'UserItems',
+      as: 'users',
+      foreignKey: 'itemId',
+      otherKey: 'userId',
     });
   };
 

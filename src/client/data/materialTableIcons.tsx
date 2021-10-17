@@ -1,6 +1,6 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef } from 'react';
 
-import { MaterialTableProps } from "@material-table/core";
+import { MaterialTableProps } from '@material-table/core';
 import {
   AddBox,
   ArrowDownward,
@@ -17,10 +17,10 @@ import {
   SaveAlt,
   Search,
   ViewColumn,
-} from "@mui/icons-material";
-import { UserSubscriptionType } from "@root/client/types/user";
+} from '@mui/icons-material';
+import { UserSubscriptionType } from '@root/client/types/user';
 
-const materialTableIcons: NonNullable<MaterialTableProps<UserSubscriptionType>["icons"]> = {
+const materialTableIcons: NonNullable<MaterialTableProps<UserSubscriptionType>['icons']> = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
   Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
   Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),

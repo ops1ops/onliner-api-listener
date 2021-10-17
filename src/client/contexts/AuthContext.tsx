@@ -1,7 +1,7 @@
-import { createContext, Dispatch } from "react";
+import { createContext, Dispatch } from 'react';
 
-import { UserActionsType } from "@root/client/store/actions/actionsTypes";
-import { UserReducerState } from "@root/client/store/reducers/userReducer";
+import { UserActionsType } from '@root/client/store/actions/actionsTypes';
+import { UserReducerState } from '@root/client/store/reducers/userReducer';
 
 type ContextType = {
   state: UserReducerState;
@@ -13,8 +13,8 @@ export default createContext<ContextType>({
     isAuthenticated: false,
     user: {
       id: 0,
-      name: "",
-      jwt: "",
+      name: '',
+      jwt: '',
     },
   },
   dispatch: () => undefined,

@@ -1,14 +1,14 @@
-import { Reducer } from "react";
+import { Reducer } from 'react';
 
-import { AutocompleteProps } from "@mui/material";
-import { UserActionsType } from "@root/client/store/actions/actionsTypes";
-import { UserReducerState } from "@root/client/store/reducers/userReducer";
-import { CategoryType } from "@root/client/types/category";
-import { PriceType } from "@root/client/types/prices";
-import { ProductType } from "@root/client/types/product";
+import { AutocompleteProps } from '@mui/material';
+import { UserActionsType } from '@root/client/store/actions/actionsTypes';
+import { UserReducerState } from '@root/client/store/reducers/userReducer';
+import { CategoryType } from '@root/client/types/category';
+import { PriceType } from '@root/client/types/prices';
+import { ProductType } from '@root/client/types/product';
 
 export type AutocompleteType = AutocompleteProps<CategoryType, undefined, undefined, undefined>;
-export type AutocompleteParametersType = Parameters<NonNullable<AutocompleteType["onChange"]>>;
+export type AutocompleteParametersType = Parameters<NonNullable<AutocompleteType['onChange']>>;
 
 export type HandleCategoryChangeType = (
   event?: AutocompleteParametersType[0],

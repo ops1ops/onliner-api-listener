@@ -7,7 +7,8 @@
   "extends": ["plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
   "plugins": ["@typescript-eslint", "import", "node", "react"],
   "rules": {
-    "quotes": ["error", "double"],
+    "quotes": ["error", "single"],
+    "jsx-quotes": ["error", "prefer-double"],
     "newline-before-return": [2],
     "no-plusplus": [0],
     "no-multiple-empty-lines": [2, { "max": 1 }],

@@ -1,36 +1,36 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useState } from 'react';
 
-import { Alert, Button, FormControl, InputLabel, Paper, Typography } from "@mui/material";
-import { Theme } from "@mui/material/styles";
-import { makeStyles } from "@mui/styles";
-import { loginUserAction } from "@root/client/store/actions";
-import { Link, useHistory } from "react-router-dom";
+import { Alert, Button, FormControl, InputLabel, Paper, Typography } from '@mui/material';
+import { Theme } from '@mui/material/styles';
+import { makeStyles } from '@mui/styles';
+import { loginUserAction } from '@root/client/store/actions';
+import { Link, useHistory } from 'react-router-dom';
 
-import { HOME_PATH } from "../../../constants/paths";
-import AuthContext from "../../../contexts/AuthContext";
-import { loginUser } from "../../../services/api";
-import DefaultInput from "../../common/DefaultInput";
+import { HOME_PATH } from '../../../constants/paths';
+import AuthContext from '../../../contexts/AuthContext';
+import { loginUser } from '../../../services/api';
+import DefaultInput from '../../common/DefaultInput';
 
-import "./styles.css";
+import './styles.css';
 
 const useStyles = makeStyles<Theme>(() => ({
   root: {
-    "& > *": {
-      margin: "8px",
+    '& > *': {
+      margin: '8px',
     },
   },
 }));
 
 const LoginForm = () => {
   const classes = useStyles();
-  const [login, setLogin] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [login, setLogin] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const { dispatch } = useContext(AuthContext);
   const history = useHistory();
   const inputGroup = [
-    { label: "Login", onChange: setLogin, value: login, type: "text" },
-    { label: "Password", onChange: setPassword, value: password, type: "password" },
+    { label: 'Login', onChange: setLogin, value: login, type: 'text' },
+    { label: 'Password', onChange: setPassword, value: password, type: 'password' },
   ];
 
   const loginForm = inputGroup.map(({ label, onChange, value, type }) => (
@@ -56,7 +56,7 @@ const LoginForm = () => {
           setErrorMessage(error.response.data.message);
         }
       } else {
-        setErrorMessage("Login and password are required");
+        setErrorMessage('Login and password are required');
       }
     },
     [login, password],

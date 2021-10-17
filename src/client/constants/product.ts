@@ -1,11 +1,11 @@
-import { ProductStatus } from "@root/client/enums";
-import { SecondType } from "@root/client/types/helpers";
-import { PriceType } from "@root/client/types/prices";
-import { ProductType } from "@root/client/types/product";
+import { ProductStatus } from '@root/client/enums';
+import { SecondType } from '@root/client/types/helpers';
+import { PriceType } from '@root/client/types/prices';
+import { ProductType } from '@root/client/types/product';
 
 export const initialPrice: PriceType = {
-  amount: "",
-  currency: "",
+  amount: '',
+  currency: '',
 };
 
 export const initialPriceLimit = {
@@ -25,39 +25,39 @@ export const initialSale = {
 };
 
 export const initialManufacturer = {
-  key: "",
-  legal_address: "",
-  legal_name: "",
-  name: "",
+  key: '',
+  legal_address: '',
+  legal_name: '',
+  name: '',
 };
 
 export const initialMaxCobrandCashback = {
-  label: "",
+  label: '',
   percentage: 0,
 };
 
 export const InitialForum = {
-  post_url: "",
+  post_url: '',
   topic_id: 0,
-  topic_url: "",
+  topic_url: '',
 };
 
 export const initialReviews = {
   count: 0,
-  html_url: "",
+  html_url: '',
   rating: 0,
-  url: "",
+  url: '',
 };
 
 export const initialPrices = {
   price_min: initialPriceLimit,
   price_max: initialPriceLimit,
   currency_sign: null,
-  html_url: "",
+  html_url: '',
   max: null,
   min: null,
   offers: { count: 0 },
-  url: "",
+  url: '',
 };
 
 export const initialSecond: SecondType = {
@@ -69,29 +69,29 @@ export const initialSecond: SecondType = {
 export const initialProduct: ProductType = {
   certification_required: false,
   color_code: null,
-  description: "",
-  extended_name: "",
+  description: '',
+  extended_name: '',
   forum: InitialForum,
-  full_name: "",
+  full_name: '',
   image_size: [],
   manufacturer: initialManufacturer,
   max_cobrand_cashback: initialMaxCobrandCashback,
-  name: "",
-  name_prefix: "",
-  parent_key: "",
+  name: '',
+  name_prefix: '',
+  parent_key: '',
   sale: initialSale,
   status: ProductStatus.ACTIVE,
   id: 0,
-  url: "",
-  key: "",
+  url: '',
+  key: '',
   isSubscribed: false,
-  review_url: "",
+  review_url: '',
   reviews: initialReviews,
-  micro_description: "",
+  micro_description: '',
   second: initialSecond,
   stickers: null,
   history: [],
-  html_url: "",
-  images: { header: "", icon: null },
+  html_url: '',
+  images: { header: '', icon: null },
   prices: initialPrices,
 };

@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
-    "User",
+    'User',
     {
       name: DataTypes.STRING,
       email: DataTypes.STRING,
@@ -11,10 +11,10 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = ({ Item }) => {
     User.belongsToMany(Item, {
-      through: "UserItems",
-      as: "items",
-      foreignKey: "userId",
-      otherKey: "itemId",
+      through: 'UserItems',
+      as: 'items',
+      foreignKey: 'userId',
+      otherKey: 'itemId',
     });
   };
 

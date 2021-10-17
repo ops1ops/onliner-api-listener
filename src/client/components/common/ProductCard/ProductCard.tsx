@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState } from 'react';
 
 import {
   Button,
@@ -9,15 +9,15 @@ import {
   CardMedia,
   CircularProgress,
   Typography,
-} from "@mui/material";
-import { ProductStatus } from "@root/client/enums";
-import { PricesType } from "@root/client/types/prices";
-import { ProductType } from "@root/client/types/product";
-import { useHistory } from "react-router";
+} from '@mui/material';
+import { ProductStatus } from '@root/client/enums';
+import { PricesType } from '@root/client/types/prices';
+import { ProductType } from '@root/client/types/product';
+import { useHistory } from 'react-router';
 
-import { subscribeUserToItem } from "../../../services/api";
+import { subscribeUserToItem } from '../../../services/api';
 
-import "./styles.css";
+import './styles.css';
 
 type ProductCardProps = {
   product: ProductType;
@@ -48,7 +48,7 @@ const ProductCard: FC<ProductCardProps> = (props) => {
       prices,
       status,
       isSubscribed,
-      images: { header = "" },
+      images: { header = '' },
     },
   } = props;
 
@@ -83,8 +83,8 @@ const ProductCard: FC<ProductCardProps> = (props) => {
       </CardActionArea>
       <CardActions>
         <Button className="subscribe-button" size="large" onClick={subscribeProduct} disabled={isItemSubscribed}>
-          {isItemSubscribed ? "Subscribed" : "Subscribe"}
-          {isSubscribing ? <CircularProgress size={15} /> : ""}
+          {isItemSubscribed ? 'Subscribed' : 'Subscribe'}
+          {isSubscribing ? <CircularProgress size={15} /> : ''}
         </Button>
         {renderPrice(prices)}
       </CardActions>

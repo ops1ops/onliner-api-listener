@@ -1,15 +1,15 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC, useEffect, useRef } from 'react';
 
-import { XYChart, XYChartScrollbar } from "@amcharts/amcharts4/charts";
-import * as am4charts from "@amcharts/amcharts4/charts";
-import * as am4core from "@amcharts/amcharts4/core";
-import themeAnimated from "@amcharts/amcharts4/themes/animated";
-import { Typography } from "@mui/material";
-import { ProductType } from "@root/client/types/product";
-import "./styles.css";
+import { XYChart, XYChartScrollbar } from '@amcharts/amcharts4/charts';
+import * as am4charts from '@amcharts/amcharts4/charts';
+import * as am4core from '@amcharts/amcharts4/core';
+import themeAnimated from '@amcharts/amcharts4/themes/animated';
+import { Typography } from '@mui/material';
+import { ProductType } from '@root/client/types/product';
+import './styles.css';
 
 type HistoryChartProps = {
-  history: ProductType["history"];
+  history: ProductType['history'];
 };
 
 const getScalableTimelineChart = (chartRefCurrent: HTMLDivElement): XYChart => {
@@ -20,14 +20,14 @@ const getScalableTimelineChart = (chartRefCurrent: HTMLDivElement): XYChart => {
   scalableTimelineChart.yAxes.push(new am4charts.ValueAxis());
   const series = scalableTimelineChart.series.push(new am4charts.LineSeries());
 
-  series.dataFields.valueY = "price";
-  series.dataFields.dateX = "date";
+  series.dataFields.valueY = 'price';
+  series.dataFields.dateX = 'date';
   series.strokeWidth = 2;
   series.minBulletDistance = 10;
-  series.tooltipText = "{valueY}";
+  series.tooltipText = '{valueY}';
 
   if (series.tooltip) {
-    series.tooltip.pointerOrientation = "vertical";
+    series.tooltip.pointerOrientation = 'vertical';
     series.tooltip.background.cornerRadius = 20;
     series.tooltip.background.fillOpacity = 0.5;
     series.tooltip.label.padding(12, 12, 12, 12);

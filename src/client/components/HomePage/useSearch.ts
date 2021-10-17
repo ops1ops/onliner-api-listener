@@ -1,20 +1,20 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
-import { TextFieldProps } from "@mui/material";
-import { HandleCategoryChangeType } from "@root/client/types/helpers";
-import { ProductType } from "@root/client/types/product";
-import { useDebounce } from "use-debounce";
+import { TextFieldProps } from '@mui/material';
+import { HandleCategoryChangeType } from '@root/client/types/helpers';
+import { ProductType } from '@root/client/types/product';
+import { useDebounce } from 'use-debounce';
 
-import withLoading from "../../decorators/withLoading";
-import { searchItems } from "../../services/api";
-import localStorageService from "../../services/localStorageService";
-import sortByName from "../../utils/sortByName";
+import withLoading from '../../decorators/withLoading';
+import { searchItems } from '../../services/api';
+import localStorageService from '../../services/localStorageService';
+import sortByName from '../../utils/sortByName';
 
 const SEARCH_DEBOUNCE_TIME = 300;
 
-const INITIAL_SEARCH_VALUE: string = localStorageService.getSearchValue() || "";
+const INITIAL_SEARCH_VALUE: string = localStorageService.getSearchValue() || '';
 
-type UseSearchReturnType = [string, TextFieldProps["onChange"]];
+type UseSearchReturnType = [string, TextFieldProps['onChange']];
 
 const useSearch = (
   setProducts: Dispatch<SetStateAction<ProductType[]>>,
@@ -38,7 +38,7 @@ const useSearch = (
     handleFetchBySearch();
   }, [debouncedSearchValue]);
 
-  const handleSearch: TextFieldProps["onChange"] = ({ target: { value } }) => {
+  const handleSearch: TextFieldProps['onChange'] = ({ target: { value } }) => {
     handleCategoryChange();
     setSearchValue(value);
   };

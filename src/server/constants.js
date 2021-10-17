@@ -1,4 +1,4 @@
-const { DEFAULT_PORT: defaultConfigPort, DIST_PATH: distPathConfig } = require("../../config/config");
+const { DEFAULT_PORT: defaultConfigPort, DIST_PATH: distPathConfig } = require('../../config/config');
 
 export const DEFAULT_PORT = defaultConfigPort;
 export const JSON_SPACES_NUMBER = 4;

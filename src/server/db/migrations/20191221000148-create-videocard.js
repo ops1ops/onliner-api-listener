@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable("Videocards", {
+    queryInterface.createTable('Videocards', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -22,13 +22,13 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP(3)"),
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP(3)"),
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP(3)'),
       },
     }),
-  down: (queryInterface) => queryInterface.dropTable("Videocards"),
+  down: (queryInterface) => queryInterface.dropTable('Videocards'),
 };

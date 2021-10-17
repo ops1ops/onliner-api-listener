@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import { Container } from "@mui/material";
+import { Container } from '@mui/material';
 
-import RegisterForm from "./RegisterForm";
+import RegisterForm from './RegisterForm';
 
-import "./styles.css";
+import './styles.css';
 
 const RegisterPage = () => (
   <Container className="pageContent">

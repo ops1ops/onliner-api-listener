@@ -1,22 +1,22 @@
-import { PaginationCategoryType } from "@root/client/types/category";
-import { UserType } from "@root/client/types/user";
+import { PaginationCategoryType } from '@root/client/types/category';
+import { UserType } from '@root/client/types/user';
 
-const FILTER_CATEGORY_LOCAL_STORAGE_KEY = "categoryFilter";
-const SEARCH_VALUE_LOCAL_STORAGE_KEY = "searchHistory";
+const FILTER_CATEGORY_LOCAL_STORAGE_KEY = 'categoryFilter';
+const SEARCH_VALUE_LOCAL_STORAGE_KEY = 'searchHistory';
 
 export default {
   getItem: (key: string) => JSON.parse(localStorage.getItem(key) as string),
   setItem: (key: string, value: PaginationCategoryType | string): void =>
     localStorage.setItem(key, JSON.stringify(value)),
-  saveUser: (user: UserType) => localStorage.setItem("user", JSON.stringify(user)),
+  saveUser: (user: UserType) => localStorage.setItem('user', JSON.stringify(user)),
   getUser(): UserType {
-    return this.getItem("user");
+    return this.getItem('user');
   },
   clear: () => localStorage.clear(),
   getToken(): string {
     const user = this.getUser();
 
-    return user ? user.jwt : "";
+    return user ? user.jwt : '';
   },
   getSearchValue(): string {
     return this.getItem(SEARCH_VALUE_LOCAL_STORAGE_KEY);

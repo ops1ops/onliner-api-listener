@@ -1,8 +1,8 @@
-import setRandomInterval from "set-random-interval";
+import setRandomInterval from 'set-random-interval';
 
-import db from "./db";
-import onlinerAPI from "./services/onlinerAPI";
-import sleep from "./utils/sleep";
+import db from './db';
+import onlinerAPI from './services/onlinerAPI';
+import sleep from './utils/sleep';
 
 const { Item } = db;
 

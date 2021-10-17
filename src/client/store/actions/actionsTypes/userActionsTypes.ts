@@ -1,5 +1,5 @@
-import { UserActions } from "@root/client/enums";
-import { UserType } from "@root/client/types/user";
+import { UserActions } from '@root/client/enums';
+import { UserType } from '@root/client/types/user';
 
 export type LoginUserPayload = UserType;
 
