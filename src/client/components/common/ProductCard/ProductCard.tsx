@@ -67,9 +67,11 @@ const ProductCard: FC<ProductCardProps> = (props) => {
     }
   };
 
+  const isStatusOld = status === ProductStatus.OLD;
+
   const redirectToItemPage: CardActionAreaProps['onClick'] = () => history.push(`/item/${key}`);
 
-  return status !== ProductStatus.OLD ? (
+  return !isStatusOld ? (
     <Card className="card-container">
       <CardActionArea onClick={redirectToItemPage}>
         <CardMedia className="card-media" image={header} />
