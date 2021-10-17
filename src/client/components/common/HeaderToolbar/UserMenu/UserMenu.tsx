@@ -37,13 +37,7 @@ const UserMenu: FC<UserMenuProps> = ({ username }) => {
       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={selectMenuItem}>
         {username}
       </Button>
-      <Menu
-        id="user-menu"
-        anchorEl={anchorElement}
-        keepMounted
-        open={Boolean(anchorElement)}
-        onClose={closeMenu}
-      >
+      <Menu id="user-menu" anchorEl={anchorElement} keepMounted open={Boolean(anchorElement)} onClose={closeMenu}>
         <MenuItem onClick={redirectToUserItemsPage}>My items</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>

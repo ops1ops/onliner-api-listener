@@ -6,10 +6,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 import localStorageService from "./localStorageService";
 
-export type GetCategoryItemsType = (
-  categoryKey: string,
-  pageNumber: number,
-) => Promise<AxiosResponse>;
+export type GetCategoryItemsType = (categoryKey: string, pageNumber: number) => Promise<AxiosResponse>;
 
 const getAuthHeaders = () => ({
   Authorization: `Bearer ${localStorageService.getToken()}`,
@@ -21,12 +18,7 @@ const axiosBaseConfig: AxiosRequestConfig = {
 
 const apiInstance = axios.create(axiosBaseConfig);
 
-export const registerUser = (
-  name: string,
-  email: string,
-  password: string,
-  confirmPassword: string,
-) =>
+export const registerUser = (name: string, email: string, password: string, confirmPassword: string) =>
   apiInstance.post("users/create", {
     name,
     email,
@@ -61,5 +53,4 @@ export const subscribeUserToItem = (id: string) =>
 export const unsubscribeUserFromItem = (id: number) =>
   apiInstance.post(`items/${id}/unsubscribe`, {}, { headers: getAuthHeaders() });
 
-export const getUserSubscriptions = () =>
-  apiInstance.get("user/subscriptions", { headers: getAuthHeaders() });
+export const getUserSubscriptions = () => apiInstance.get("user/subscriptions", { headers: getAuthHeaders() });

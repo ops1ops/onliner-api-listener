@@ -82,12 +82,7 @@ const ProductCard: FC<ProductCardProps> = (props) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button
-          className="subscribe-button"
-          size="large"
-          onClick={subscribeProduct}
-          disabled={isItemSubscribed}
-        >
+        <Button className="subscribe-button" size="large" onClick={subscribeProduct} disabled={isItemSubscribed}>
           {isItemSubscribed ? "Subscribed" : "Subscribe"}
           {isSubscribing ? <CircularProgress size={15} /> : ""}
         </Button>

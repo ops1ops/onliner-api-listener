@@ -35,14 +35,7 @@ const HeaderToolbar: FC = () => {
   return (
     <AppBar position="static" color="default" elevation={3} className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
-        <Typography
-          align="left"
-          variant="h5"
-          component="h1"
-          color="inherit"
-          noWrap
-          className={classes.toolbarTitle}
-        >
+        <Typography align="left" variant="h5" component="h1" color="inherit" noWrap className={classes.toolbarTitle}>
           <Link to={HOME_PATH} className={classes.link}>
             Onliner Price Tracker
           </Link>

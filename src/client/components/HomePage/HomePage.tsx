@@ -24,12 +24,8 @@ const renderCategoryInput: AutocompleteType["renderInput"] = (params) => (
   <TextField {...params} className="autocomplete-container" label="Categories" variant="outlined" />
 );
 
-const getOptionLabel: AutocompleteProps<
-  { name: string },
-  boolean,
-  boolean,
-  boolean
->["getOptionLabel"] = ({ name }) => name;
+const getOptionLabel: AutocompleteProps<{ name: string }, boolean, boolean, boolean>["getOptionLabel"] = ({ name }) =>
+  name;
 
 const HomePage: FC = () => {
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -46,17 +42,10 @@ const HomePage: FC = () => {
 
   const [searchValue, handleSearch] = useSearch(setProducts, setLoading, handleCategoryChange);
 
-  const renderedProducts = products.map((product) => (
-    <ProductCard product={product} key={product.id} />
-  ));
+  const renderedProducts = products.map((product) => <ProductCard product={product} key={product.id} />);
 
   const pagination = categoryValue && !isLoading && (
-    <Pagination
-      className="pagination"
-      count={pagesCount}
-      page={page}
-      onChange={handlePaginationChange}
-    />
+    <Pagination className="pagination" count={pagesCount} page={page} onChange={handlePaginationChange} />
   );
 
   return (
@@ -81,9 +70,7 @@ const HomePage: FC = () => {
           />
         </Container>
         {pagination}
-        <Container className="products-container">
-          {isLoading ? <CircularProgress /> : renderedProducts}
-        </Container>
+        <Container className="products-container">{isLoading ? <CircularProgress /> : renderedProducts}</Container>
         {pagination}
       </Paper>
     </Container>

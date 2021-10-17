@@ -1,17 +1,17 @@
-.formBox  {
-    width: 25%;
-    min-width: 400px;
+.formBox {
+  width: 25%;
+  min-width: 400px;
 }
-.formBox form  {
-    display: flex;
-    flex-direction: column;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    padding: 10px;
+.formBox form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding: 10px;
 }
 .signUpLink {
-    text-decoration: none;
+  text-decoration: none;
 }
 .signUpButton {
-    width: 100%;
+  width: 100%;
 }

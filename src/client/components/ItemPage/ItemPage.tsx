@@ -48,9 +48,7 @@ const ItemPage: FC<ItemPageProps> = ({
       <HistoryChart history={history} />
     </>
   ) : (
-    <Typography color="textPrimary">
-      {`The ${name} is not tracking, subscribe to it to start tracking`}
-    </Typography>
+    <Typography color="textPrimary">{`The ${name} is not tracking, subscribe to it to start tracking`}</Typography>
   );
 };
 

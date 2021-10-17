@@ -65,9 +65,7 @@ const HistoryChart: FC<HistoryChartProps> = ({ history = [] }) => {
   return (
     <>
       {history.length === 0 && (
-        <Typography color="textPrimary">
-          Item is being tracked, but its price has never been changed.
-        </Typography>
+        <Typography color="textPrimary">Item is being tracked, but its price has never been changed.</Typography>
       )}
       <div ref={chartRef} className="chart-container" />
     </>

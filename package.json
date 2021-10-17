@@ -8,11 +8,12 @@
     "prod": "npm run server",
     "client": "webpack serve --mode development --devtool inline-source-map --hot",
     "build": "webpack --progress --mode production",
+    "prettier": "prettier --write ./src/**/*.{css,js,json,jsx,markdown,md,scss,ts,tsx}",
     "postbuild": "echo Skip builds on Heroku",
     "server:dev": "nodemon --exec npm run server",
     "server": "babel-node -r dotenv/config src/server/index.js",
     "onliner-listener": "babel-node -r dotenv/config src/server/onliner-listener.js",
-    "lint": "eslint --ext .js,.jsx ./src"
+    "lint": "eslint --ext .ts,.tsx ./src"
   },
   "repository": {
     "type": "git",

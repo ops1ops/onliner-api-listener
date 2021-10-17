@@ -18,8 +18,7 @@ type UseSelectedCategoryReturnType = {
 
 const INITIAL_PAGE = 1;
 const DEFAULT_CATEGORY: PaginationCategoryType = { value: undefined, page: INITIAL_PAGE };
-const INITIAL_CATEGORY: PaginationCategoryType =
-  localStorageService.getFilterCategory() || DEFAULT_CATEGORY;
+const INITIAL_CATEGORY: PaginationCategoryType = localStorageService.getFilterCategory() || DEFAULT_CATEGORY;
 
 const useSelectedCategory = (
   setProducts: Dispatch<SetStateAction<ProductType[]>>,

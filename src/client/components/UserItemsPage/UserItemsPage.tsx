@@ -64,19 +64,16 @@ const UserItemsPage = () => {
     fetchUserItems();
   }, []);
 
-  const redirectToItemPage: MaterialTableProps<UserSubscriptionType>["onRowClick"] = (
-    _event,
-    product,
-  ) => {
+  const redirectToItemPage: MaterialTableProps<UserSubscriptionType>["onRowClick"] = (_event, product) => {
     product && history.push(`/item/${product.key}`);
   };
 
   return (
-    <Container className='main-container'>
+    <Container className="main-container">
       <MaterialTable<UserSubscriptionType>
         actions={tableActions}
         icons={materialTableIcons}
-        title='Subscribed products'
+        title="Subscribed products"
         columns={TABLE_COLUMNS}
         data={userSubscriptions}
         isLoading={isLoading}
