@@ -13,7 +13,9 @@ export default {
     return data;
   },
   searchByQuery: async (query) => {
-    const { data } = await axios.get(`https://catalog.api.onliner.by/search/products?query=${query}`);
+    const encodedQuery = encodeURI(query);
+
+    const { data } = await axios.get(`https://catalog.api.onliner.by/search/products?query=${encodedQuery}`);
 
     return data;
   },

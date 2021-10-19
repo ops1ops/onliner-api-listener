@@ -6,7 +6,7 @@
   "scripts": {
     "start": "concurrently \"npm run server:dev\" \"npm run client\"",
     "prod": "npm run server",
-    "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
+    "client": "webpack serve --mode development --devtool inline-source-map --hot",
     "build": "webpack --progress --mode production",
     "postbuild": "echo Skip builds on Heroku",
     "server:dev": "nodemon --exec npm run server",
