@@ -19,12 +19,13 @@ import { ProductType } from '@root/client/types/product';
 import { useHistory } from 'react-router';
 
 import './styles.css';
+import { initialProduct } from '@root/client/constants/product';
 
 type ProductCardProps = {
   product: ProductType;
 };
 
-const renderPrice = (prices: PricesType) => {
+const renderPrice = (prices: PricesType = initialProduct['prices']) => {
   if (prices && prices.price_min) {
     const {
       price_min: { amount, currency },
