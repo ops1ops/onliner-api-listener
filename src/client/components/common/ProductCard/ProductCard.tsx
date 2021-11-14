@@ -12,6 +12,7 @@ import {
   CircularProgress,
   Typography,
 } from '@mui/material';
+import { initialProduct } from '@root/client/constants/product';
 import { ProductStatus } from '@root/client/enums';
 import { subscribeUserToItem } from '@root/client/services/api';
 import { PricesType } from '@root/client/types/prices';
@@ -19,7 +20,6 @@ import { ProductType } from '@root/client/types/product';
 import { useHistory } from 'react-router';
 
 import './styles.css';
-import { initialProduct } from '@root/client/constants/product';
 
 type ProductCardProps = {
   product: ProductType;
