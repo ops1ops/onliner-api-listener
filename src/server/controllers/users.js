@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
 
+import { EMAIL_REGEX } from '../constants';
 import db from '../db';
 import generateJWT from '../utils/generateJWT';
-import { EMAIL_REGEX } from '../constants';
 
 const { User } = db;
 
@@ -51,7 +51,8 @@ export const loginUser = ({ body: { login, password } }, res) => {
       } else {
         res.status(401).send({ message: 'Wrong username or password!' });
       }
-    }).catch(() => {
+    })
+    .catch(() => {
       res.status(401).send({ message: 'User not found!' });
     });
 };

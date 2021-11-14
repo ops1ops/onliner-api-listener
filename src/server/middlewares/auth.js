@@ -3,7 +3,9 @@ import jwt from 'jsonwebtoken';
 const BEARER_KEYWORD = 'Bearer ';
 
 export default (req, res, next) => {
-  const { headers: { authorization } } = req;
+  const {
+    headers: { authorization },
+  } = req;
 
   if (authorization) {
     try {

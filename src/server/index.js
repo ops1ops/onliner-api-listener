@@ -1,11 +1,11 @@
-import express from 'express';
 import compression from 'compression';
+import express from 'express';
 
 import { DEFAULT_PORT, DIST_PATH, JSON_SPACES_NUMBER } from './constants';
 import cors from './middlewares/cors';
+import categories from './routes/category';
 import items from './routes/items';
 import users from './routes/users';
-import categories from './routes/category';
 
 const PORT = process.env.PORT || DEFAULT_PORT;
 

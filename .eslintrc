@@ -3,13 +3,16 @@
     "node": true,
     "browser": true
   },
-  "parser": "babel-eslint",
-  "extends": ["airbnb"],
-  "plugins": ["node", "react"],
+  "parser": "@typescript-eslint/parser",
+  "extends": ["plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
+  "plugins": ["@typescript-eslint", "import", "node", "react"],
   "rules": {
+    "quotes": ["error", "single"],
+    "jsx-quotes": ["error", "prefer-double"],
     "newline-before-return": [2],
     "no-plusplus": [0],
     "no-multiple-empty-lines": [2, { "max": 1 }],
+    "@typescript-eslint/no-var-requires": 0,
     "padding-line-between-statements": [
       2,
       { "blankLine": "always", "prev": "*", "next": ["if", "return"] },
@@ -17,23 +20,35 @@
       { "blankLine": "always", "prev": ["const", "let"], "next": "*" },
       { "blankLine": "any", "prev": ["const", "let"], "next": ["const", "let"] }
     ],
-    "import/order": [2, {
-      "groups": [
-        "builtin",
-        "external",
-        "internal",
-        ["parent", "sibling"],
-        "index"
-      ],
-      "newlines-between": "always"
-    }],
-
+    "import/order": [1,
+      {
+        "alphabetize": { "order": "asc" },
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          "object",
+          "unknown"
+        ],
+        "newlines-between": "always",
+        "pathGroups": [
+          { "group": "builtin", "pattern": "react", "position": "before" }
+        ],
+        "pathGroupsExcludedImportTypes": ["react"]
+      }
+    ],
+    "react/prop-types": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".ts"] }],
     "func-names": [2],
     "no-await-in-loop": [0],
     "linebreak-style": [0],
     "arrow-parens": [2, "always"],
     "arrow-body-style": ["error", "as-needed"],
-    "camelcase": [2],
+    //TODO fix camelcase
+    "camelcase": [0],
     "consistent-return": [0],
     "no-console": [2, { "allow": ["error"] }],
     "max-len": [
@@ -53,13 +68,13 @@
     "no-multi-assign": [0],
     "no-restricted-syntax": [0, "ForInStatement"],
     "no-return-assign": [2, "except-parens"],
-    "no-unused-vars": [2, { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
     "object-curly-newline": [
       2,
       {
         "ObjectExpression": { "multiline": true, "consistent": true, "minProperties": 8 }
       }
     ],
+    "prettier/prettier": 1,
     "prefer-destructuring": [2, { "object": true, "array": true }],
     "react/jsx-props-no-spreading": [0]
   }

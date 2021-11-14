@@ -77,8 +77,14 @@ export const getItemsByQuery = async ({ userId, query: { query } }, res) => {
 };
 
 export const subscribeUserToItem = async ({ userId, params: { itemKey } }, res) => {
-  const { id: itemId, key, full_name: name,
-    prices: { price_min: { amount: price } } } = await onliner.getItemByKey(itemKey);
+  const {
+    id: itemId,
+    key,
+    full_name: name,
+    prices: {
+      price_min: { amount: price },
+    },
+  } = await onliner.getItemByKey(itemKey);
 
   await Item.findOrCreate({
     where: { id: itemId },
