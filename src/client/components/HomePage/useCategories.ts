@@ -7,7 +7,7 @@ import sortByName from '@root/client/utils/sortByName';
 type UseCategoriesReturnType = CategoryType[];
 
 const useCategories = (): UseCategoriesReturnType => {
-  const [categories, setCategories] = useState<CategoryType[]>([]);
+  const [categories, setCategories] = useState<UseCategoriesReturnType>([]);
 
   useEffect(() => {
     const fetchCategories = async () => {

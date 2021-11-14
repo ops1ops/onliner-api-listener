@@ -1,10 +1,17 @@
 import React, { FC } from 'react';
 
 import { Container, Link, Typography } from '@mui/material';
+import { initialPrices } from '@root/client/constants/product';
 import { ProductType } from '@root/client/types/product';
 import './styles.css';
 
-const ItemInfo: FC<ProductType> = ({ extended_name = '', description = '', html_url = '', images, prices }) => (
+const ItemInfo: FC<ProductType> = ({
+  extended_name = '',
+  description = '',
+  html_url = '',
+  images = { header: '', icon: null },
+  prices = initialPrices,
+}) => (
   <Container>
     <div className="item-info-header">
       <img src={images.header} alt="item" />
