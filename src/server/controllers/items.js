@@ -77,18 +77,18 @@ export const getItemsByQuery = async ({ userId, query: { query } }, res) => {
 };
 
 export const subscribeUserToItem = async ({ userId, params: { itemKey } }, res) => {
-  const { id: itemId, key, full_name: name,
-    prices: { price_min: { amount: price } } } = await onliner.getItemByKey(itemKey);
+  const { id: itemId, key, full_name: name, prices } = await onliner.getItemByKey(itemKey);
 
   await Item.findOrCreate({
     where: { id: itemId },
-    defaults: { id: itemId, key, name, price },
+    defaults: { id: itemId, key, name, price: prices?.price_min.amount },
   });
 
   const [userItem, isCreated] = await UserItems.findOrCreate({
     where: { userId, itemId },
     defaults: { userId, itemId },
   });
+
   const response = userItem.get({ plain: true });
 
   response.isAlreadySubscribed = !isCreated;

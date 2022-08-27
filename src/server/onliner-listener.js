@@ -1,31 +1,19 @@
-import setRandomInterval from 'set-random-interval';
-
 import sleep from './utils/sleep';
 import onlinerAPI from './services/onlinerAPI';
 import db from './db';
 
 const { Item } = db;
 
-const MIN_DELAY = 30 * 60 * 1000;
-const MAX_DELAY = 60 * 60 * 1000;
+const SLEEP_TIME = 750;
+const REQUEST_TIMEOUT = 3000;
+const ABORTED_CONNECTION_CODE = 'ECONNABORTED';
+const MAX_TIMEOUTS_AMOUNT = 5;
 
-const getSleepTime = (wholeTime, itemsCount, processingTime) => {
-  const maxSleepTime = wholeTime / itemsCount - processingTime;
-  const validTime = Math.max(maxSleepTime, 0);
+const compareItemPrices = async (item) => {
+  const { key, price } = item;
 
-  return Math.floor(Math.random() * Math.floor(validTime));
-};
-
-const trackPrice = async () => {
-  const items = await Item.findAll();
-  const itemsCount = items.length;
-
-  for (let i = 0; i < itemsCount; i++) {
-    const startProcessingTime = new Date();
-    const item = items[i];
-    const { key, price } = item;
-
-    const { prices } = await onlinerAPI.getItemByKey(key);
+  try {
+    const { prices } = await onlinerAPI.getItemByKey(key, REQUEST_TIMEOUT);
 
     if (prices) {
       const { price_min: { amount: onlinerPrice } } = prices;
@@ -35,13 +23,35 @@ const trackPrice = async () => {
         await item.update({ price: onlinerPrice });
       }
     }
+  } catch (error) {
+    console.error(`Error happened with ${key}: `, error.message);
 
-    const endProcessingTime = new Date();
+    return error.code;
+  }
+};
 
-    await sleep(getSleepTime(MIN_DELAY, itemsCount, endProcessingTime - startProcessingTime));
+const trackPrice = async () => {
+  let timeoutsAmount = 0;
+  const items = await Item.findAll();
+  const itemsCount = items.length;
+
+  for (let index = 0; index < itemsCount; index++) {
+    const item = items[index];
+
+    console.log(`Checking item ${index} of ${itemsCount - 1} - ${item.key}`); // eslint-disable-line no-console
+
+    const code = await compareItemPrices(item);
+
+    if (code === ABORTED_CONNECTION_CODE) {
+      timeoutsAmount++;
+    }
+
+    if (timeoutsAmount > MAX_TIMEOUTS_AMOUNT) {
+      process.exit(2);
+    }
+
+    await sleep(SLEEP_TIME);
   }
 };
 
 trackPrice();
-
-setRandomInterval(trackPrice, MIN_DELAY, MAX_DELAY);
