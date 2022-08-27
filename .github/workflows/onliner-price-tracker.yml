@@ -1,0 +1,22 @@
+name: Onliner price tracker
+
+on:
+  schedule:
+    - cron: '0 */12 * * *'
+
+jobs:
+  price_tracker:
+    name: Price tracker
+    env:
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USERNAME: ${{ secrets.DB_USERNAME }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_HOST: ${{ secrets.DB_HOST }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 10.16.x
+      - run: npm install axios sequelize
+      - run: npm run onliner-listener

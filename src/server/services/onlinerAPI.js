@@ -19,8 +19,8 @@ export default {
 
     return data;
   },
-  getItemByKey: async (key) => {
-    const { data } = await axios.get(`https://catalog.api.onliner.by/products/${key}`);
+  getItemByKey: async (key, timeout) => {
+    const { data } = await axios.get(`https://catalog.api.onliner.by/products/${key}`, { timeout });
 
     return data;
   },
