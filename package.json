@@ -1,8 +1,10 @@
 {
   "name": "onliner-api-listener",
   "version": "1.0.0",
-  "description": "https://onliner-api-listener.herokuapp.com",
   "main": "src/server/index.js",
+  "engines": {
+    "node": "10.16.x"
+  },
   "scripts": {
     "start": "concurrently \"npm run server:dev\" \"npm run client\"",
     "prod": "npm run server",
@@ -14,22 +16,18 @@
     "onliner-listener": "babel-node -r dotenv/config src/server/onliner-listener.js",
     "lint": "eslint --ext .js,.jsx ./src"
   },
+  "homepage": "https://github.com/ops1ops/onliner-api-listener#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ops1ops/onliner-api-listener.git"
   },
-  "keywords": [
-    "onliner"
-  ],
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/ops1ops/onliner-api-listener/issues"
   },
-  "engines": {
-    "node": "10.16.x"
-  },
-  "homepage": "https://github.com/ops1ops/onliner-api-listener#readme",
+  "keywords": [
+    "onliner"
+  ],
+  "license": "ISC",
   "dependencies": {
     "@amcharts/amcharts4": "^4.10.9",
     "@material-ui/core": "^4.9.2",
