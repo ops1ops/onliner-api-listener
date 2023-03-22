@@ -5,7 +5,7 @@ import db from './db';
 const { Item } = db;
 
 const SLEEP_TIME = 750;
-const REQUEST_TIMEOUT = 3000;
+const REQUEST_TIMEOUT = 7000;
 const ABORTED_CONNECTION_CODE = 'ECONNABORTED';
 const MAX_TIMEOUTS_AMOUNT = 5;
 
