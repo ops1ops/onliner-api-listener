@@ -1,0 +1,22 @@
+.horizontal-item-container {
+    padding: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.horizontal-item-container img {
+    max-width: 170px;
+    max-height: 150px;
+    object-fit: contain;
+}
+
+.horizontal-item-column {
+    flex: 2;
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+}
+

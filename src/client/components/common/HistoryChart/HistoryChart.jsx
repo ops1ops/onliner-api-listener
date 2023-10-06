@@ -1,19 +1,21 @@
-/* eslint-disable */
 import React, { useEffect, useRef } from 'react';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import themeAnimated from '@amcharts/amcharts4/themes/animated';
-import { Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 import './styles.css';
 
 const getScalableTimelineChart = (chartRef) => {
+  am4core.useTheme(themeAnimated);
+
   const scalableTimelineChart = am4core.create(chartRef.current, am4charts.XYChart);
   const dateAxis = scalableTimelineChart.xAxes.push(new am4charts.DateAxis());
+
   dateAxis.renderer.minGridDistance = 50;
   scalableTimelineChart.yAxes.push(new am4charts.ValueAxis());
   const series = scalableTimelineChart.series.push(new am4charts.LineSeries());
+
   series.dataFields.valueY = 'price';
   series.dataFields.dateX = 'date';
   series.strokeWidth = 2;
@@ -42,25 +44,14 @@ const HistoryChart = ({ history = [] }) => {
       return;
     }
 
-    am4core.useTheme(themeAnimated);
     const chart = getScalableTimelineChart(chartRef);
+
     chart.data = history.map(({ createdAt, price }) => ({ date: new Date(createdAt), price: Number(price) }));
 
     return () => chart.dispose();
   }, [history]);
 
-  return (
-    <>
-      {
-        history.length === 0 && (
-          <Typography color="textPrimary">
-            Item is being tracked, but its price has never been changed.
-          </Typography>
-        )
-      }
-      <div ref={chartRef} className="chart-container" />
-    </>
-  );
+  return <div ref={chartRef} className="chart-container" />;
 };
 
 HistoryChart.defaultProps = {

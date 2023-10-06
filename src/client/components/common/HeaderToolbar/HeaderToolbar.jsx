@@ -4,11 +4,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import AuthContext from '../../../contexts/AuthContext';
 import UserMenu from './UserMenu/UserMenu';
-import { HOME_PATH, LOGIN_PATH } from '../../../constants/paths';
+import { HOME_PATH, LOGIN_PATH, TRACKED_ITEMS } from '../../../constants/paths';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -17,11 +17,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
     flexWrap: 'wrap',
   },
-  toolbarTitle: {
-    flexGrow: 1,
-  },
   link: {
-    margin: theme.spacing(1, 1.5),
     textDecoration: 'none',
   },
 }));
@@ -31,11 +27,12 @@ const HeaderToolbar = () => {
   const { state: { user } } = useContext(AuthContext);
 
   return (
-    <AppBar position="static" color="default" elevation={3} className={classes.appBar}>
+    <AppBar position="static" color="default" elevation={3}>
       <Toolbar className={classes.toolbar}>
-        <Typography align="left" variant="h5" component="h1" color="inherit" noWrap className={classes.toolbarTitle}>
+        <Typography align="left" variant="h5" color="inherit" noWrap>
           <Link to={HOME_PATH} className={classes.link}>Onliner Price Tracker</Link>
         </Typography>
+        <NavLink to={TRACKED_ITEMS} className={classes.link}>Tracked items</NavLink>
         {user ? <UserMenu username={user.name} />
           : (
             <Link to={LOGIN_PATH} className={classes.link}>

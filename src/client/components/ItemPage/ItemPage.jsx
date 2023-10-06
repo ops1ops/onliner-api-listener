@@ -8,7 +8,7 @@ import ItemInfo from './ItemInfo/ItemInfo';
 import withLoading from '../../decorators/withLoading';
 
 const ItemPage = ({ match: { params: { key } } }) => {
-  const [item, setItem] = useState({ history: [] });
+  const [item, setItem] = useState();
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -25,17 +25,23 @@ const ItemPage = ({ match: { params: { key } } }) => {
     return <CircularProgress />;
   }
 
-  const { history, name } = item;
+  const { history, name } = item || {};
 
-  return history ? (
+  return (
     <>
       <ItemInfo {...item} />
-      <HistoryChart history={history} />
+      {!history && (
+        <Typography align="center" color="textPrimary">
+          {`The ${name} is not tracking, subscribe to it to start tracking`}
+        </Typography>
+      )}
+      {history?.length === 0 && (
+        <Typography align="center" color="textPrimary">
+          Item is being tracked, but its price has never been changed.
+        </Typography>
+      )}
+      {history?.length && <HistoryChart history={history} />}
     </>
-  ) : (
-    <Typography color="textPrimary">
-      {`The ${name} is not tracking, subscribe to it to start tracking`}
-    </Typography>
   );
 };
 

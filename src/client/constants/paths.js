@@ -3,3 +3,4 @@ export const REGISTER_PATH = '/register';
 export const HOME_PATH = '/';
 export const ITEM_PATH = '/item/:key';
 export const USER_ITEMS_PATH = '/user/items';
+export const TRACKED_ITEMS = '/items';

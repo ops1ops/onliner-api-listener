@@ -3,12 +3,13 @@
 }
 
 .paper-container {
-  padding: 50px;
+  padding: 50px 0;
 }
 
-.box-container {
-  display: flex;
-  flex-direction: column;
+.filters-container {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr 2fr;
 }
 
 .category-filter {
@@ -24,9 +25,10 @@
 .products-container {
   padding-top: 50px;
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  gap: 32px;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .MuiTextField-root.autocomplete-container {

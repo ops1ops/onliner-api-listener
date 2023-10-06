@@ -3,7 +3,7 @@ import { CircularProgress, Container, Paper, TextField } from '@material-ui/core
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Pagination from '@material-ui/lab/Pagination';
 
-import ProductCard from '../common/ProductCard';
+import HorizontalItemCard from '../common/HorizontalItemCard';
 import useCategories from './useCategories';
 import useSearch from './useSearch';
 import useSelectedCategory from './useSelectedCategory';
@@ -22,7 +22,7 @@ const getOptionLabel = ({ name }) => name;
 
 const HomePage = () => {
   const [isLoading, setLoading] = useState(false);
-  const [products, setProducts] = useState([]);
+  const [items, setItems] = useState([]);
 
   const categories = useCategories();
 
@@ -31,20 +31,20 @@ const HomePage = () => {
     pagesCount,
     handleCategoryChange,
     handlePaginationChange,
-  } = useSelectedCategory(setProducts, setLoading);
+  } = useSelectedCategory(setItems, setLoading);
 
-  const [searchValue, handleSearch] = useSearch(setProducts, setLoading, handleCategoryChange);
+  const [searchValue, handleSearch] = useSearch(setItems, setLoading, handleCategoryChange);
 
-  const renderedProducts = products.map((product) => <ProductCard product={product} key={product.id} />);
+  const renderedItems = items.map((item) => <HorizontalItemCard item={item} key={item.id} />);
 
-  const pagination = categoryValue && !isLoading && (
-    <Pagination className="pagination" count={pagesCount} page={page} onChange={handlePaginationChange} />
+  const pagination = categoryValue && (
+    <Pagination className="pagination" disabled={isLoading} count={pagesCount} page={page} onChange={handlePaginationChange} />
   );
 
   return (
     <Container className="container">
       <Paper elevation={3} className="paper-container">
-        <Container className="box-container">
+        <Container className="filters-container">
           <Autocomplete
             value={categoryValue}
             onChange={handleCategoryChange}
@@ -64,7 +64,7 @@ const HomePage = () => {
         </Container>
         {pagination}
         <Container className="products-container">
-          {isLoading ? <CircularProgress /> : renderedProducts}
+          {isLoading ? <CircularProgress /> : renderedItems}
         </Container>
         {pagination}
       </Paper>
